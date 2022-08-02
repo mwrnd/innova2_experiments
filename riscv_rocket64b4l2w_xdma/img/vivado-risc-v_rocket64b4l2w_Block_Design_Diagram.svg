@@ -1,0 +1,7450 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 4272 1950"
+   preserveAspectRatio="xMidYMid meet"
+   version="1.1"
+   xml:space="preserve"
+   id="svg3049"
+   sodipodi:docname="vivado-risc-v_rocket64b4l2w_Block_Design_Diagram.svg"
+   width="4272"
+   height="1950"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"><metadata
+   id="metadata3055"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title>riscv_imp</dc:title></cc:Work></rdf:RDF></metadata><defs
+   id="defs3053" /><sodipodi:namedview
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1"
+   objecttolerance="10"
+   gridtolerance="10"
+   guidetolerance="10"
+   inkscape:pageopacity="0"
+   inkscape:pageshadow="2"
+   inkscape:window-width="1920"
+   inkscape:window-height="1016"
+   id="namedview3051"
+   showgrid="false"
+   inkscape:zoom="0.15625206"
+   inkscape:cx="1262.3391"
+   inkscape:cy="1991.7477"
+   inkscape:window-x="0"
+   inkscape:window-y="27"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="svg3049" />
+<title
+   id="title2">riscv_imp</title>
+<desc
+   id="desc4">Nlview schematic (SVG)</desc>
+<clipPath
+   id="clippingbbox">
+<rect
+   x="0"
+   y="0"
+   width="4272"
+   height="1950"
+   id="rect6" />
+</clipPath>
+<g
+   stroke-miterlimit="4"
+   font-style="normal"
+   font-size="12"
+   cursor="crosshair"
+   transform="translate(-0.34616237,-0.35895988)"
+   clip-path="url(#clippingbbox)"
+   id="g3047"
+   style="font-style:normal;font-size:12px;font-family:Helvetica;writing-mode:lr-tb;fill:none;stroke:#102235;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0">
+<path
+   d="M 0,0 H 4272 V 1951 H 0 Z"
+   id="path9"
+   inkscape:connector-curvature="0"
+   style="fill:#ffffff;stroke:none" />
+<path
+   d="m 155,480 -7,7 h -14 v -14 h 14 z"
+   id="path11"
+   inkscape:connector-curvature="0"
+   style="fill:#ddd4d0;stroke:none" />
+<g
+   id="g25"
+   style="stroke:#2a5e6f;stroke-width:3">
+<path
+   d="m 155,480 -7,7 h -14 v -14 h 14 z"
+   id="path13"
+   inkscape:connector-curvature="0" />
+<text
+   x="130"
+   y="480"
+   dy="3.8499999"
+   id="text15"
+   style="text-anchor:end;fill:#000000;stroke-width:0">diff_clock_rtl_0</text>
+
+<path
+   d="m 155,800 -7,7 h -14 v -14 h 14 z"
+   id="path17"
+   inkscape:connector-curvature="0"
+   style="fill:#ddd4d0;stroke:none" />
+<path
+   d="m 155,800 -7,7 h -14 v -14 h 14 z"
+   id="path19"
+   inkscape:connector-curvature="0" />
+<text
+   x="130"
+   y="800"
+   dy="3.8499999"
+   id="text21"
+   style="text-anchor:end;fill:#000000;stroke-width:0">pcie_refclk</text>
+
+<path
+   d="m 155,1160 -7,7 h -14 v -14 h 14 z"
+   id="path23"
+   inkscape:connector-curvature="0"
+   style="fill:#ddd4d0;stroke:none" />
+</g>
+<g
+   id="g39">
+<path
+   d="m 155,1160 -7,7 h -14 v -14 h 14 z"
+   id="path27"
+   inkscape:connector-curvature="0" />
+<text
+   x="130"
+   y="1160"
+   dy="3.8499999"
+   id="text29"
+   style="text-anchor:end;fill:#000000;stroke-width:0">pcie_perstn</text>
+
+<path
+   d="m 222,762 h 226 l 3,1 2,1 1,2 1,3 v 62 l -1,3 -1,2 -2,1 -3,1 H 222 l -3,-1 -2,-1 -1,-2 -1,-3 v -62 l 1,-3 1,-2 2,-1 z"
+   id="path31"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="335"
+   y="760"
+   id="text33"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">util_ds_buf</text>
+
+<text
+   x="335"
+   y="840"
+   dy="7.6999998"
+   id="text35"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">Utility Buffer</text>
+
+<path
+   d="m 205,791 h 10 v 18 h -10 z"
+   id="path37"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g45"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 224,795 v 10"
+   id="path41"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 219,800 h 10"
+   id="path43"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g51"
+   style="stroke:#41619f">
+<path
+   d="m 217,793 h 14 v 14 h -14 z"
+   id="path47"
+   inkscape:connector-curvature="0" />
+<text
+   x="232"
+   y="800"
+   font-size="10"
+   dy="3.25"
+   id="text49"
+   style="font-size:10px;fill:#000000;stroke-width:0">CLK_IN_D</text>
+
+</g>
+<g
+   id="g61"
+   style="stroke:#000000;stroke-width:5">
+<path
+   d="M 465,790 H 455"
+   id="path53"
+   inkscape:connector-curvature="0" />
+<text
+   x="453"
+   y="790"
+   font-size="10"
+   dy="3.25"
+   id="text55"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">IBUF_OUT[0:0]</text>
+
+<path
+   d="M 465,810 H 455"
+   id="path57"
+   inkscape:connector-curvature="0" />
+<text
+   x="453"
+   y="810"
+   font-size="10"
+   dy="3.25"
+   id="text59"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">IBUF_DS_ODIV2[0:0]</text>
+
+</g>
+<g
+   id="g85"
+   style="stroke:#41619f">
+<path
+   d="M 222,762 H 448"
+   id="path63"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 448,762 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path65"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 455,769 v 62"
+   id="path67"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 455,831 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path69"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 448,838 H 222"
+   id="path71"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 222,838 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path73"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 215,831 V 769"
+   id="path75"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 215,769 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path77"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 272,1032 h 126 l 3,1 2,1 1,2 1,3 v 82 l -1,3 -1,2 -2,1 -3,1 H 272 l -3,-1 -2,-1 -1,-2 -1,-3 v -82 l 1,-3 1,-2 2,-1 z"
+   id="path79"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="335"
+   y="1030"
+   id="text81"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">clk_wiz_0</text>
+
+<text
+   x="335"
+   y="1130"
+   dy="7.6999998"
+   id="text83"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">Clocking Wizard</text>
+
+</g>
+<g
+   id="g103"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 255,1080 h 10"
+   id="path87"
+   inkscape:connector-curvature="0" />
+<text
+   x="267"
+   y="1080"
+   font-size="10"
+   dy="3.25"
+   id="text89"
+   style="font-size:10px;fill:#000000;stroke-width:0">clk_in1</text>
+
+<path
+   d="M 415,1060 H 405"
+   id="path91"
+   inkscape:connector-curvature="0" />
+<text
+   x="403"
+   y="1060"
+   font-size="10"
+   dy="3.25"
+   id="text93"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">clk_out1</text>
+
+<path
+   d="M 415,1080 H 405"
+   id="path95"
+   inkscape:connector-curvature="0" />
+<text
+   x="403"
+   y="1080"
+   font-size="10"
+   dy="3.25"
+   id="text97"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">clk_out2</text>
+
+<path
+   d="M 415,1100 H 405"
+   id="path99"
+   inkscape:connector-curvature="0" />
+<text
+   x="403"
+   y="1100"
+   font-size="10"
+   dy="3.25"
+   id="text101"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">locked</text>
+
+</g>
+<g
+   id="g129"
+   style="stroke:#41619f">
+<path
+   d="M 272,1032 H 398"
+   id="path105"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 398,1032 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path107"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 405,1039 v 82"
+   id="path109"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 405,1121 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path111"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 398,1128 H 272"
+   id="path113"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 272,1128 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path115"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 265,1121 v -82"
+   id="path117"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 265,1039 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path119"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 572,732 h 266 l 3,1 2,1 1,2 1,3 v 202 l -1,3 -1,2 -2,1 -3,1 H 572 l -3,-1 -2,-1 -1,-2 -1,-3 V 739 l 1,-3 1,-2 2,-1 z"
+   id="path121"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="705"
+   y="730"
+   id="text123"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">xdma_0</text>
+
+<text
+   x="705"
+   y="950"
+   dy="7.6999998"
+   id="text125"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">DMA/Bridge Subsystem for PCI Express</text>
+
+<path
+   d="m 845,751 h 10 v 18 h -10 z"
+   id="path127"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g135"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 835,755 v 10"
+   id="path131"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 830,760 h 10"
+   id="path133"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g143"
+   style="stroke:#41619f">
+<path
+   d="m 828,753 h 14 v 14 h -14 z"
+   id="path137"
+   inkscape:connector-curvature="0" />
+<text
+   x="828"
+   y="760"
+   font-size="10"
+   dy="3.25"
+   id="text139"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M_AXI</text>
+
+<path
+   d="m 845,771 h 10 v 18 h -10 z"
+   id="path141"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g149"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 835,775 v 10"
+   id="path145"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 830,780 h 10"
+   id="path147"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g157"
+   style="stroke:#41619f">
+<path
+   d="m 828,773 h 14 v 14 h -14 z"
+   id="path151"
+   inkscape:connector-curvature="0" />
+<text
+   x="828"
+   y="780"
+   font-size="10"
+   dy="3.25"
+   id="text153"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M_AXI_LITE</text>
+
+<path
+   d="m 845,791 h 10 v 18 h -10 z"
+   id="path155"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g163"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 835,795 v 10"
+   id="path159"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 830,800 h 10"
+   id="path161"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g169"
+   style="stroke:#41619f">
+<path
+   d="m 828,793 h 14 v 14 h -14 z"
+   id="path165"
+   inkscape:connector-curvature="0" />
+<text
+   x="828"
+   y="800"
+   font-size="10"
+   dy="3.25"
+   id="text167"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">pcie_mgt</text>
+
+</g>
+<g
+   id="g199"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 555,810 h 10"
+   id="path171"
+   inkscape:connector-curvature="0" />
+<text
+   x="567"
+   y="810"
+   font-size="10"
+   dy="3.25"
+   id="text173"
+   style="font-size:10px;fill:#000000;stroke-width:0">sys_clk</text>
+
+<path
+   d="m 555,830 h 10"
+   id="path175"
+   inkscape:connector-curvature="0" />
+<text
+   x="567"
+   y="830"
+   font-size="10"
+   dy="3.25"
+   id="text177"
+   style="font-size:10px;fill:#000000;stroke-width:0">sys_clk_gt</text>
+
+<circle
+   cx="562"
+   cy="850"
+   r="3"
+   id="circle179" />
+<path
+   d="m 555,850 h 4"
+   id="path181"
+   inkscape:connector-curvature="0" />
+<text
+   x="567"
+   y="850"
+   font-size="10"
+   dy="3.25"
+   id="text183"
+   style="font-size:10px;fill:#000000;stroke-width:0">sys_rst_n</text>
+
+<path
+   d="M 855,820 H 845"
+   id="path185"
+   inkscape:connector-curvature="0" />
+<text
+   x="843"
+   y="820"
+   font-size="10"
+   dy="3.25"
+   id="text187"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">user_lnk_up</text>
+
+<path
+   d="M 855,840 H 845"
+   id="path189"
+   inkscape:connector-curvature="0" />
+<text
+   x="843"
+   y="840"
+   font-size="10"
+   dy="3.25"
+   id="text191"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">axi_aclk</text>
+
+<circle
+   cx="848"
+   cy="860"
+   r="3"
+   id="circle193" />
+<path
+   d="m 855,860 h -4"
+   id="path195"
+   inkscape:connector-curvature="0" />
+<text
+   x="843"
+   y="860"
+   font-size="10"
+   dy="3.25"
+   id="text197"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">axi_aresetn</text>
+
+</g>
+<g
+   id="g209"
+   style="stroke:#000000;stroke-width:5">
+<path
+   d="m 555,870 h 10"
+   id="path201"
+   inkscape:connector-curvature="0" />
+<text
+   x="567"
+   y="870"
+   font-size="10"
+   dy="3.25"
+   id="text203"
+   style="font-size:10px;fill:#000000;stroke-width:0">usr_irq_req[0:0]</text>
+
+<path
+   d="M 855,880 H 845"
+   id="path205"
+   inkscape:connector-curvature="0" />
+<text
+   x="843"
+   y="880"
+   font-size="10"
+   dy="3.25"
+   id="text207"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">usr_irq_ack[0:0]</text>
+
+</g>
+<g
+   id="g215"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="M 855,900 H 845"
+   id="path211"
+   inkscape:connector-curvature="0" />
+<text
+   x="843"
+   y="900"
+   font-size="10"
+   dy="3.25"
+   id="text213"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">msi_enable</text>
+
+</g>
+<g
+   id="g221"
+   style="stroke:#000000;stroke-width:5">
+<path
+   d="M 855,920 H 845"
+   id="path217"
+   inkscape:connector-curvature="0" />
+<text
+   x="843"
+   y="920"
+   font-size="10"
+   dy="3.25"
+   id="text219"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">msi_vector_width[2:0]</text>
+
+</g>
+<g
+   id="g245"
+   style="stroke:#41619f">
+<path
+   d="M 572,732 H 838"
+   id="path223"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 838,732 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path225"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 845,739 V 941"
+   id="path227"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 845,941 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path229"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 838,948 H 572"
+   id="path231"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 572,948 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path233"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 565,941 V 739"
+   id="path235"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 565,739 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path237"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 562,1042 h 286 l 3,1 2,1 1,2 1,3 v 122 l -1,3 -1,2 -2,1 -3,1 H 562 l -3,-1 -2,-1 -1,-2 -1,-3 v -122 l 1,-3 1,-2 2,-1 z"
+   id="path239"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="705"
+   y="1040"
+   id="text241"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">proc_sys_reset_0</text>
+
+<text
+   x="705"
+   y="1180"
+   dy="7.6999998"
+   id="text243"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">Processor System Reset</text>
+
+</g>
+<g
+   id="g273"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 545,1070 h 10"
+   id="path247"
+   inkscape:connector-curvature="0" />
+<text
+   x="557"
+   y="1070"
+   font-size="10"
+   dy="3.25"
+   id="text249"
+   style="font-size:10px;fill:#000000;stroke-width:0">slowest_sync_clk</text>
+
+<path
+   d="m 545,1090 h 10"
+   id="path251"
+   inkscape:connector-curvature="0" />
+<text
+   x="557"
+   y="1090"
+   font-size="10"
+   dy="3.25"
+   id="text253"
+   style="font-size:10px;fill:#000000;stroke-width:0">ext_reset_in</text>
+
+<circle
+   cx="552"
+   cy="1110"
+   r="3"
+   id="circle255" />
+<path
+   d="m 545,1110 h 4"
+   id="path257"
+   inkscape:connector-curvature="0" />
+<text
+   x="557"
+   y="1110"
+   font-size="10"
+   dy="3.25"
+   id="text259"
+   style="font-size:10px;fill:#000000;stroke-width:0">aux_reset_in</text>
+
+<path
+   d="m 545,1130 h 10"
+   id="path261"
+   inkscape:connector-curvature="0" />
+<text
+   x="557"
+   y="1130"
+   font-size="10"
+   dy="3.25"
+   id="text263"
+   style="font-size:10px;fill:#000000;stroke-width:0">mb_debug_sys_rst</text>
+
+<path
+   d="m 545,1150 h 10"
+   id="path265"
+   inkscape:connector-curvature="0" />
+<text
+   x="557"
+   y="1150"
+   font-size="10"
+   dy="3.25"
+   id="text267"
+   style="font-size:10px;fill:#000000;stroke-width:0">dcm_locked</text>
+
+<path
+   d="M 865,1070 H 855"
+   id="path269"
+   inkscape:connector-curvature="0" />
+<text
+   x="853"
+   y="1070"
+   font-size="10"
+   dy="3.25"
+   id="text271"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">mb_reset</text>
+
+</g>
+<g
+   id="g295"
+   style="stroke:#000000;stroke-width:5">
+<path
+   d="M 865,1090 H 855"
+   id="path275"
+   inkscape:connector-curvature="0" />
+<text
+   x="853"
+   y="1090"
+   font-size="10"
+   dy="3.25"
+   id="text277"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">bus_struct_reset[0:0]</text>
+
+<path
+   d="M 865,1110 H 855"
+   id="path279"
+   inkscape:connector-curvature="0" />
+<text
+   x="853"
+   y="1110"
+   font-size="10"
+   dy="3.25"
+   id="text281"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">peripheral_reset[0:0]</text>
+
+<circle
+   cx="858"
+   cy="1130"
+   r="3"
+   id="circle283" />
+<path
+   d="m 865,1130 h -4"
+   id="path285"
+   inkscape:connector-curvature="0" />
+<text
+   x="853"
+   y="1130"
+   font-size="10"
+   dy="3.25"
+   id="text287"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">interconnect_aresetn[0:0]</text>
+
+<circle
+   cx="858"
+   cy="1150"
+   r="3"
+   id="circle289" />
+<path
+   d="m 865,1150 h -4"
+   id="path291"
+   inkscape:connector-curvature="0" />
+<text
+   x="853"
+   y="1150"
+   font-size="10"
+   dy="3.25"
+   id="text293"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">peripheral_aresetn[0:0]</text>
+
+</g>
+<g
+   id="g319"
+   style="stroke:#41619f">
+<path
+   d="M 562,1042 H 848"
+   id="path297"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 848,1042 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path299"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 855,1049 v 122"
+   id="path301"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 855,1171 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path303"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 848,1178 H 562"
+   id="path305"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 562,1178 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path307"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 555,1171 V 1049"
+   id="path309"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 555,1049 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path311"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1042,642 h 86 l 3,1 2,1 1,2 1,3 v 42 l -1,3 -1,2 -2,1 -3,1 h -86 l -3,-1 -2,-1 -1,-2 -1,-3 v -42 l 1,-3 1,-2 2,-1 z"
+   id="path313"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="1085"
+   y="640"
+   id="text315"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">xlconstant_0</text>
+
+<text
+   x="1085"
+   y="700"
+   dy="7.6999998"
+   id="text317"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">Constant</text>
+
+</g>
+<g
+   id="g325"
+   style="stroke:#000000;stroke-width:5">
+<path
+   d="m 1145,670 h -10"
+   id="path321"
+   inkscape:connector-curvature="0" />
+<text
+   x="1133"
+   y="670"
+   font-size="10"
+   dy="3.25"
+   id="text323"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">dout[0:0]</text>
+
+</g>
+<g
+   id="g351"
+   style="stroke:#41619f">
+<path
+   d="m 1042,642 h 86"
+   id="path327"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1128,642 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path329"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1135,649 v 42"
+   id="path331"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1135,691 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path333"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1128,698 h -86"
+   id="path335"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1042,698 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path337"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1035,691 V 649"
+   id="path339"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1035,649 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path341"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 982,822 h 206 l 3,1 2,1 1,2 1,3 v 282 l -1,3 -1,2 -2,1 -3,1 H 982 l -3,-1 -2,-1 -1,-2 -1,-3 V 829 l 1,-3 1,-2 2,-1 z"
+   id="path343"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="1085"
+   y="820"
+   id="text345"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">smartconnect_0</text>
+
+<text
+   x="1085"
+   y="1120"
+   dy="7.6999998"
+   id="text347"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">AXI SmartConnect</text>
+
+<path
+   d="m 965,901 h 10 v 18 h -10 z"
+   id="path349"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g357"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 984,905 v 10"
+   id="path353"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 979,910 h 10"
+   id="path355"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g365"
+   style="stroke:#41619f">
+<path
+   d="m 977,903 h 14 v 14 h -14 z"
+   id="path359"
+   inkscape:connector-curvature="0" />
+<text
+   x="992"
+   y="910"
+   font-size="10"
+   dy="3.25"
+   id="text361"
+   style="font-size:10px;fill:#000000;stroke-width:0">S00_AXI</text>
+
+<path
+   d="m 965,921 h 10 v 18 h -10 z"
+   id="path363"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g371"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 984,925 v 10"
+   id="path367"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 979,930 h 10"
+   id="path369"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g379"
+   style="stroke:#41619f">
+<path
+   d="m 977,923 h 14 v 14 h -14 z"
+   id="path373"
+   inkscape:connector-curvature="0" />
+<text
+   x="992"
+   y="930"
+   font-size="10"
+   dy="3.25"
+   id="text375"
+   style="font-size:10px;fill:#000000;stroke-width:0">S01_AXI</text>
+
+<path
+   d="m 1195,841 h 10 v 18 h -10 z"
+   id="path377"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g385"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1185,845 v 10"
+   id="path381"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1180,850 h 10"
+   id="path383"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g393"
+   style="stroke:#41619f">
+<path
+   d="m 1178,843 h 14 v 14 h -14 z"
+   id="path387"
+   inkscape:connector-curvature="0" />
+<text
+   x="1178"
+   y="850"
+   font-size="10"
+   dy="3.25"
+   id="text389"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M00_AXI</text>
+
+<path
+   d="m 1195,861 h 10 v 18 h -10 z"
+   id="path391"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g399"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1185,865 v 10"
+   id="path395"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1180,870 h 10"
+   id="path397"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g407"
+   style="stroke:#41619f">
+<path
+   d="m 1178,863 h 14 v 14 h -14 z"
+   id="path401"
+   inkscape:connector-curvature="0" />
+<text
+   x="1178"
+   y="870"
+   font-size="10"
+   dy="3.25"
+   id="text403"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M01_AXI</text>
+
+<path
+   d="m 1195,881 h 10 v 18 h -10 z"
+   id="path405"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g413"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1185,885 v 10"
+   id="path409"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1180,890 h 10"
+   id="path411"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g421"
+   style="stroke:#41619f">
+<path
+   d="m 1178,883 h 14 v 14 h -14 z"
+   id="path415"
+   inkscape:connector-curvature="0" />
+<text
+   x="1178"
+   y="890"
+   font-size="10"
+   dy="3.25"
+   id="text417"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M02_AXI</text>
+
+<path
+   d="m 1195,901 h 10 v 18 h -10 z"
+   id="path419"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g427"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1185,905 v 10"
+   id="path423"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1180,910 h 10"
+   id="path425"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g435"
+   style="stroke:#41619f">
+<path
+   d="m 1178,903 h 14 v 14 h -14 z"
+   id="path429"
+   inkscape:connector-curvature="0" />
+<text
+   x="1178"
+   y="910"
+   font-size="10"
+   dy="3.25"
+   id="text431"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M03_AXI</text>
+
+<path
+   d="m 1195,921 h 10 v 18 h -10 z"
+   id="path433"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g441"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1185,925 v 10"
+   id="path437"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1180,930 h 10"
+   id="path439"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g449"
+   style="stroke:#41619f">
+<path
+   d="m 1178,923 h 14 v 14 h -14 z"
+   id="path443"
+   inkscape:connector-curvature="0" />
+<text
+   x="1178"
+   y="930"
+   font-size="10"
+   dy="3.25"
+   id="text445"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M04_AXI</text>
+
+<path
+   d="m 1195,941 h 10 v 18 h -10 z"
+   id="path447"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g455"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1185,945 v 10"
+   id="path451"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1180,950 h 10"
+   id="path453"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g463"
+   style="stroke:#41619f">
+<path
+   d="m 1178,943 h 14 v 14 h -14 z"
+   id="path457"
+   inkscape:connector-curvature="0" />
+<text
+   x="1178"
+   y="950"
+   font-size="10"
+   dy="3.25"
+   id="text459"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M05_AXI</text>
+
+<path
+   d="m 1195,961 h 10 v 18 h -10 z"
+   id="path461"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g469"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1185,965 v 10"
+   id="path465"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1180,970 h 10"
+   id="path467"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g477"
+   style="stroke:#41619f">
+<path
+   d="m 1178,963 h 14 v 14 h -14 z"
+   id="path471"
+   inkscape:connector-curvature="0" />
+<text
+   x="1178"
+   y="970"
+   font-size="10"
+   dy="3.25"
+   id="text473"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M06_AXI</text>
+
+<path
+   d="m 1195,981 h 10 v 18 h -10 z"
+   id="path475"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g483"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1185,985 v 10"
+   id="path479"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1180,990 h 10"
+   id="path481"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g491"
+   style="stroke:#41619f">
+<path
+   d="m 1178,983 h 14 v 14 h -14 z"
+   id="path485"
+   inkscape:connector-curvature="0" />
+<text
+   x="1178"
+   y="990"
+   font-size="10"
+   dy="3.25"
+   id="text487"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M07_AXI</text>
+
+<path
+   d="m 1195,1001 h 10 v 18 h -10 z"
+   id="path489"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g497"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1185,1005 v 10"
+   id="path493"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1180,1010 h 10"
+   id="path495"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g505"
+   style="stroke:#41619f">
+<path
+   d="m 1178,1003 h 14 v 14 h -14 z"
+   id="path499"
+   inkscape:connector-curvature="0" />
+<text
+   x="1178"
+   y="1010"
+   font-size="10"
+   dy="3.25"
+   id="text501"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M08_AXI</text>
+
+<path
+   d="m 1195,1021 h 10 v 18 h -10 z"
+   id="path503"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g511"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1185,1025 v 10"
+   id="path507"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1180,1030 h 10"
+   id="path509"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g519"
+   style="stroke:#41619f">
+<path
+   d="m 1178,1023 h 14 v 14 h -14 z"
+   id="path513"
+   inkscape:connector-curvature="0" />
+<text
+   x="1178"
+   y="1030"
+   font-size="10"
+   dy="3.25"
+   id="text515"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M09_AXI</text>
+
+<path
+   d="m 1195,1041 h 10 v 18 h -10 z"
+   id="path517"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g525"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1185,1045 v 10"
+   id="path521"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1180,1050 h 10"
+   id="path523"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g533"
+   style="stroke:#41619f">
+<path
+   d="m 1178,1043 h 14 v 14 h -14 z"
+   id="path527"
+   inkscape:connector-curvature="0" />
+<text
+   x="1178"
+   y="1050"
+   font-size="10"
+   dy="3.25"
+   id="text529"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M10_AXI</text>
+
+<path
+   d="m 1195,1061 h 10 v 18 h -10 z"
+   id="path531"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g539"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1185,1065 v 10"
+   id="path535"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1180,1070 h 10"
+   id="path537"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g547"
+   style="stroke:#41619f">
+<path
+   d="m 1178,1063 h 14 v 14 h -14 z"
+   id="path541"
+   inkscape:connector-curvature="0" />
+<text
+   x="1178"
+   y="1070"
+   font-size="10"
+   dy="3.25"
+   id="text543"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M11_AXI</text>
+
+<path
+   d="m 1195,1081 h 10 v 18 h -10 z"
+   id="path545"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g553"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1185,1085 v 10"
+   id="path549"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1180,1090 h 10"
+   id="path551"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g559"
+   style="stroke:#41619f">
+<path
+   d="m 1178,1083 h 14 v 14 h -14 z"
+   id="path555"
+   inkscape:connector-curvature="0" />
+<text
+   x="1178"
+   y="1090"
+   font-size="10"
+   dy="3.25"
+   id="text557"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M12_AXI</text>
+
+</g>
+<g
+   id="g583"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 965,950 h 10"
+   id="path561"
+   inkscape:connector-curvature="0" />
+<text
+   x="977"
+   y="950"
+   font-size="10"
+   dy="3.25"
+   id="text563"
+   style="font-size:10px;fill:#000000;stroke-width:0">aclk</text>
+
+<path
+   d="m 965,970 h 10"
+   id="path565"
+   inkscape:connector-curvature="0" />
+<text
+   x="977"
+   y="970"
+   font-size="10"
+   dy="3.25"
+   id="text567"
+   style="font-size:10px;fill:#000000;stroke-width:0">aclk1</text>
+
+<path
+   d="m 965,990 h 10"
+   id="path569"
+   inkscape:connector-curvature="0" />
+<text
+   x="977"
+   y="990"
+   font-size="10"
+   dy="3.25"
+   id="text571"
+   style="font-size:10px;fill:#000000;stroke-width:0">aclk2</text>
+
+<path
+   d="m 965,1010 h 10"
+   id="path573"
+   inkscape:connector-curvature="0" />
+<text
+   x="977"
+   y="1010"
+   font-size="10"
+   dy="3.25"
+   id="text575"
+   style="font-size:10px;fill:#000000;stroke-width:0">aclk3</text>
+
+<circle
+   cx="972"
+   cy="1030"
+   r="3"
+   id="circle577" />
+<path
+   d="m 965,1030 h 4"
+   id="path579"
+   inkscape:connector-curvature="0" />
+<text
+   x="977"
+   y="1030"
+   font-size="10"
+   dy="3.25"
+   id="text581"
+   style="font-size:10px;fill:#000000;stroke-width:0">aresetn</text>
+
+</g>
+<g
+   id="g609"
+   style="stroke:#41619f">
+<path
+   d="m 982,822 h 206"
+   id="path585"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1188,822 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path587"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1195,829 v 282"
+   id="path589"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1195,1111 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path591"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1188,1118 H 982"
+   id="path593"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 982,1118 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path595"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 975,1111 V 829"
+   id="path597"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 975,829 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path599"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1502,32 h 166 l 3,1 2,1 1,2 1,3 v 102 l -1,3 -1,2 -2,1 -3,1 h -166 l -3,-1 -2,-1 -1,-2 -1,-3 V 39 l 1,-3 1,-2 2,-1 z"
+   id="path601"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="1585"
+   y="30"
+   id="text603"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">axi_uartlite_1</text>
+
+<text
+   x="1585"
+   y="150"
+   dy="7.6999998"
+   id="text605"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">AXI Uartlite</text>
+
+<path
+   d="m 1485,61 h 10 v 18 h -10 z"
+   id="path607"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g615"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="M 1504,65 V 75"
+   id="path611"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1499,70 h 10"
+   id="path613"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g623"
+   style="stroke:#41619f">
+<path
+   d="m 1497,63 h 14 v 14 h -14 z"
+   id="path617"
+   inkscape:connector-curvature="0" />
+<text
+   x="1512"
+   y="70"
+   font-size="10"
+   dy="3.25"
+   id="text619"
+   style="font-size:10px;fill:#000000;stroke-width:0">S_AXI</text>
+
+<path
+   d="m 1675,51 h 10 v 58 h -10 z"
+   id="path621"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g627"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1660,60 h 10"
+   id="path625"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g633"
+   style="stroke:#41619f">
+<path
+   d="m 1658,53 h 14 v 14 h -14 z"
+   id="path629"
+   inkscape:connector-curvature="0" />
+<text
+   x="1658"
+   y="60"
+   font-size="10"
+   dy="3.25"
+   id="text631"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">UART</text>
+
+</g>
+<g
+   id="g647"
+   style="stroke:#000000;stroke-width:2">
+<path
+   d="m 1685,80 h -10"
+   id="path635"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1662,75 -8,5 8,5 z"
+   id="path637"
+   inkscape:connector-curvature="0"
+   style="fill:#41619f;stroke:none" />
+<text
+   x="1653"
+   y="80"
+   font-size="10"
+   dy="3.25"
+   id="text639"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">rx</text>
+
+<path
+   d="m 1685,100 h -10"
+   id="path641"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1654,95 8,5 -8,5 z"
+   id="path643"
+   inkscape:connector-curvature="0"
+   style="fill:#41619f;stroke:none" />
+<text
+   x="1653"
+   y="100"
+   font-size="10"
+   dy="3.25"
+   id="text645"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">tx</text>
+
+</g>
+<g
+   id="g663"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 1485,90 h 10"
+   id="path649"
+   inkscape:connector-curvature="0" />
+<text
+   x="1497"
+   y="90"
+   font-size="10"
+   dy="3.25"
+   id="text651"
+   style="font-size:10px;fill:#000000;stroke-width:0">s_axi_aclk</text>
+
+<circle
+   cx="1492"
+   cy="110"
+   r="3"
+   id="circle653" />
+<path
+   d="m 1485,110 h 4"
+   id="path655"
+   inkscape:connector-curvature="0" />
+<text
+   x="1497"
+   y="110"
+   font-size="10"
+   dy="3.25"
+   id="text657"
+   style="font-size:10px;fill:#000000;stroke-width:0">s_axi_aresetn</text>
+
+<path
+   d="m 1685,120 h -10"
+   id="path659"
+   inkscape:connector-curvature="0" />
+<text
+   x="1673"
+   y="120"
+   font-size="10"
+   dy="3.25"
+   id="text661"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">interrupt</text>
+
+</g>
+<g
+   id="g689"
+   style="stroke:#41619f">
+<path
+   d="m 1502,32 h 166"
+   id="path665"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1668,32 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path667"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1675,39 V 141"
+   id="path669"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1675,141 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path671"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1668,148 H 1502"
+   id="path673"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1502,148 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path675"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1495,141 V 39"
+   id="path677"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1495,39 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path679"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1502,192 h 166 l 3,1 2,1 1,2 1,3 v 102 l -1,3 -1,2 -2,1 -3,1 h -166 l -3,-1 -2,-1 -1,-2 -1,-3 V 199 l 1,-3 1,-2 2,-1 z"
+   id="path681"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="1585"
+   y="190"
+   id="text683"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">axi_uartlite_2</text>
+
+<text
+   x="1585"
+   y="310"
+   dy="7.6999998"
+   id="text685"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">AXI Uartlite</text>
+
+<path
+   d="m 1485,221 h 10 v 18 h -10 z"
+   id="path687"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g695"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1504,225 v 10"
+   id="path691"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1499,230 h 10"
+   id="path693"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g703"
+   style="stroke:#41619f">
+<path
+   d="m 1497,223 h 14 v 14 h -14 z"
+   id="path697"
+   inkscape:connector-curvature="0" />
+<text
+   x="1512"
+   y="230"
+   font-size="10"
+   dy="3.25"
+   id="text699"
+   style="font-size:10px;fill:#000000;stroke-width:0">S_AXI</text>
+
+<path
+   d="m 1675,211 h 10 v 58 h -10 z"
+   id="path701"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g707"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1660,220 h 10"
+   id="path705"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g713"
+   style="stroke:#41619f">
+<path
+   d="m 1658,213 h 14 v 14 h -14 z"
+   id="path709"
+   inkscape:connector-curvature="0" />
+<text
+   x="1658"
+   y="220"
+   font-size="10"
+   dy="3.25"
+   id="text711"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">UART</text>
+
+</g>
+<g
+   id="g727"
+   style="stroke:#000000;stroke-width:2">
+<path
+   d="m 1685,240 h -10"
+   id="path715"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1662,235 -8,5 8,5 z"
+   id="path717"
+   inkscape:connector-curvature="0"
+   style="fill:#41619f;stroke:none" />
+<text
+   x="1653"
+   y="240"
+   font-size="10"
+   dy="3.25"
+   id="text719"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">rx</text>
+
+<path
+   d="m 1685,260 h -10"
+   id="path721"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1654,255 8,5 -8,5 z"
+   id="path723"
+   inkscape:connector-curvature="0"
+   style="fill:#41619f;stroke:none" />
+<text
+   x="1653"
+   y="260"
+   font-size="10"
+   dy="3.25"
+   id="text725"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">tx</text>
+
+</g>
+<g
+   id="g743"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 1485,250 h 10"
+   id="path729"
+   inkscape:connector-curvature="0" />
+<text
+   x="1497"
+   y="250"
+   font-size="10"
+   dy="3.25"
+   id="text731"
+   style="font-size:10px;fill:#000000;stroke-width:0">s_axi_aclk</text>
+
+<circle
+   cx="1492"
+   cy="270"
+   r="3"
+   id="circle733" />
+<path
+   d="m 1485,270 h 4"
+   id="path735"
+   inkscape:connector-curvature="0" />
+<text
+   x="1497"
+   y="270"
+   font-size="10"
+   dy="3.25"
+   id="text737"
+   style="font-size:10px;fill:#000000;stroke-width:0">s_axi_aresetn</text>
+
+<path
+   d="m 1685,280 h -10"
+   id="path739"
+   inkscape:connector-curvature="0" />
+<text
+   x="1673"
+   y="280"
+   font-size="10"
+   dy="3.25"
+   id="text741"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">interrupt</text>
+
+</g>
+<g
+   id="g769"
+   style="stroke:#41619f">
+<path
+   d="m 1502,192 h 166"
+   id="path745"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1668,192 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path747"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1675,199 V 301"
+   id="path749"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1675,301 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path751"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1668,308 H 1502"
+   id="path753"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1502,308 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path755"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1495,301 V 199"
+   id="path757"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1495,199 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path759"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1482,352 h 206 l 3,1 2,1 1,2 1,3 v 82 l -1,3 -1,2 -2,1 -3,1 h -206 l -3,-1 -2,-1 -1,-2 -1,-3 v -82 l 1,-3 1,-2 2,-1 z"
+   id="path761"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="1585"
+   y="350"
+   id="text763"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">axi_bram_ctrl_0</text>
+
+<text
+   x="1585"
+   y="450"
+   dy="7.6999998"
+   id="text765"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">AXI BRAM Controller</text>
+
+<path
+   d="m 1465,371 h 10 v 18 h -10 z"
+   id="path767"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g775"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1484,375 v 10"
+   id="path771"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1479,380 h 10"
+   id="path773"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g783"
+   style="stroke:#41619f">
+<path
+   d="m 1477,373 h 14 v 14 h -14 z"
+   id="path777"
+   inkscape:connector-curvature="0" />
+<text
+   x="1492"
+   y="380"
+   font-size="10"
+   dy="3.25"
+   id="text779"
+   style="font-size:10px;fill:#000000;stroke-width:0">S_AXI</text>
+
+<path
+   d="m 1695,381 h 10 v 18 h -10 z"
+   id="path781"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g789"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1685,385 v 10"
+   id="path785"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1680,390 h 10"
+   id="path787"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g797"
+   style="stroke:#41619f">
+<path
+   d="m 1678,383 h 14 v 14 h -14 z"
+   id="path791"
+   inkscape:connector-curvature="0" />
+<text
+   x="1678"
+   y="390"
+   font-size="10"
+   dy="3.25"
+   id="text793"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">BRAM_PORTA</text>
+
+<path
+   d="m 1695,401 h 10 v 18 h -10 z"
+   id="path795"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g803"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1685,405 v 10"
+   id="path799"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1680,410 h 10"
+   id="path801"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g809"
+   style="stroke:#41619f">
+<path
+   d="m 1678,403 h 14 v 14 h -14 z"
+   id="path805"
+   inkscape:connector-curvature="0" />
+<text
+   x="1678"
+   y="410"
+   font-size="10"
+   dy="3.25"
+   id="text807"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">BRAM_PORTB</text>
+
+</g>
+<g
+   id="g821"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 1465,400 h 10"
+   id="path811"
+   inkscape:connector-curvature="0" />
+<text
+   x="1477"
+   y="400"
+   font-size="10"
+   dy="3.25"
+   id="text813"
+   style="font-size:10px;fill:#000000;stroke-width:0">s_axi_aclk</text>
+
+<circle
+   cx="1472"
+   cy="420"
+   r="3"
+   id="circle815" />
+<path
+   d="m 1465,420 h 4"
+   id="path817"
+   inkscape:connector-curvature="0" />
+<text
+   x="1477"
+   y="420"
+   font-size="10"
+   dy="3.25"
+   id="text819"
+   style="font-size:10px;fill:#000000;stroke-width:0">s_axi_aresetn</text>
+
+</g>
+<g
+   id="g847"
+   style="stroke:#41619f">
+<path
+   d="m 1482,352 h 206"
+   id="path823"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1688,352 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path825"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1695,359 v 82"
+   id="path827"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1695,441 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path829"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1688,448 H 1482"
+   id="path831"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1482,448 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path833"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1475,441 V 359"
+   id="path835"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1475,359 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path837"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1462,512 h 246 l 3,1 2,1 1,2 1,3 v 162 l -1,3 -1,2 -2,1 -3,1 h -246 l -3,-1 -2,-1 -1,-2 -1,-3 V 519 l 1,-3 1,-2 2,-1 z"
+   id="path839"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="1585"
+   y="510"
+   id="text841"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">Ethernet2</text>
+
+<text
+   x="1585"
+   y="690"
+   dy="7.6999998"
+   id="text843"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">ethernet_v1_0</text>
+
+<path
+   d="m 1445,541 h 10 v 18 h -10 z"
+   id="path845"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g853"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1464,545 v 10"
+   id="path849"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1459,550 h 10"
+   id="path851"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g861"
+   style="stroke:#41619f">
+<path
+   d="m 1457,543 h 14 v 14 h -14 z"
+   id="path855"
+   inkscape:connector-curvature="0" />
+<text
+   x="1472"
+   y="550"
+   font-size="10"
+   dy="3.25"
+   id="text857"
+   style="font-size:10px;fill:#000000;stroke-width:0">S_AXI_LITE</text>
+
+<path
+   d="m 1715,531 h 10 v 18 h -10 z"
+   id="path859"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g867"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1705,535 v 10"
+   id="path863"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1700,540 h 10"
+   id="path865"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g875"
+   style="stroke:#41619f">
+<path
+   d="m 1698,533 h 14 v 14 h -14 z"
+   id="path869"
+   inkscape:connector-curvature="0" />
+<text
+   x="1698"
+   y="540"
+   font-size="10"
+   dy="3.25"
+   id="text871"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M_AXI</text>
+
+<path
+   d="m 1715,551 h 10 v 18 h -10 z"
+   id="path873"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g881"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1705,555 v 10"
+   id="path877"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1700,560 h 10"
+   id="path879"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g889"
+   style="stroke:#41619f">
+<path
+   d="m 1698,553 h 14 v 14 h -14 z"
+   id="path883"
+   inkscape:connector-curvature="0" />
+<text
+   x="1698"
+   y="560"
+   font-size="10"
+   dy="3.25"
+   id="text885"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">TX_AXIS</text>
+
+<path
+   d="m 1445,561 h 10 v 18 h -10 z"
+   id="path887"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g895"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1464,565 v 10"
+   id="path891"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1459,570 h 10"
+   id="path893"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g901"
+   style="stroke:#41619f">
+<path
+   d="m 1457,563 h 14 v 14 h -14 z"
+   id="path897"
+   inkscape:connector-curvature="0" />
+<text
+   x="1472"
+   y="570"
+   font-size="10"
+   dy="3.25"
+   id="text899"
+   style="font-size:10px;fill:#000000;stroke-width:0">RX_AXIS</text>
+
+</g>
+<g
+   id="g921"
+   style="stroke:#000000;stroke-width:3">
+<circle
+   cx="1452"
+   cy="590"
+   r="3"
+   id="circle903" />
+<path
+   d="m 1445,590 h 4"
+   id="path905"
+   inkscape:connector-curvature="0" />
+<text
+   x="1457"
+   y="590"
+   font-size="10"
+   dy="3.25"
+   id="text907"
+   style="font-size:10px;fill:#000000;stroke-width:0">async_resetn</text>
+
+<path
+   d="m 1725,580 h -10"
+   id="path909"
+   inkscape:connector-curvature="0" />
+<text
+   x="1713"
+   y="580"
+   font-size="10"
+   dy="3.25"
+   id="text911"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">reset</text>
+
+<path
+   d="m 1445,610 h 10"
+   id="path913"
+   inkscape:connector-curvature="0" />
+<text
+   x="1457"
+   y="610"
+   font-size="10"
+   dy="3.25"
+   id="text915"
+   style="font-size:10px;fill:#000000;stroke-width:0">clock</text>
+
+<path
+   d="m 1725,600 h -10"
+   id="path917"
+   inkscape:connector-curvature="0" />
+<text
+   x="1713"
+   y="600"
+   font-size="10"
+   dy="3.25"
+   id="text919"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">interrupt</text>
+
+</g>
+<g
+   id="g927"
+   style="stroke:#000000;stroke-width:5">
+<path
+   d="m 1445,630 h 10"
+   id="path923"
+   inkscape:connector-curvature="0" />
+<text
+   x="1457"
+   y="630"
+   font-size="10"
+   dy="3.25"
+   id="text925"
+   style="font-size:10px;fill:#000000;stroke-width:0">status_vector[15:0]</text>
+
+</g>
+<g
+   id="g947"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 1725,620 h -10"
+   id="path929"
+   inkscape:connector-curvature="0" />
+<text
+   x="1713"
+   y="620"
+   font-size="10"
+   dy="3.25"
+   id="text931"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">mdio_clock</text>
+
+<path
+   d="m 1725,640 h -10"
+   id="path933"
+   inkscape:connector-curvature="0" />
+<text
+   x="1713"
+   y="640"
+   font-size="10"
+   dy="3.25"
+   id="text935"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">mdio_data</text>
+
+<circle
+   cx="1718"
+   cy="660"
+   r="3"
+   id="circle937" />
+<path
+   d="m 1725,660 h -4"
+   id="path939"
+   inkscape:connector-curvature="0" />
+<text
+   x="1713"
+   y="660"
+   font-size="10"
+   dy="3.25"
+   id="text941"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">mdio_reset</text>
+
+<path
+   d="m 1445,650 h 10"
+   id="path943"
+   inkscape:connector-curvature="0" />
+<text
+   x="1457"
+   y="650"
+   font-size="10"
+   dy="3.25"
+   id="text945"
+   style="font-size:10px;fill:#000000;stroke-width:0">mdio_int</text>
+
+</g>
+<g
+   id="g973"
+   style="stroke:#41619f">
+<path
+   d="m 1462,512 h 246"
+   id="path949"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1708,512 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path951"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1715,519 V 681"
+   id="path953"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1715,681 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path955"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1708,688 H 1462"
+   id="path957"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1462,688 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path959"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1455,681 V 519"
+   id="path961"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1455,519 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path963"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1472,822 h 226 l 3,1 2,1 1,2 1,3 v 82 l -1,3 -1,2 -2,1 -3,1 h -226 l -3,-1 -2,-1 -1,-2 -1,-3 v -82 l 1,-3 1,-2 2,-1 z"
+   id="path965"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="1585"
+   y="820"
+   id="text967"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">axi_gpio_0</text>
+
+<text
+   x="1585"
+   y="920"
+   dy="7.6999998"
+   id="text969"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">AXI GPIO</text>
+
+<path
+   d="m 1455,841 h 10 v 18 h -10 z"
+   id="path971"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g979"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1474,845 v 10"
+   id="path975"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1469,850 h 10"
+   id="path977"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g987"
+   style="stroke:#41619f">
+<path
+   d="m 1467,843 h 14 v 14 h -14 z"
+   id="path981"
+   inkscape:connector-curvature="0" />
+<text
+   x="1482"
+   y="850"
+   font-size="10"
+   dy="3.25"
+   id="text983"
+   style="font-size:10px;fill:#000000;stroke-width:0">S_AXI</text>
+
+<path
+   d="m 1705,851 h 10 v 38 h -10 z"
+   id="path985"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g991"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1690,860 h 10"
+   id="path989"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g997"
+   style="stroke:#41619f">
+<path
+   d="m 1688,853 h 14 v 14 h -14 z"
+   id="path993"
+   inkscape:connector-curvature="0" />
+<text
+   x="1688"
+   y="860"
+   font-size="10"
+   dy="3.25"
+   id="text995"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">GPIO</text>
+
+</g>
+<g
+   id="g1015"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 1715,880 h -10"
+   id="path999"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1684,875 8,5 -8,5 z"
+   id="path1001"
+   inkscape:connector-curvature="0"
+   style="fill:#41619f;stroke:none" />
+<text
+   x="1683"
+   y="880"
+   font-size="10"
+   dy="3.25"
+   id="text1003"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">gpio_io_o[15:0]</text>
+
+<path
+   d="m 1455,870 h 10"
+   id="path1005"
+   inkscape:connector-curvature="0" />
+<text
+   x="1467"
+   y="870"
+   font-size="10"
+   dy="3.25"
+   id="text1007"
+   style="font-size:10px;fill:#000000;stroke-width:0">s_axi_aclk</text>
+
+<circle
+   cx="1462"
+   cy="890"
+   r="3"
+   id="circle1009" />
+<path
+   d="m 1455,890 h 4"
+   id="path1011"
+   inkscape:connector-curvature="0" />
+<text
+   x="1467"
+   y="890"
+   font-size="10"
+   dy="3.25"
+   id="text1013"
+   style="font-size:10px;fill:#000000;stroke-width:0">s_axi_aresetn</text>
+
+</g>
+<g
+   id="g1039"
+   style="stroke:#41619f">
+<path
+   d="m 1472,822 h 226"
+   id="path1017"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1698,822 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path1019"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1705,829 v 82"
+   id="path1021"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1705,911 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path1023"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1698,918 H 1472"
+   id="path1025"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1472,918 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path1027"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1465,911 V 829"
+   id="path1029"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1465,829 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path1031"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1472,982 h 226 l 3,1 2,1 1,2 1,3 v 62 l -1,3 -1,2 -2,1 -3,1 h -226 l -3,-1 -2,-1 -1,-2 -1,-3 v -62 l 1,-3 1,-2 2,-1 z"
+   id="path1033"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="1585"
+   y="980"
+   id="text1035"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">util_vector_logic_1</text>
+
+<text
+   x="1585"
+   y="1060"
+   dy="7.6999998"
+   id="text1037"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">Utility Vector Logic</text>
+
+</g>
+<g
+   id="g1059"
+   style="stroke:#000000;stroke-width:5">
+<circle
+   cx="1462"
+   cy="1010"
+   r="3"
+   id="circle1041" />
+<path
+   d="m 1455,1010 h 4"
+   id="path1043"
+   inkscape:connector-curvature="0" />
+<text
+   x="1467"
+   y="1010"
+   font-size="10"
+   dy="3.25"
+   id="text1045"
+   style="font-size:10px;fill:#000000;stroke-width:0">Op1[0:0]</text>
+
+<circle
+   cx="1462"
+   cy="1030"
+   r="3"
+   id="circle1047" />
+<path
+   d="m 1455,1030 h 4"
+   id="path1049"
+   inkscape:connector-curvature="0" />
+<text
+   x="1467"
+   y="1030"
+   font-size="10"
+   dy="3.25"
+   id="text1051"
+   style="font-size:10px;fill:#000000;stroke-width:0">Op2[0:0]</text>
+
+<circle
+   cx="1708"
+   cy="1020"
+   r="3"
+   id="circle1053" />
+<path
+   d="m 1715,1020 h -4"
+   id="path1055"
+   inkscape:connector-curvature="0" />
+<text
+   x="1703"
+   y="1020"
+   font-size="10"
+   dy="3.25"
+   id="text1057"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">Res[0:0]</text>
+
+</g>
+<g
+   id="g1085"
+   style="stroke:#41619f">
+<path
+   d="m 1472,982 h 226"
+   id="path1061"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1698,982 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path1063"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1705,989 v 62"
+   id="path1065"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1705,1051 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path1067"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1698,1058 H 1472"
+   id="path1069"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1472,1058 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path1071"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1465,1051 V 989"
+   id="path1073"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1465,989 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path1075"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1482,1172 h 206 l 3,1 2,1 1,2 1,3 v 82 l -1,3 -1,2 -2,1 -3,1 h -206 l -3,-1 -2,-1 -1,-2 -1,-3 v -82 l 1,-3 1,-2 2,-1 z"
+   id="path1077"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="1585"
+   y="1170"
+   id="text1079"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">axi_gpio_1</text>
+
+<text
+   x="1585"
+   y="1270"
+   dy="7.6999998"
+   id="text1081"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">AXI GPIO</text>
+
+<path
+   d="m 1465,1191 h 10 v 18 h -10 z"
+   id="path1083"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1091"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1484,1195 v 10"
+   id="path1087"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1479,1200 h 10"
+   id="path1089"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1099"
+   style="stroke:#41619f">
+<path
+   d="m 1477,1193 h 14 v 14 h -14 z"
+   id="path1093"
+   inkscape:connector-curvature="0" />
+<text
+   x="1492"
+   y="1200"
+   font-size="10"
+   dy="3.25"
+   id="text1095"
+   style="font-size:10px;fill:#000000;stroke-width:0">S_AXI</text>
+
+<path
+   d="m 1695,1201 h 10 v 38 h -10 z"
+   id="path1097"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1103"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1680,1210 h 10"
+   id="path1101"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1109"
+   style="stroke:#41619f">
+<path
+   d="m 1678,1203 h 14 v 14 h -14 z"
+   id="path1105"
+   inkscape:connector-curvature="0" />
+<text
+   x="1678"
+   y="1210"
+   font-size="10"
+   dy="3.25"
+   id="text1107"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">GPIO</text>
+
+</g>
+<g
+   id="g1127"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 1705,1230 h -10"
+   id="path1111"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1674,1225 8,5 -8,5 z"
+   id="path1113"
+   inkscape:connector-curvature="0"
+   style="fill:#41619f;stroke:none" />
+<text
+   x="1673"
+   y="1230"
+   font-size="10"
+   dy="3.25"
+   id="text1115"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">gpio_io_o[0:0]</text>
+
+<path
+   d="m 1465,1220 h 10"
+   id="path1117"
+   inkscape:connector-curvature="0" />
+<text
+   x="1477"
+   y="1220"
+   font-size="10"
+   dy="3.25"
+   id="text1119"
+   style="font-size:10px;fill:#000000;stroke-width:0">s_axi_aclk</text>
+
+<circle
+   cx="1472"
+   cy="1240"
+   r="3"
+   id="circle1121" />
+<path
+   d="m 1465,1240 h 4"
+   id="path1123"
+   inkscape:connector-curvature="0" />
+<text
+   x="1477"
+   y="1240"
+   font-size="10"
+   dy="3.25"
+   id="text1125"
+   style="font-size:10px;fill:#000000;stroke-width:0">s_axi_aresetn</text>
+
+</g>
+<g
+   id="g1153"
+   style="stroke:#41619f">
+<path
+   d="m 1482,1172 h 206"
+   id="path1129"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1688,1172 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path1131"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1695,1179 v 82"
+   id="path1133"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1695,1261 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path1135"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1688,1268 H 1482"
+   id="path1137"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1482,1268 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path1139"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1475,1261 v -82"
+   id="path1141"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1475,1179 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path1143"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1482,1352 h 206 l 3,1 2,1 1,2 1,3 v 82 l -1,3 -1,2 -2,1 -3,1 h -206 l -3,-1 -2,-1 -1,-2 -1,-3 v -82 l 1,-3 1,-2 2,-1 z"
+   id="path1145"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="1585"
+   y="1350"
+   id="text1147"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">axi_gpio_2</text>
+
+<text
+   x="1585"
+   y="1450"
+   dy="7.6999998"
+   id="text1149"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">AXI GPIO</text>
+
+<path
+   d="m 1465,1371 h 10 v 18 h -10 z"
+   id="path1151"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1159"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1484,1375 v 10"
+   id="path1155"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1479,1380 h 10"
+   id="path1157"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1167"
+   style="stroke:#41619f">
+<path
+   d="m 1477,1373 h 14 v 14 h -14 z"
+   id="path1161"
+   inkscape:connector-curvature="0" />
+<text
+   x="1492"
+   y="1380"
+   font-size="10"
+   dy="3.25"
+   id="text1163"
+   style="font-size:10px;fill:#000000;stroke-width:0">S_AXI</text>
+
+<path
+   d="m 1695,1381 h 10 v 38 h -10 z"
+   id="path1165"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1171"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1680,1390 h 10"
+   id="path1169"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1177"
+   style="stroke:#41619f">
+<path
+   d="m 1678,1383 h 14 v 14 h -14 z"
+   id="path1173"
+   inkscape:connector-curvature="0" />
+<text
+   x="1678"
+   y="1390"
+   font-size="10"
+   dy="3.25"
+   id="text1175"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">GPIO</text>
+
+</g>
+<g
+   id="g1195"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 1705,1410 h -10"
+   id="path1179"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1682,1405 -8,5 8,5 z"
+   id="path1181"
+   inkscape:connector-curvature="0"
+   style="fill:#41619f;stroke:none" />
+<text
+   x="1673"
+   y="1410"
+   font-size="10"
+   dy="3.25"
+   id="text1183"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">gpio_io_i[7:0]</text>
+
+<path
+   d="m 1465,1400 h 10"
+   id="path1185"
+   inkscape:connector-curvature="0" />
+<text
+   x="1477"
+   y="1400"
+   font-size="10"
+   dy="3.25"
+   id="text1187"
+   style="font-size:10px;fill:#000000;stroke-width:0">s_axi_aclk</text>
+
+<circle
+   cx="1472"
+   cy="1420"
+   r="3"
+   id="circle1189" />
+<path
+   d="m 1465,1420 h 4"
+   id="path1191"
+   inkscape:connector-curvature="0" />
+<text
+   x="1477"
+   y="1420"
+   font-size="10"
+   dy="3.25"
+   id="text1193"
+   style="font-size:10px;fill:#000000;stroke-width:0">s_axi_aresetn</text>
+
+</g>
+<g
+   id="g1221"
+   style="stroke:#41619f">
+<path
+   d="m 1482,1352 h 206"
+   id="path1197"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1688,1352 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path1199"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1695,1359 v 82"
+   id="path1201"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1695,1441 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path1203"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1688,1448 H 1482"
+   id="path1205"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1482,1448 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path1207"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1475,1441 v -82"
+   id="path1209"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1475,1359 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path1211"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1492,1542 h 186 l 3,1 2,1 1,2 1,3 v 122 l -1,3 -1,2 -2,1 -3,1 h -186 l -3,-1 -2,-1 -1,-2 -1,-3 v -122 l 1,-3 1,-2 2,-1 z"
+   id="path1213"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="1585"
+   y="1540"
+   id="text1215"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">UART</text>
+
+<text
+   x="1585"
+   y="1680"
+   dy="7.6999998"
+   id="text1217"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">uart_v1_0</text>
+
+<path
+   d="m 1475,1581 h 10 v 18 h -10 z"
+   id="path1219"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1227"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1494,1585 v 10"
+   id="path1223"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1489,1590 h 10"
+   id="path1225"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1235"
+   style="stroke:#41619f">
+<path
+   d="m 1487,1583 h 14 v 14 h -14 z"
+   id="path1229"
+   inkscape:connector-curvature="0" />
+<text
+   x="1502"
+   y="1590"
+   font-size="10"
+   dy="3.25"
+   id="text1231"
+   style="font-size:10px;fill:#000000;stroke-width:0">S_AXI_LITE</text>
+
+<path
+   d="m 1685,1561 h 10 v 78 h -10 z"
+   id="path1233"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1241"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1675,1565 v 10"
+   id="path1237"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1670,1570 h 10"
+   id="path1239"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1247"
+   style="stroke:#41619f">
+<path
+   d="m 1668,1563 h 14 v 14 h -14 z"
+   id="path1243"
+   inkscape:connector-curvature="0" />
+<text
+   x="1668"
+   y="1570"
+   font-size="10"
+   dy="3.25"
+   id="text1245"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">RS232</text>
+
+</g>
+<g
+   id="g1267"
+   style="stroke:#000000;stroke-width:2">
+<path
+   d="m 1695,1590 h -10"
+   id="path1249"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1672,1585 -8,5 8,5 z"
+   id="path1251"
+   inkscape:connector-curvature="0"
+   style="fill:#41619f;stroke:none" />
+<text
+   x="1663"
+   y="1590"
+   font-size="10"
+   dy="3.25"
+   id="text1253"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">RxD</text>
+
+<path
+   d="m 1695,1610 h -10"
+   id="path1255"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1664,1605 8,5 -8,5 z"
+   id="path1257"
+   inkscape:connector-curvature="0"
+   style="fill:#41619f;stroke:none" />
+<text
+   x="1663"
+   y="1610"
+   font-size="10"
+   dy="3.25"
+   id="text1259"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">TxD</text>
+
+<path
+   d="m 1695,1630 h -10"
+   id="path1261"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1672,1625 -8,5 8,5 z"
+   id="path1263"
+   inkscape:connector-curvature="0"
+   style="fill:#41619f;stroke:none" />
+<text
+   x="1663"
+   y="1630"
+   font-size="10"
+   dy="3.25"
+   id="text1265"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">CTSn</text>
+
+</g>
+<g
+   id="g1283"
+   style="stroke:#000000;stroke-width:3">
+<circle
+   cx="1482"
+   cy="1610"
+   r="3"
+   id="circle1269" />
+<path
+   d="m 1475,1610 h 4"
+   id="path1271"
+   inkscape:connector-curvature="0" />
+<text
+   x="1487"
+   y="1610"
+   font-size="10"
+   dy="3.25"
+   id="text1273"
+   style="font-size:10px;fill:#000000;stroke-width:0">async_resetn</text>
+
+<path
+   d="m 1475,1630 h 10"
+   id="path1275"
+   inkscape:connector-curvature="0" />
+<text
+   x="1487"
+   y="1630"
+   font-size="10"
+   dy="3.25"
+   id="text1277"
+   style="font-size:10px;fill:#000000;stroke-width:0">clock</text>
+
+<path
+   d="m 1695,1650 h -10"
+   id="path1279"
+   inkscape:connector-curvature="0" />
+<text
+   x="1683"
+   y="1650"
+   font-size="10"
+   dy="3.25"
+   id="text1281"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">interrupt</text>
+
+</g>
+<g
+   id="g1309"
+   style="stroke:#41619f">
+<path
+   d="m 1492,1542 h 186"
+   id="path1285"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1678,1542 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path1287"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1685,1549 v 122"
+   id="path1289"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1685,1671 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path1291"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1678,1678 H 1492"
+   id="path1293"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1492,1678 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path1295"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1485,1671 V 1549"
+   id="path1297"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1485,1549 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path1299"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1472,1722 h 226 l 3,1 2,1 1,2 1,3 v 82 l -1,3 -1,2 -2,1 -3,1 h -226 l -3,-1 -2,-1 -1,-2 -1,-3 v -82 l 1,-3 1,-2 2,-1 z"
+   id="path1301"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="1585"
+   y="1720"
+   id="text1303"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">axi_gpio_3</text>
+
+<text
+   x="1585"
+   y="1820"
+   dy="7.6999998"
+   id="text1305"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">AXI GPIO</text>
+
+<path
+   d="m 1455,1741 h 10 v 18 h -10 z"
+   id="path1307"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1315"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1474,1745 v 10"
+   id="path1311"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1469,1750 h 10"
+   id="path1313"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1323"
+   style="stroke:#41619f">
+<path
+   d="m 1467,1743 h 14 v 14 h -14 z"
+   id="path1317"
+   inkscape:connector-curvature="0" />
+<text
+   x="1482"
+   y="1750"
+   font-size="10"
+   dy="3.25"
+   id="text1319"
+   style="font-size:10px;fill:#000000;stroke-width:0">S_AXI</text>
+
+<path
+   d="m 1705,1751 h 10 v 38 h -10 z"
+   id="path1321"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1327"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1690,1760 h 10"
+   id="path1325"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1333"
+   style="stroke:#41619f">
+<path
+   d="m 1688,1753 h 14 v 14 h -14 z"
+   id="path1329"
+   inkscape:connector-curvature="0" />
+<text
+   x="1688"
+   y="1760"
+   font-size="10"
+   dy="3.25"
+   id="text1331"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">GPIO</text>
+
+</g>
+<g
+   id="g1351"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 1715,1780 h -10"
+   id="path1335"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1684,1775 8,5 -8,5 z"
+   id="path1337"
+   inkscape:connector-curvature="0"
+   style="fill:#41619f;stroke:none" />
+<text
+   x="1683"
+   y="1780"
+   font-size="10"
+   dy="3.25"
+   id="text1339"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">gpio_io_o[15:0]</text>
+
+<path
+   d="m 1455,1770 h 10"
+   id="path1341"
+   inkscape:connector-curvature="0" />
+<text
+   x="1467"
+   y="1770"
+   font-size="10"
+   dy="3.25"
+   id="text1343"
+   style="font-size:10px;fill:#000000;stroke-width:0">s_axi_aclk</text>
+
+<circle
+   cx="1462"
+   cy="1790"
+   r="3"
+   id="circle1345" />
+<path
+   d="m 1455,1790 h 4"
+   id="path1347"
+   inkscape:connector-curvature="0" />
+<text
+   x="1467"
+   y="1790"
+   font-size="10"
+   dy="3.25"
+   id="text1349"
+   style="font-size:10px;fill:#000000;stroke-width:0">s_axi_aresetn</text>
+
+</g>
+<g
+   id="g1375"
+   style="stroke:#41619f">
+<path
+   d="m 1472,1722 h 226"
+   id="path1353"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1698,1722 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path1355"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1705,1729 v 82"
+   id="path1357"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1705,1811 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path1359"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1698,1818 H 1472"
+   id="path1361"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1472,1818 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path1363"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1465,1811 v -82"
+   id="path1365"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1465,1729 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path1367"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1542,1862 h 86 l 3,1 2,1 1,2 1,3 v 42 l -1,3 -1,2 -2,1 -3,1 h -86 l -3,-1 -2,-1 -1,-2 -1,-3 v -42 l 1,-3 1,-2 2,-1 z"
+   id="path1369"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="1585"
+   y="1860"
+   id="text1371"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">xlconstant_2</text>
+
+<text
+   x="1585"
+   y="1920"
+   dy="7.6999998"
+   id="text1373"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">Constant</text>
+
+</g>
+<g
+   id="g1381"
+   style="stroke:#000000;stroke-width:5">
+<path
+   d="m 1645,1890 h -10"
+   id="path1377"
+   inkscape:connector-curvature="0" />
+<text
+   x="1633"
+   y="1890"
+   font-size="10"
+   dy="3.25"
+   id="text1379"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">dout[0:0]</text>
+
+</g>
+<g
+   id="g1407"
+   style="stroke:#41619f">
+<path
+   d="m 1542,1862 h 86"
+   id="path1383"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1628,1862 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path1385"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1635,1869 v 42"
+   id="path1387"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1635,1911 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path1389"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1628,1918 h -86"
+   id="path1391"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1542,1918 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path1393"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1535,1911 v -42"
+   id="path1395"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1535,1869 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path1397"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1942,362 h 186 l 3,1 2,1 1,2 1,3 v 62 l -1,3 -1,2 -2,1 -3,1 h -186 l -3,-1 -2,-1 -1,-2 -1,-3 v -62 l 1,-3 1,-2 2,-1 z"
+   id="path1399"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="2035"
+   y="360"
+   id="text1401"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">axi_bram_ctrl_0_bram</text>
+
+<text
+   x="2035"
+   y="440"
+   dy="7.6999998"
+   id="text1403"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">Block Memory Generator</text>
+
+<path
+   d="m 1925,381 h 10 v 18 h -10 z"
+   id="path1405"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1413"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1944,385 v 10"
+   id="path1409"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1939,390 h 10"
+   id="path1411"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1421"
+   style="stroke:#41619f">
+<path
+   d="m 1937,383 h 14 v 14 h -14 z"
+   id="path1415"
+   inkscape:connector-curvature="0" />
+<text
+   x="1952"
+   y="390"
+   font-size="10"
+   dy="3.25"
+   id="text1417"
+   style="font-size:10px;fill:#000000;stroke-width:0">BRAM_PORTA</text>
+
+<path
+   d="m 1925,401 h 10 v 18 h -10 z"
+   id="path1419"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1427"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1944,405 v 10"
+   id="path1423"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1939,410 h 10"
+   id="path1425"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1433"
+   style="stroke:#41619f">
+<path
+   d="m 1937,403 h 14 v 14 h -14 z"
+   id="path1429"
+   inkscape:connector-curvature="0" />
+<text
+   x="1952"
+   y="410"
+   font-size="10"
+   dy="3.25"
+   id="text1431"
+   style="font-size:10px;fill:#000000;stroke-width:0">BRAM_PORTB</text>
+
+</g>
+<g
+   id="g1443"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 2145,390 h -10"
+   id="path1435"
+   inkscape:connector-curvature="0" />
+<text
+   x="2133"
+   y="390"
+   font-size="10"
+   dy="3.25"
+   id="text1437"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">rsta_busy</text>
+
+<path
+   d="m 2145,410 h -10"
+   id="path1439"
+   inkscape:connector-curvature="0" />
+<text
+   x="2133"
+   y="410"
+   font-size="10"
+   dy="3.25"
+   id="text1441"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">rstb_busy</text>
+
+</g>
+<g
+   id="g1469"
+   style="stroke:#41619f">
+<path
+   d="m 1942,362 h 186"
+   id="path1445"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2128,362 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path1447"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2135,369 v 62"
+   id="path1449"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2135,431 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path1451"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 2128,438 H 1942"
+   id="path1453"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1942,438 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path1455"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1935,431 V 369"
+   id="path1457"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1935,369 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path1459"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1912,812 h 246 l 3,1 2,1 1,2 1,3 v 162 l -1,3 -1,2 -2,1 -3,1 h -246 l -3,-1 -2,-1 -1,-2 -1,-3 V 819 l 1,-3 1,-2 2,-1 z"
+   id="path1461"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="2035"
+   y="810"
+   id="text1463"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">Ethernet</text>
+
+<text
+   x="2035"
+   y="990"
+   dy="7.6999998"
+   id="text1465"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">ethernet_v1_0</text>
+
+<path
+   d="m 1895,841 h 10 v 18 h -10 z"
+   id="path1467"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1475"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1914,845 v 10"
+   id="path1471"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1909,850 h 10"
+   id="path1473"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1483"
+   style="stroke:#41619f">
+<path
+   d="m 1907,843 h 14 v 14 h -14 z"
+   id="path1477"
+   inkscape:connector-curvature="0" />
+<text
+   x="1922"
+   y="850"
+   font-size="10"
+   dy="3.25"
+   id="text1479"
+   style="font-size:10px;fill:#000000;stroke-width:0">S_AXI_LITE</text>
+
+<path
+   d="m 2165,831 h 10 v 18 h -10 z"
+   id="path1481"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1489"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 2155,835 v 10"
+   id="path1485"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2150,840 h 10"
+   id="path1487"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1497"
+   style="stroke:#41619f">
+<path
+   d="m 2148,833 h 14 v 14 h -14 z"
+   id="path1491"
+   inkscape:connector-curvature="0" />
+<text
+   x="2148"
+   y="840"
+   font-size="10"
+   dy="3.25"
+   id="text1493"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M_AXI</text>
+
+<path
+   d="m 2165,851 h 10 v 18 h -10 z"
+   id="path1495"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1503"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 2155,855 v 10"
+   id="path1499"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2150,860 h 10"
+   id="path1501"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1511"
+   style="stroke:#41619f">
+<path
+   d="m 2148,853 h 14 v 14 h -14 z"
+   id="path1505"
+   inkscape:connector-curvature="0" />
+<text
+   x="2148"
+   y="860"
+   font-size="10"
+   dy="3.25"
+   id="text1507"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">TX_AXIS</text>
+
+<path
+   d="m 1895,861 h 10 v 18 h -10 z"
+   id="path1509"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1517"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 1914,865 v 10"
+   id="path1513"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1909,870 h 10"
+   id="path1515"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1523"
+   style="stroke:#41619f">
+<path
+   d="m 1907,863 h 14 v 14 h -14 z"
+   id="path1519"
+   inkscape:connector-curvature="0" />
+<text
+   x="1922"
+   y="870"
+   font-size="10"
+   dy="3.25"
+   id="text1521"
+   style="font-size:10px;fill:#000000;stroke-width:0">RX_AXIS</text>
+
+</g>
+<g
+   id="g1543"
+   style="stroke:#000000;stroke-width:3">
+<circle
+   cx="1902"
+   cy="890"
+   r="3"
+   id="circle1525" />
+<path
+   d="m 1895,890 h 4"
+   id="path1527"
+   inkscape:connector-curvature="0" />
+<text
+   x="1907"
+   y="890"
+   font-size="10"
+   dy="3.25"
+   id="text1529"
+   style="font-size:10px;fill:#000000;stroke-width:0">async_resetn</text>
+
+<path
+   d="m 2175,880 h -10"
+   id="path1531"
+   inkscape:connector-curvature="0" />
+<text
+   x="2163"
+   y="880"
+   font-size="10"
+   dy="3.25"
+   id="text1533"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">reset</text>
+
+<path
+   d="m 1895,910 h 10"
+   id="path1535"
+   inkscape:connector-curvature="0" />
+<text
+   x="1907"
+   y="910"
+   font-size="10"
+   dy="3.25"
+   id="text1537"
+   style="font-size:10px;fill:#000000;stroke-width:0">clock</text>
+
+<path
+   d="m 2175,900 h -10"
+   id="path1539"
+   inkscape:connector-curvature="0" />
+<text
+   x="2163"
+   y="900"
+   font-size="10"
+   dy="3.25"
+   id="text1541"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">interrupt</text>
+
+</g>
+<g
+   id="g1549"
+   style="stroke:#000000;stroke-width:5">
+<path
+   d="m 1895,930 h 10"
+   id="path1545"
+   inkscape:connector-curvature="0" />
+<text
+   x="1907"
+   y="930"
+   font-size="10"
+   dy="3.25"
+   id="text1547"
+   style="font-size:10px;fill:#000000;stroke-width:0">status_vector[15:0]</text>
+
+</g>
+<g
+   id="g1569"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 2175,920 h -10"
+   id="path1551"
+   inkscape:connector-curvature="0" />
+<text
+   x="2163"
+   y="920"
+   font-size="10"
+   dy="3.25"
+   id="text1553"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">mdio_clock</text>
+
+<path
+   d="m 2175,940 h -10"
+   id="path1555"
+   inkscape:connector-curvature="0" />
+<text
+   x="2163"
+   y="940"
+   font-size="10"
+   dy="3.25"
+   id="text1557"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">mdio_data</text>
+
+<circle
+   cx="2168"
+   cy="960"
+   r="3"
+   id="circle1559" />
+<path
+   d="m 2175,960 h -4"
+   id="path1561"
+   inkscape:connector-curvature="0" />
+<text
+   x="2163"
+   y="960"
+   font-size="10"
+   dy="3.25"
+   id="text1563"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">mdio_reset</text>
+
+<path
+   d="m 1895,950 h 10"
+   id="path1565"
+   inkscape:connector-curvature="0" />
+<text
+   x="1907"
+   y="950"
+   font-size="10"
+   dy="3.25"
+   id="text1567"
+   style="font-size:10px;fill:#000000;stroke-width:0">mdio_int</text>
+
+</g>
+<g
+   id="g1593"
+   style="stroke:#41619f">
+<path
+   d="m 1912,812 h 246"
+   id="path1571"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2158,812 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path1573"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 2165,819 V 981"
+   id="path1575"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2165,981 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path1577"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 2158,988 H 1912"
+   id="path1579"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1912,988 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path1581"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 1905,981 V 819"
+   id="path1583"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1905,819 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path1585"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1922,1141 h 226 l 3,1 2,1 1,2 1,3 v 44 l -1,3 -1,2 -2,1 -3,1 h -226 l -3,-1 -2,-1 -1,-2 -1,-3 v -44 l 1,-3 1,-2 2,-1 z"
+   id="path1587"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="2035"
+   y="1139"
+   id="text1589"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">resetn_inv_0</text>
+
+<text
+   x="2035"
+   y="1201"
+   dy="7.6999998"
+   id="text1591"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">Utility Vector Logic</text>
+
+</g>
+<g
+   id="g1605"
+   style="stroke:#000000;stroke-width:5">
+<circle
+   cx="1912"
+   cy="1170"
+   r="3"
+   id="circle1595" />
+<path
+   d="m 1905,1170 h 4"
+   id="path1597"
+   inkscape:connector-curvature="0" />
+<text
+   x="1917"
+   y="1170"
+   font-size="10"
+   dy="3.25"
+   id="text1599"
+   style="font-size:10px;fill:#000000;stroke-width:0">Op1[0:0]</text>
+
+<path
+   d="m 2165,1170 h -10"
+   id="path1601"
+   inkscape:connector-curvature="0" />
+<text
+   x="2153"
+   y="1170"
+   font-size="10"
+   dy="3.25"
+   id="text1603"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">Res[0:0]</text>
+
+</g>
+<g
+   id="g1631"
+   style="stroke:#41619f">
+<path
+   d="m 1922,1141 h 226"
+   id="path1607"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2148,1141 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path1609"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2155,1148 v 44"
+   id="path1611"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2155,1192 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path1613"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 2148,1199 H 1922"
+   id="path1615"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1922,1199 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path1617"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1915,1192 v -44"
+   id="path1619"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1915,1148 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path1621"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2322,572 h 206 l 3,1 2,1 1,2 1,3 v 162 l -1,3 -1,2 -2,1 -3,1 h -206 l -3,-1 -2,-1 -1,-2 -1,-3 V 579 l 1,-3 1,-2 2,-1 z"
+   id="path1623"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="2425"
+   y="570"
+   id="text1625"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">smartconnect_2</text>
+
+<text
+   x="2425"
+   y="750"
+   dy="7.6999998"
+   id="text1627"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">AXI SmartConnect</text>
+
+<path
+   d="m 2305,591 h 10 v 18 h -10 z"
+   id="path1629"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1637"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 2324,595 v 10"
+   id="path1633"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2319,600 h 10"
+   id="path1635"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1645"
+   style="stroke:#41619f">
+<path
+   d="m 2317,593 h 14 v 14 h -14 z"
+   id="path1639"
+   inkscape:connector-curvature="0" />
+<text
+   x="2332"
+   y="600"
+   font-size="10"
+   dy="3.25"
+   id="text1641"
+   style="font-size:10px;fill:#000000;stroke-width:0">S00_AXI</text>
+
+<path
+   d="m 2305,611 h 10 v 18 h -10 z"
+   id="path1643"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1651"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 2324,615 v 10"
+   id="path1647"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2319,620 h 10"
+   id="path1649"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1659"
+   style="stroke:#41619f">
+<path
+   d="m 2317,613 h 14 v 14 h -14 z"
+   id="path1653"
+   inkscape:connector-curvature="0" />
+<text
+   x="2332"
+   y="620"
+   font-size="10"
+   dy="3.25"
+   id="text1655"
+   style="font-size:10px;fill:#000000;stroke-width:0">S01_AXI</text>
+
+<path
+   d="m 2305,631 h 10 v 18 h -10 z"
+   id="path1657"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1665"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 2324,635 v 10"
+   id="path1661"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2319,640 h 10"
+   id="path1663"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1673"
+   style="stroke:#41619f">
+<path
+   d="m 2317,633 h 14 v 14 h -14 z"
+   id="path1667"
+   inkscape:connector-curvature="0" />
+<text
+   x="2332"
+   y="640"
+   font-size="10"
+   dy="3.25"
+   id="text1669"
+   style="font-size:10px;fill:#000000;stroke-width:0">S02_AXI</text>
+
+<path
+   d="m 2535,641 h 10 v 18 h -10 z"
+   id="path1671"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1679"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 2525,645 v 10"
+   id="path1675"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2520,650 h 10"
+   id="path1677"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1687"
+   style="stroke:#41619f">
+<path
+   d="m 2518,643 h 14 v 14 h -14 z"
+   id="path1681"
+   inkscape:connector-curvature="0" />
+<text
+   x="2518"
+   y="650"
+   font-size="10"
+   dy="3.25"
+   id="text1683"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M00_AXI</text>
+
+<path
+   d="m 2535,661 h 10 v 18 h -10 z"
+   id="path1685"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1693"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 2525,665 v 10"
+   id="path1689"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2520,670 h 10"
+   id="path1691"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1699"
+   style="stroke:#41619f">
+<path
+   d="m 2518,663 h 14 v 14 h -14 z"
+   id="path1695"
+   inkscape:connector-curvature="0" />
+<text
+   x="2518"
+   y="670"
+   font-size="10"
+   dy="3.25"
+   id="text1697"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M01_AXI</text>
+
+</g>
+<g
+   id="g1719"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 2305,660 h 10"
+   id="path1701"
+   inkscape:connector-curvature="0" />
+<text
+   x="2317"
+   y="660"
+   font-size="10"
+   dy="3.25"
+   id="text1703"
+   style="font-size:10px;fill:#000000;stroke-width:0">aclk</text>
+
+<path
+   d="m 2305,680 h 10"
+   id="path1705"
+   inkscape:connector-curvature="0" />
+<text
+   x="2317"
+   y="680"
+   font-size="10"
+   dy="3.25"
+   id="text1707"
+   style="font-size:10px;fill:#000000;stroke-width:0">aclk1</text>
+
+<path
+   d="m 2305,700 h 10"
+   id="path1709"
+   inkscape:connector-curvature="0" />
+<text
+   x="2317"
+   y="700"
+   font-size="10"
+   dy="3.25"
+   id="text1711"
+   style="font-size:10px;fill:#000000;stroke-width:0">aclk2</text>
+
+<circle
+   cx="2312"
+   cy="720"
+   r="3"
+   id="circle1713" />
+<path
+   d="m 2305,720 h 4"
+   id="path1715"
+   inkscape:connector-curvature="0" />
+<text
+   x="2317"
+   y="720"
+   font-size="10"
+   dy="3.25"
+   id="text1717"
+   style="font-size:10px;fill:#000000;stroke-width:0">aresetn</text>
+
+</g>
+<g
+   id="g1743"
+   style="stroke:#41619f">
+<path
+   d="m 2322,572 h 206"
+   id="path1721"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2528,572 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path1723"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 2535,579 V 741"
+   id="path1725"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2535,741 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path1727"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 2528,748 H 2322"
+   id="path1729"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2322,748 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path1731"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 2315,741 V 579"
+   id="path1733"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2315,579 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path1735"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2362,822 h 126 l 3,1 2,1 1,2 1,3 v 182 l -1,3 -1,2 -2,1 -3,1 h -126 l -3,-1 -2,-1 -1,-2 -1,-3 V 829 l 1,-3 1,-2 2,-1 z"
+   id="path1737"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="2425"
+   y="820"
+   id="text1739"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">xlconcat_0</text>
+
+<text
+   x="2425"
+   y="1020"
+   dy="7.6999998"
+   id="text1741"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">Concat</text>
+
+</g>
+<g
+   id="g1781"
+   style="stroke:#000000;stroke-width:5">
+<path
+   d="m 2345,850 h 10"
+   id="path1745"
+   inkscape:connector-curvature="0" />
+<text
+   x="2357"
+   y="850"
+   font-size="10"
+   dy="3.25"
+   id="text1747"
+   style="font-size:10px;fill:#000000;stroke-width:0">In0[0:0]</text>
+
+<path
+   d="m 2345,870 h 10"
+   id="path1749"
+   inkscape:connector-curvature="0" />
+<text
+   x="2357"
+   y="870"
+   font-size="10"
+   dy="3.25"
+   id="text1751"
+   style="font-size:10px;fill:#000000;stroke-width:0">In1[0:0]</text>
+
+<path
+   d="m 2345,890 h 10"
+   id="path1753"
+   inkscape:connector-curvature="0" />
+<text
+   x="2357"
+   y="890"
+   font-size="10"
+   dy="3.25"
+   id="text1755"
+   style="font-size:10px;fill:#000000;stroke-width:0">In2[0:0]</text>
+
+<path
+   d="m 2345,910 h 10"
+   id="path1757"
+   inkscape:connector-curvature="0" />
+<text
+   x="2357"
+   y="910"
+   font-size="10"
+   dy="3.25"
+   id="text1759"
+   style="font-size:10px;fill:#000000;stroke-width:0">In3[0:0]</text>
+
+<path
+   d="m 2345,930 h 10"
+   id="path1761"
+   inkscape:connector-curvature="0" />
+<text
+   x="2357"
+   y="930"
+   font-size="10"
+   dy="3.25"
+   id="text1763"
+   style="font-size:10px;fill:#000000;stroke-width:0">In4[0:0]</text>
+
+<path
+   d="m 2345,950 h 10"
+   id="path1765"
+   inkscape:connector-curvature="0" />
+<text
+   x="2357"
+   y="950"
+   font-size="10"
+   dy="3.25"
+   id="text1767"
+   style="font-size:10px;fill:#000000;stroke-width:0">In5[0:0]</text>
+
+<path
+   d="m 2345,970 h 10"
+   id="path1769"
+   inkscape:connector-curvature="0" />
+<text
+   x="2357"
+   y="970"
+   font-size="10"
+   dy="3.25"
+   id="text1771"
+   style="font-size:10px;fill:#000000;stroke-width:0">In6[0:0]</text>
+
+<path
+   d="m 2345,990 h 10"
+   id="path1773"
+   inkscape:connector-curvature="0" />
+<text
+   x="2357"
+   y="990"
+   font-size="10"
+   dy="3.25"
+   id="text1775"
+   style="font-size:10px;fill:#000000;stroke-width:0">In7[0:0]</text>
+
+<path
+   d="m 2505,920 h -10"
+   id="path1777"
+   inkscape:connector-curvature="0" />
+<text
+   x="2493"
+   y="920"
+   font-size="10"
+   dy="3.25"
+   id="text1779"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">dout[7:0]</text>
+
+</g>
+<g
+   id="g1805"
+   style="stroke:#41619f">
+<path
+   d="m 2362,822 h 126"
+   id="path1783"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2488,822 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path1785"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2495,829 v 182"
+   id="path1787"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2495,1011 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path1789"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 2488,1018 H 2362"
+   id="path1791"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2362,1018 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path1793"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 2355,1011 V 829"
+   id="path1795"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2355,829 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path1797"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2312,1132 h 226 l 3,1 2,1 1,2 1,3 v 62 l -1,3 -1,2 -2,1 -3,1 h -226 l -3,-1 -2,-1 -1,-2 -1,-3 v -62 l 1,-3 1,-2 2,-1 z"
+   id="path1799"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="2425"
+   y="1130"
+   id="text1801"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">util_vector_logic_0</text>
+
+<text
+   x="2425"
+   y="1210"
+   dy="7.6999998"
+   id="text1803"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">Utility Vector Logic</text>
+
+</g>
+<g
+   id="g1819"
+   style="stroke:#000000;stroke-width:5">
+<path
+   d="m 2295,1160 h 10"
+   id="path1807"
+   inkscape:connector-curvature="0" />
+<text
+   x="2307"
+   y="1160"
+   font-size="10"
+   dy="3.25"
+   id="text1809"
+   style="font-size:10px;fill:#000000;stroke-width:0">Op1[0:0]</text>
+
+<path
+   d="m 2295,1180 h 10"
+   id="path1811"
+   inkscape:connector-curvature="0" />
+<text
+   x="2307"
+   y="1180"
+   font-size="10"
+   dy="3.25"
+   id="text1813"
+   style="font-size:10px;fill:#000000;stroke-width:0">Op2[0:0]</text>
+
+<path
+   d="m 2555,1170 h -10"
+   id="path1815"
+   inkscape:connector-curvature="0" />
+<text
+   x="2543"
+   y="1170"
+   font-size="10"
+   dy="3.25"
+   id="text1817"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">Res[0:0]</text>
+
+</g>
+<g
+   id="g1845"
+   style="stroke:#41619f">
+<path
+   d="m 2312,1132 h 226"
+   id="path1821"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2538,1132 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path1823"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2545,1139 v 62"
+   id="path1825"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2545,1201 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path1827"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 2538,1208 H 2312"
+   id="path1829"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2312,1208 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path1831"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2305,1201 v -62"
+   id="path1833"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2305,1139 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path1835"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2662,812 h 226 l 3,1 2,1 1,2 1,3 v 162 l -1,3 -1,2 -2,1 -3,1 h -226 l -3,-1 -2,-1 -1,-2 -1,-3 V 819 l 1,-3 1,-2 2,-1 z"
+   id="path1837"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="2775"
+   y="810"
+   id="text1839"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">RocketChip</text>
+
+<text
+   x="2775"
+   y="990"
+   dy="7.6999998"
+   id="text1841"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">Rocket64b4l2w_v1_0</text>
+
+<path
+   d="m 2895,871 h 10 v 18 h -10 z"
+   id="path1843"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1851"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 2885,875 v 10"
+   id="path1847"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2880,880 h 10"
+   id="path1849"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1859"
+   style="stroke:#41619f">
+<path
+   d="m 2878,873 h 14 v 14 h -14 z"
+   id="path1853"
+   inkscape:connector-curvature="0" />
+<text
+   x="2878"
+   y="880"
+   font-size="10"
+   dy="3.25"
+   id="text1855"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">MEM_AXI4</text>
+
+<path
+   d="m 2895,891 h 10 v 18 h -10 z"
+   id="path1857"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1865"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 2885,895 v 10"
+   id="path1861"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2880,900 h 10"
+   id="path1863"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1873"
+   style="stroke:#41619f">
+<path
+   d="m 2878,893 h 14 v 14 h -14 z"
+   id="path1867"
+   inkscape:connector-curvature="0" />
+<text
+   x="2878"
+   y="900"
+   font-size="10"
+   dy="3.25"
+   id="text1869"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">IO_AXI4</text>
+
+<path
+   d="m 2645,831 h 10 v 18 h -10 z"
+   id="path1871"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1879"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 2664,835 v 10"
+   id="path1875"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2659,840 h 10"
+   id="path1877"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1885"
+   style="stroke:#41619f">
+<path
+   d="m 2657,833 h 14 v 14 h -14 z"
+   id="path1881"
+   inkscape:connector-curvature="0" />
+<text
+   x="2672"
+   y="840"
+   font-size="10"
+   dy="3.25"
+   id="text1883"
+   style="font-size:10px;fill:#000000;stroke-width:0">DMA_AXI4</text>
+
+</g>
+<g
+   id="g1913"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 2645,860 h 10"
+   id="path1887"
+   inkscape:connector-curvature="0" />
+<text
+   x="2657"
+   y="860"
+   font-size="10"
+   dy="3.25"
+   id="text1889"
+   style="font-size:10px;fill:#000000;stroke-width:0">clock</text>
+
+<path
+   d="m 2645,880 h 10"
+   id="path1891"
+   inkscape:connector-curvature="0" />
+<text
+   x="2657"
+   y="880"
+   font-size="10"
+   dy="3.25"
+   id="text1893"
+   style="font-size:10px;fill:#000000;stroke-width:0">clock_ok</text>
+
+<path
+   d="m 2645,900 h 10"
+   id="path1895"
+   inkscape:connector-curvature="0" />
+<text
+   x="2657"
+   y="900"
+   font-size="10"
+   dy="3.25"
+   id="text1897"
+   style="font-size:10px;fill:#000000;stroke-width:0">mem_ok</text>
+
+<path
+   d="m 2645,920 h 10"
+   id="path1899"
+   inkscape:connector-curvature="0" />
+<text
+   x="2657"
+   y="920"
+   font-size="10"
+   dy="3.25"
+   id="text1901"
+   style="font-size:10px;fill:#000000;stroke-width:0">io_ok</text>
+
+<path
+   d="m 2645,940 h 10"
+   id="path1903"
+   inkscape:connector-curvature="0" />
+<text
+   x="2657"
+   y="940"
+   font-size="10"
+   dy="3.25"
+   id="text1905"
+   style="font-size:10px;fill:#000000;stroke-width:0">sys_reset</text>
+
+<circle
+   cx="2898"
+   cy="920"
+   r="3"
+   id="circle1907" />
+<path
+   d="m 2905,920 h -4"
+   id="path1909"
+   inkscape:connector-curvature="0" />
+<text
+   x="2893"
+   y="920"
+   font-size="10"
+   dy="3.25"
+   id="text1911"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">aresetn</text>
+
+</g>
+<g
+   id="g1919"
+   style="stroke:#000000;stroke-width:5">
+<path
+   d="m 2645,960 h 10"
+   id="path1915"
+   inkscape:connector-curvature="0" />
+<text
+   x="2657"
+   y="960"
+   font-size="10"
+   dy="3.25"
+   id="text1917"
+   style="font-size:10px;fill:#000000;stroke-width:0">interrupts[7:0]</text>
+
+</g>
+<g
+   id="g1945"
+   style="stroke:#41619f">
+<path
+   d="m 2662,812 h 226"
+   id="path1921"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2888,812 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path1923"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 2895,819 V 981"
+   id="path1925"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2895,981 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path1927"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 2888,988 H 2662"
+   id="path1929"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2662,988 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path1931"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 2655,981 V 819"
+   id="path1933"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2655,819 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path1935"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2992,702 h 206 l 3,1 2,1 1,2 1,3 v 82 l -1,3 -1,2 -2,1 -3,1 h -206 l -3,-1 -2,-1 -1,-2 -1,-3 v -82 l 1,-3 1,-2 2,-1 z"
+   id="path1937"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="3095"
+   y="700"
+   id="text1939"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">smartconnect_3</text>
+
+<text
+   x="3095"
+   y="800"
+   dy="7.6999998"
+   id="text1941"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">AXI SmartConnect</text>
+
+<path
+   d="m 2975,721 h 10 v 18 h -10 z"
+   id="path1943"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1951"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 2994,725 v 10"
+   id="path1947"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2989,730 h 10"
+   id="path1949"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1959"
+   style="stroke:#41619f">
+<path
+   d="m 2987,723 h 14 v 14 h -14 z"
+   id="path1953"
+   inkscape:connector-curvature="0" />
+<text
+   x="3002"
+   y="730"
+   font-size="10"
+   dy="3.25"
+   id="text1955"
+   style="font-size:10px;fill:#000000;stroke-width:0">S00_AXI</text>
+
+<path
+   d="m 3205,741 h 10 v 18 h -10 z"
+   id="path1957"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g1965"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 3195,745 v 10"
+   id="path1961"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3190,750 h 10"
+   id="path1963"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g1971"
+   style="stroke:#41619f">
+<path
+   d="m 3188,743 h 14 v 14 h -14 z"
+   id="path1967"
+   inkscape:connector-curvature="0" />
+<text
+   x="3188"
+   y="750"
+   font-size="10"
+   dy="3.25"
+   id="text1969"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M00_AXI</text>
+
+</g>
+<g
+   id="g1983"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 2975,750 h 10"
+   id="path1973"
+   inkscape:connector-curvature="0" />
+<text
+   x="2987"
+   y="750"
+   font-size="10"
+   dy="3.25"
+   id="text1975"
+   style="font-size:10px;fill:#000000;stroke-width:0">aclk</text>
+
+<circle
+   cx="2982"
+   cy="770"
+   r="3"
+   id="circle1977" />
+<path
+   d="m 2975,770 h 4"
+   id="path1979"
+   inkscape:connector-curvature="0" />
+<text
+   x="2987"
+   y="770"
+   font-size="10"
+   dy="3.25"
+   id="text1981"
+   style="font-size:10px;fill:#000000;stroke-width:0">aresetn</text>
+
+</g>
+<g
+   id="g2009"
+   style="stroke:#41619f">
+<path
+   d="m 2992,702 h 206"
+   id="path1985"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3198,702 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path1987"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3205,709 v 82"
+   id="path1989"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3205,791 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path1991"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 3198,798 H 2992"
+   id="path1993"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2992,798 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path1995"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 2985,791 V 709"
+   id="path1997"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2985,709 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path1999"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3342,622 h 206 l 3,1 2,1 1,2 1,3 v 122 l -1,3 -1,2 -2,1 -3,1 h -206 l -3,-1 -2,-1 -1,-2 -1,-3 V 629 l 1,-3 1,-2 2,-1 z"
+   id="path2001"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="3445"
+   y="620"
+   id="text2003"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">smartconnect_1</text>
+
+<text
+   x="3445"
+   y="760"
+   dy="7.6999998"
+   id="text2005"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">AXI SmartConnect</text>
+
+<path
+   d="m 3325,641 h 10 v 18 h -10 z"
+   id="path2007"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g2015"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 3344,645 v 10"
+   id="path2011"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3339,650 h 10"
+   id="path2013"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2023"
+   style="stroke:#41619f">
+<path
+   d="m 3337,643 h 14 v 14 h -14 z"
+   id="path2017"
+   inkscape:connector-curvature="0" />
+<text
+   x="3352"
+   y="650"
+   font-size="10"
+   dy="3.25"
+   id="text2019"
+   style="font-size:10px;fill:#000000;stroke-width:0">S00_AXI</text>
+
+<path
+   d="m 3325,661 h 10 v 18 h -10 z"
+   id="path2021"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g2029"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 3344,665 v 10"
+   id="path2025"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3339,670 h 10"
+   id="path2027"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2037"
+   style="stroke:#41619f">
+<path
+   d="m 3337,663 h 14 v 14 h -14 z"
+   id="path2031"
+   inkscape:connector-curvature="0" />
+<text
+   x="3352"
+   y="670"
+   font-size="10"
+   dy="3.25"
+   id="text2033"
+   style="font-size:10px;fill:#000000;stroke-width:0">S01_AXI</text>
+
+<path
+   d="m 3555,681 h 10 v 18 h -10 z"
+   id="path2035"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g2043"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 3545,685 v 10"
+   id="path2039"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3540,690 h 10"
+   id="path2041"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2049"
+   style="stroke:#41619f">
+<path
+   d="m 3538,683 h 14 v 14 h -14 z"
+   id="path2045"
+   inkscape:connector-curvature="0" />
+<text
+   x="3538"
+   y="690"
+   font-size="10"
+   dy="3.25"
+   id="text2047"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">M00_AXI</text>
+
+</g>
+<g
+   id="g2065"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 3325,690 h 10"
+   id="path2051"
+   inkscape:connector-curvature="0" />
+<text
+   x="3337"
+   y="690"
+   font-size="10"
+   dy="3.25"
+   id="text2053"
+   style="font-size:10px;fill:#000000;stroke-width:0">aclk</text>
+
+<path
+   d="m 3325,710 h 10"
+   id="path2055"
+   inkscape:connector-curvature="0" />
+<text
+   x="3337"
+   y="710"
+   font-size="10"
+   dy="3.25"
+   id="text2057"
+   style="font-size:10px;fill:#000000;stroke-width:0">aclk1</text>
+
+<circle
+   cx="3332"
+   cy="730"
+   r="3"
+   id="circle2059" />
+<path
+   d="m 3325,730 h 4"
+   id="path2061"
+   inkscape:connector-curvature="0" />
+<text
+   x="3337"
+   y="730"
+   font-size="10"
+   dy="3.25"
+   id="text2063"
+   style="font-size:10px;fill:#000000;stroke-width:0">aresetn</text>
+
+</g>
+<g
+   id="g2089"
+   style="stroke:#41619f">
+<path
+   d="m 3342,622 h 206"
+   id="path2067"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3548,622 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path2069"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 3555,629 V 751"
+   id="path2071"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3555,751 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path2073"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 3548,758 H 3342"
+   id="path2075"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3342,758 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path2077"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 3335,751 V 629"
+   id="path2079"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3335,629 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path2081"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3302,802 h 286 l 3,1 2,1 1,2 1,3 v 122 l -1,3 -1,2 -2,1 -3,1 h -286 l -3,-1 -2,-1 -1,-2 -1,-3 V 809 l 1,-3 1,-2 2,-1 z"
+   id="path2083"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="3445"
+   y="800"
+   id="text2085"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">proc_sys_reset_1</text>
+
+<text
+   x="3445"
+   y="940"
+   dy="7.6999998"
+   id="text2087"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">Processor System Reset</text>
+
+</g>
+<g
+   id="g2119"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 3285,830 h 10"
+   id="path2091"
+   inkscape:connector-curvature="0" />
+<text
+   x="3297"
+   y="830"
+   font-size="10"
+   dy="3.25"
+   id="text2093"
+   style="font-size:10px;fill:#000000;stroke-width:0">slowest_sync_clk</text>
+
+<circle
+   cx="3292"
+   cy="850"
+   r="3"
+   id="circle2095" />
+<path
+   d="m 3285,850 h 4"
+   id="path2097"
+   inkscape:connector-curvature="0" />
+<text
+   x="3297"
+   y="850"
+   font-size="10"
+   dy="3.25"
+   id="text2099"
+   style="font-size:10px;fill:#000000;stroke-width:0">ext_reset_in</text>
+
+<circle
+   cx="3292"
+   cy="870"
+   r="3"
+   id="circle2101" />
+<path
+   d="m 3285,870 h 4"
+   id="path2103"
+   inkscape:connector-curvature="0" />
+<text
+   x="3297"
+   y="870"
+   font-size="10"
+   dy="3.25"
+   id="text2105"
+   style="font-size:10px;fill:#000000;stroke-width:0">aux_reset_in</text>
+
+<path
+   d="m 3285,890 h 10"
+   id="path2107"
+   inkscape:connector-curvature="0" />
+<text
+   x="3297"
+   y="890"
+   font-size="10"
+   dy="3.25"
+   id="text2109"
+   style="font-size:10px;fill:#000000;stroke-width:0">mb_debug_sys_rst</text>
+
+<path
+   d="m 3285,910 h 10"
+   id="path2111"
+   inkscape:connector-curvature="0" />
+<text
+   x="3297"
+   y="910"
+   font-size="10"
+   dy="3.25"
+   id="text2113"
+   style="font-size:10px;fill:#000000;stroke-width:0">dcm_locked</text>
+
+<path
+   d="m 3605,830 h -10"
+   id="path2115"
+   inkscape:connector-curvature="0" />
+<text
+   x="3593"
+   y="830"
+   font-size="10"
+   dy="3.25"
+   id="text2117"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">mb_reset</text>
+
+</g>
+<g
+   id="g2141"
+   style="stroke:#000000;stroke-width:5">
+<path
+   d="m 3605,850 h -10"
+   id="path2121"
+   inkscape:connector-curvature="0" />
+<text
+   x="3593"
+   y="850"
+   font-size="10"
+   dy="3.25"
+   id="text2123"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">bus_struct_reset[0:0]</text>
+
+<path
+   d="m 3605,870 h -10"
+   id="path2125"
+   inkscape:connector-curvature="0" />
+<text
+   x="3593"
+   y="870"
+   font-size="10"
+   dy="3.25"
+   id="text2127"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">peripheral_reset[0:0]</text>
+
+<circle
+   cx="3598"
+   cy="890"
+   r="3"
+   id="circle2129" />
+<path
+   d="m 3605,890 h -4"
+   id="path2131"
+   inkscape:connector-curvature="0" />
+<text
+   x="3593"
+   y="890"
+   font-size="10"
+   dy="3.25"
+   id="text2133"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">interconnect_aresetn[0:0]</text>
+
+<circle
+   cx="3598"
+   cy="910"
+   r="3"
+   id="circle2135" />
+<path
+   d="m 3605,910 h -4"
+   id="path2137"
+   inkscape:connector-curvature="0" />
+<text
+   x="3593"
+   y="910"
+   font-size="10"
+   dy="3.25"
+   id="text2139"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">peripheral_aresetn[0:0]</text>
+
+</g>
+<g
+   id="g2167"
+   style="stroke:#41619f">
+<path
+   d="m 3302,802 h 286"
+   id="path2143"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3588,802 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path2145"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 3595,809 V 931"
+   id="path2147"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3595,931 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path2149"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 3588,938 H 3302"
+   id="path2151"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3302,938 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path2153"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 3295,931 V 809"
+   id="path2155"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3295,809 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path2157"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3762,572 h 286 l 3,1 2,1 1,2 1,3 v 142 l -1,3 -1,2 -2,1 -3,1 h -286 l -3,-1 -2,-1 -1,-2 -1,-3 V 579 l 1,-3 1,-2 2,-1 z"
+   id="path2159"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="3905"
+   y="570"
+   id="text2161"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">ddr4_0</text>
+
+<text
+   x="3905"
+   y="730"
+   dy="7.6999998"
+   id="text2163"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">DDR4 SDRAM (MIG)</text>
+
+<path
+   d="m 3745,611 h 10 v 18 h -10 z"
+   id="path2165"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g2173"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 3764,615 v 10"
+   id="path2169"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3759,620 h 10"
+   id="path2171"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2181"
+   style="stroke:#41619f">
+<path
+   d="m 3757,613 h 14 v 14 h -14 z"
+   id="path2175"
+   inkscape:connector-curvature="0" />
+<text
+   x="3772"
+   y="620"
+   font-size="10"
+   dy="3.25"
+   id="text2177"
+   style="font-size:10px;fill:#000000;stroke-width:0">C0_SYS_CLK</text>
+
+<path
+   d="m 4055,591 h 10 v 18 h -10 z"
+   id="path2179"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g2187"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 4045,595 v 10"
+   id="path2183"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 4040,600 h 10"
+   id="path2185"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2195"
+   style="stroke:#41619f">
+<path
+   d="m 4038,593 h 14 v 14 h -14 z"
+   id="path2189"
+   inkscape:connector-curvature="0" />
+<text
+   x="4038"
+   y="600"
+   font-size="10"
+   dy="3.25"
+   id="text2191"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">C0_DDR4</text>
+
+<path
+   d="m 3745,631 h 10 v 18 h -10 z"
+   id="path2193"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g2201"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 3764,635 v 10"
+   id="path2197"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3759,640 h 10"
+   id="path2199"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2207"
+   style="stroke:#41619f">
+<path
+   d="m 3757,633 h 14 v 14 h -14 z"
+   id="path2203"
+   inkscape:connector-curvature="0" />
+<text
+   x="3772"
+   y="640"
+   font-size="10"
+   dy="3.25"
+   id="text2205"
+   style="font-size:10px;fill:#000000;stroke-width:0">C0_DDR4_S_AXI</text>
+
+</g>
+<g
+   id="g2217"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 4065,620 h -10"
+   id="path2209"
+   inkscape:connector-curvature="0" />
+<text
+   x="4053"
+   y="620"
+   font-size="10"
+   dy="3.25"
+   id="text2211"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">c0_init_calib_complete</text>
+
+<path
+   d="m 4065,640 h -10"
+   id="path2213"
+   inkscape:connector-curvature="0" />
+<text
+   x="4053"
+   y="640"
+   font-size="10"
+   dy="3.25"
+   id="text2215"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">dbg_clk</text>
+
+</g>
+<g
+   id="g2223"
+   style="stroke:#000000;stroke-width:5">
+<path
+   d="m 4065,660 h -10"
+   id="path2219"
+   inkscape:connector-curvature="0" />
+<text
+   x="4053"
+   y="660"
+   font-size="10"
+   dy="3.25"
+   id="text2221"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">dbg_bus[511:0]</text>
+
+</g>
+<g
+   id="g2243"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 4065,680 h -10"
+   id="path2225"
+   inkscape:connector-curvature="0" />
+<text
+   x="4053"
+   y="680"
+   font-size="10"
+   dy="3.25"
+   id="text2227"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">c0_ddr4_ui_clk</text>
+
+<path
+   d="m 4065,700 h -10"
+   id="path2229"
+   inkscape:connector-curvature="0" />
+<text
+   x="4053"
+   y="700"
+   font-size="10"
+   dy="3.25"
+   id="text2231"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">c0_ddr4_ui_clk_sync_rst</text>
+
+<circle
+   cx="3752"
+   cy="660"
+   r="3"
+   id="circle2233" />
+<path
+   d="m 3745,660 h 4"
+   id="path2235"
+   inkscape:connector-curvature="0" />
+<text
+   x="3757"
+   y="660"
+   font-size="10"
+   dy="3.25"
+   id="text2237"
+   style="font-size:10px;fill:#000000;stroke-width:0">c0_ddr4_aresetn</text>
+
+<path
+   d="m 3745,680 h 10"
+   id="path2239"
+   inkscape:connector-curvature="0" />
+<text
+   x="3757"
+   y="680"
+   font-size="10"
+   dy="3.25"
+   id="text2241"
+   style="font-size:10px;fill:#000000;stroke-width:0">sys_rst</text>
+
+</g>
+<g
+   id="g2267"
+   style="stroke:#41619f">
+<path
+   d="m 3762,572 h 286"
+   id="path2245"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 4048,572 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path2247"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 4055,579 V 721"
+   id="path2249"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 4055,721 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path2251"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 4048,728 H 3762"
+   id="path2253"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3762,728 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path2255"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 3755,721 V 579"
+   id="path2257"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3755,579 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path2259"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3842,1012 h 126 l 3,1 2,1 1,2 1,3 v 182 l -1,3 -1,2 -2,1 -3,1 h -126 l -3,-1 -2,-1 -1,-2 -1,-3 v -182 l 1,-3 1,-2 2,-1 z"
+   id="path2261"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="3905"
+   y="1010"
+   id="text2263"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">xlconcat_3</text>
+
+<text
+   x="3905"
+   y="1210"
+   dy="7.6999998"
+   id="text2265"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">Concat</text>
+
+</g>
+<g
+   id="g2307"
+   style="stroke:#000000;stroke-width:5">
+<path
+   d="m 3825,1040 h 10"
+   id="path2269"
+   inkscape:connector-curvature="0" />
+<text
+   x="3837"
+   y="1040"
+   font-size="10"
+   dy="3.25"
+   id="text2271"
+   style="font-size:10px;fill:#000000;stroke-width:0">In0[0:0]</text>
+
+<path
+   d="m 3825,1060 h 10"
+   id="path2273"
+   inkscape:connector-curvature="0" />
+<text
+   x="3837"
+   y="1060"
+   font-size="10"
+   dy="3.25"
+   id="text2275"
+   style="font-size:10px;fill:#000000;stroke-width:0">In1[0:0]</text>
+
+<path
+   d="m 3825,1080 h 10"
+   id="path2277"
+   inkscape:connector-curvature="0" />
+<text
+   x="3837"
+   y="1080"
+   font-size="10"
+   dy="3.25"
+   id="text2279"
+   style="font-size:10px;fill:#000000;stroke-width:0">In2[0:0]</text>
+
+<path
+   d="m 3825,1100 h 10"
+   id="path2281"
+   inkscape:connector-curvature="0" />
+<text
+   x="3837"
+   y="1100"
+   font-size="10"
+   dy="3.25"
+   id="text2283"
+   style="font-size:10px;fill:#000000;stroke-width:0">In3[0:0]</text>
+
+<circle
+   cx="3832"
+   cy="1120"
+   r="3"
+   id="circle2285" />
+<path
+   d="m 3825,1120 h 4"
+   id="path2287"
+   inkscape:connector-curvature="0" />
+<text
+   x="3837"
+   y="1120"
+   font-size="10"
+   dy="3.25"
+   id="text2289"
+   style="font-size:10px;fill:#000000;stroke-width:0">In4[0:0]</text>
+
+<path
+   d="m 3825,1140 h 10"
+   id="path2291"
+   inkscape:connector-curvature="0" />
+<text
+   x="3837"
+   y="1140"
+   font-size="10"
+   dy="3.25"
+   id="text2293"
+   style="font-size:10px;fill:#000000;stroke-width:0">In5[0:0]</text>
+
+<path
+   d="m 3825,1160 h 10"
+   id="path2295"
+   inkscape:connector-curvature="0" />
+<text
+   x="3837"
+   y="1160"
+   font-size="10"
+   dy="3.25"
+   id="text2297"
+   style="font-size:10px;fill:#000000;stroke-width:0">In6[0:0]</text>
+
+<path
+   d="m 3825,1180 h 10"
+   id="path2299"
+   inkscape:connector-curvature="0" />
+<text
+   x="3837"
+   y="1180"
+   font-size="10"
+   dy="3.25"
+   id="text2301"
+   style="font-size:10px;fill:#000000;stroke-width:0">In7[0:0]</text>
+
+<path
+   d="m 3985,1110 h -10"
+   id="path2303"
+   inkscape:connector-curvature="0" />
+<text
+   x="3973"
+   y="1110"
+   font-size="10"
+   dy="3.25"
+   id="text2305"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">dout[7:0]</text>
+
+</g>
+<g
+   id="g2333"
+   style="stroke:#41619f">
+<path
+   d="m 3842,1012 h 126"
+   id="path2309"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3968,1012 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path2311"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3975,1019 v 182"
+   id="path2313"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3975,1201 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path2315"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 3968,1208 H 3842"
+   id="path2317"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3842,1208 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path2319"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 3835,1201 V 1019"
+   id="path2321"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3835,1019 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path2323"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3812,1282 h 186 l 3,1 2,1 1,2 1,3 v 82 l -1,3 -1,2 -2,1 -3,1 h -186 l -3,-1 -2,-1 -1,-2 -1,-3 v -82 l 1,-3 1,-2 2,-1 z"
+   id="path2325"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="3905"
+   y="1280"
+   id="text2327"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">IIC</text>
+
+<text
+   x="3905"
+   y="1380"
+   dy="7.6999998"
+   id="text2329"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">AXI IIC</text>
+
+<path
+   d="m 3795,1301 h 10 v 18 h -10 z"
+   id="path2331"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g2339"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 3814,1305 v 10"
+   id="path2335"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3809,1310 h 10"
+   id="path2337"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2347"
+   style="stroke:#41619f">
+<path
+   d="m 3807,1303 h 14 v 14 h -14 z"
+   id="path2341"
+   inkscape:connector-curvature="0" />
+<text
+   x="3822"
+   y="1310"
+   font-size="10"
+   dy="3.25"
+   id="text2343"
+   style="font-size:10px;fill:#000000;stroke-width:0">S_AXI</text>
+
+<path
+   d="m 4005,1301 h 10 v 18 h -10 z"
+   id="path2345"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g2353"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 3995,1305 v 10"
+   id="path2349"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3990,1310 h 10"
+   id="path2351"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2359"
+   style="stroke:#41619f">
+<path
+   d="m 3988,1303 h 14 v 14 h -14 z"
+   id="path2355"
+   inkscape:connector-curvature="0" />
+<text
+   x="3988"
+   y="1310"
+   font-size="10"
+   dy="3.25"
+   id="text2357"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">IIC</text>
+
+</g>
+<g
+   id="g2375"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 3795,1330 h 10"
+   id="path2361"
+   inkscape:connector-curvature="0" />
+<text
+   x="3807"
+   y="1330"
+   font-size="10"
+   dy="3.25"
+   id="text2363"
+   style="font-size:10px;fill:#000000;stroke-width:0">s_axi_aclk</text>
+
+<circle
+   cx="3802"
+   cy="1350"
+   r="3"
+   id="circle2365" />
+<path
+   d="m 3795,1350 h 4"
+   id="path2367"
+   inkscape:connector-curvature="0" />
+<text
+   x="3807"
+   y="1350"
+   font-size="10"
+   dy="3.25"
+   id="text2369"
+   style="font-size:10px;fill:#000000;stroke-width:0">s_axi_aresetn</text>
+
+<path
+   d="m 4015,1330 h -10"
+   id="path2371"
+   inkscape:connector-curvature="0" />
+<text
+   x="4003"
+   y="1330"
+   font-size="10"
+   dy="3.25"
+   id="text2373"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">iic2intc_irpt</text>
+
+</g>
+<g
+   id="g2381"
+   style="stroke:#000000;stroke-width:5">
+<path
+   d="m 4015,1350 h -10"
+   id="path2377"
+   inkscape:connector-curvature="0" />
+<text
+   x="4003"
+   y="1350"
+   font-size="10"
+   dy="3.25"
+   id="text2379"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">gpo[0:0]</text>
+
+</g>
+<g
+   id="g2407"
+   style="stroke:#41619f">
+<path
+   d="m 3812,1282 h 186"
+   id="path2383"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3998,1282 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path2385"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 4005,1289 v 82"
+   id="path2387"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 4005,1371 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path2389"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 3998,1378 H 3812"
+   id="path2391"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3812,1378 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path2393"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3805,1371 v -82"
+   id="path2395"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3805,1289 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path2397"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3822,1462 h 166 l 3,1 2,1 1,2 1,3 v 102 l -1,3 -1,2 -2,1 -3,1 h -166 l -3,-1 -2,-1 -1,-2 -1,-3 v -102 l 1,-3 1,-2 2,-1 z"
+   id="path2399"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="3905"
+   y="1460"
+   id="text2401"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">axi_uartlite_0</text>
+
+<text
+   x="3905"
+   y="1580"
+   dy="7.6999998"
+   id="text2403"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">AXI Uartlite</text>
+
+<path
+   d="m 3805,1491 h 10 v 18 h -10 z"
+   id="path2405"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g2413"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 3824,1495 v 10"
+   id="path2409"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3819,1500 h 10"
+   id="path2411"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2421"
+   style="stroke:#41619f">
+<path
+   d="m 3817,1493 h 14 v 14 h -14 z"
+   id="path2415"
+   inkscape:connector-curvature="0" />
+<text
+   x="3832"
+   y="1500"
+   font-size="10"
+   dy="3.25"
+   id="text2417"
+   style="font-size:10px;fill:#000000;stroke-width:0">S_AXI</text>
+
+<path
+   d="m 3995,1481 h 10 v 58 h -10 z"
+   id="path2419"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g2425"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 3980,1490 h 10"
+   id="path2423"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2431"
+   style="stroke:#41619f">
+<path
+   d="m 3978,1483 h 14 v 14 h -14 z"
+   id="path2427"
+   inkscape:connector-curvature="0" />
+<text
+   x="3978"
+   y="1490"
+   font-size="10"
+   dy="3.25"
+   id="text2429"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">UART</text>
+
+</g>
+<g
+   id="g2445"
+   style="stroke:#000000;stroke-width:2">
+<path
+   d="m 4005,1510 h -10"
+   id="path2433"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3982,1505 -8,5 8,5 z"
+   id="path2435"
+   inkscape:connector-curvature="0"
+   style="fill:#41619f;stroke:none" />
+<text
+   x="3973"
+   y="1510"
+   font-size="10"
+   dy="3.25"
+   id="text2437"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">rx</text>
+
+<path
+   d="m 4005,1530 h -10"
+   id="path2439"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3974,1525 8,5 -8,5 z"
+   id="path2441"
+   inkscape:connector-curvature="0"
+   style="fill:#41619f;stroke:none" />
+<text
+   x="3973"
+   y="1530"
+   font-size="10"
+   dy="3.25"
+   id="text2443"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">tx</text>
+
+</g>
+<g
+   id="g2461"
+   style="stroke:#000000;stroke-width:3">
+<path
+   d="m 3805,1520 h 10"
+   id="path2447"
+   inkscape:connector-curvature="0" />
+<text
+   x="3817"
+   y="1520"
+   font-size="10"
+   dy="3.25"
+   id="text2449"
+   style="font-size:10px;fill:#000000;stroke-width:0">s_axi_aclk</text>
+
+<circle
+   cx="3812"
+   cy="1540"
+   r="3"
+   id="circle2451" />
+<path
+   d="m 3805,1540 h 4"
+   id="path2453"
+   inkscape:connector-curvature="0" />
+<text
+   x="3817"
+   y="1540"
+   font-size="10"
+   dy="3.25"
+   id="text2455"
+   style="font-size:10px;fill:#000000;stroke-width:0">s_axi_aresetn</text>
+
+<path
+   d="m 4005,1550 h -10"
+   id="path2457"
+   inkscape:connector-curvature="0" />
+<text
+   x="3993"
+   y="1550"
+   font-size="10"
+   dy="3.25"
+   id="text2459"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">interrupt</text>
+
+</g>
+<g
+   id="g2487"
+   style="stroke:#41619f">
+<path
+   d="m 3822,1462 h 166"
+   id="path2463"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3988,1462 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path2465"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3995,1469 v 102"
+   id="path2467"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3995,1571 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path2469"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 3988,1578 H 3822"
+   id="path2471"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3822,1578 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path2473"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 3815,1571 V 1469"
+   id="path2475"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3815,1469 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path2477"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3812,1622 h 186 l 3,1 2,1 1,2 1,3 v 102 l -1,3 -1,2 -2,1 -3,1 h -186 l -3,-1 -2,-1 -1,-2 -1,-3 v -102 l 1,-3 1,-2 2,-1 z"
+   id="path2479"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+<text
+   x="3905"
+   y="1620"
+   id="text2481"
+   style="text-anchor:middle;fill:#000000;stroke-width:0">UART2</text>
+
+<text
+   x="3905"
+   y="1740"
+   dy="7.6999998"
+   id="text2483"
+   style="text-anchor:middle;fill:#41619f;stroke-width:0">uart_v1_0</text>
+
+<path
+   d="m 3795,1651 h 10 v 18 h -10 z"
+   id="path2485"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g2493"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 3814,1655 v 10"
+   id="path2489"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3809,1660 h 10"
+   id="path2491"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2501"
+   style="stroke:#41619f">
+<path
+   d="m 3807,1653 h 14 v 14 h -14 z"
+   id="path2495"
+   inkscape:connector-curvature="0" />
+<text
+   x="3822"
+   y="1660"
+   font-size="10"
+   dy="3.25"
+   id="text2497"
+   style="font-size:10px;fill:#000000;stroke-width:0">S_AXI_LITE</text>
+
+<path
+   d="m 4005,1641 h 10 v 58 h -10 z"
+   id="path2499"
+   inkscape:connector-curvature="0"
+   style="fill:#edf6fe;stroke:none" />
+</g>
+<g
+   id="g2507"
+   style="stroke:#41619f;stroke-width:3">
+<path
+   d="m 3995,1645 v 10"
+   id="path2503"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3990,1650 h 10"
+   id="path2505"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2513"
+   style="stroke:#41619f">
+<path
+   d="m 3988,1643 h 14 v 14 h -14 z"
+   id="path2509"
+   inkscape:connector-curvature="0" />
+<text
+   x="3988"
+   y="1650"
+   font-size="10"
+   dy="3.25"
+   id="text2511"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">RS232</text>
+
+</g>
+<g
+   id="g2527"
+   style="stroke:#000000;stroke-width:2">
+<path
+   d="m 4015,1670 h -10"
+   id="path2515"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3992,1665 -8,5 8,5 z"
+   id="path2517"
+   inkscape:connector-curvature="0"
+   style="fill:#41619f;stroke:none" />
+<text
+   x="3983"
+   y="1670"
+   font-size="10"
+   dy="3.25"
+   id="text2519"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">RxD</text>
+
+<path
+   d="m 4015,1690 h -10"
+   id="path2521"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3992,1685 -8,5 8,5 z"
+   id="path2523"
+   inkscape:connector-curvature="0"
+   style="fill:#41619f;stroke:none" />
+<text
+   x="3983"
+   y="1690"
+   font-size="10"
+   dy="3.25"
+   id="text2525"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">CTSn</text>
+
+</g>
+<g
+   id="g2543"
+   style="stroke:#000000;stroke-width:3">
+<circle
+   cx="3802"
+   cy="1680"
+   r="3"
+   id="circle2529" />
+<path
+   d="m 3795,1680 h 4"
+   id="path2531"
+   inkscape:connector-curvature="0" />
+<text
+   x="3807"
+   y="1680"
+   font-size="10"
+   dy="3.25"
+   id="text2533"
+   style="font-size:10px;fill:#000000;stroke-width:0">async_resetn</text>
+
+<path
+   d="m 3795,1700 h 10"
+   id="path2535"
+   inkscape:connector-curvature="0" />
+<text
+   x="3807"
+   y="1700"
+   font-size="10"
+   dy="3.25"
+   id="text2537"
+   style="font-size:10px;fill:#000000;stroke-width:0">clock</text>
+
+<path
+   d="m 4015,1710 h -10"
+   id="path2539"
+   inkscape:connector-curvature="0" />
+<text
+   x="4003"
+   y="1710"
+   font-size="10"
+   dy="3.25"
+   id="text2541"
+   style="font-size:10px;text-anchor:end;fill:#000000;stroke-width:0">interrupt</text>
+
+</g>
+<g
+   id="g2563"
+   style="stroke:#41619f">
+<path
+   d="m 3812,1622 h 186"
+   id="path2545"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3998,1622 a 6.83537,6.83537 1.61957 0 1 7,7"
+   id="path2547"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 4005,1629 v 102"
+   id="path2549"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 4005,1731 a 6.83537,6.83537 1.61957 0 1 -7,7"
+   id="path2551"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 3998,1738 H 3812"
+   id="path2553"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3812,1738 a 6.83537,6.83537 1.61957 0 1 -7,-7"
+   id="path2555"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 3805,1731 V 1629"
+   id="path2557"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3805,1629 a 6.83537,6.83537 1.61957 0 1 7,-7"
+   id="path2559"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 4135,540 v -7 h 14 l 7,7 -7,7 h -14 z"
+   id="path2561"
+   inkscape:connector-curvature="0"
+   style="fill:#ddd4d0;stroke:none" />
+</g>
+<g
+   id="g2577"
+   style="stroke:#2a5e6f;stroke-width:3">
+<path
+   d="m 4135,540 v -7 h 14 l 7,7 -7,7 h -14 z"
+   id="path2565"
+   inkscape:connector-curvature="0" />
+<text
+   x="4160"
+   y="540"
+   dy="3.8499999"
+   id="text2567"
+   style="fill:#000000;stroke-width:0">pcie_0</text>
+
+<path
+   d="m 4135,600 v -7 h 14 l 7,7 -7,7 h -14 z"
+   id="path2569"
+   inkscape:connector-curvature="0"
+   style="fill:#ddd4d0;stroke:none" />
+<path
+   d="m 4135,600 v -7 h 14 l 7,7 -7,7 h -14 z"
+   id="path2571"
+   inkscape:connector-curvature="0" />
+<text
+   x="4160"
+   y="600"
+   dy="3.8499999"
+   id="text2573"
+   style="fill:#000000;stroke-width:0">ddr4_rtl_0</text>
+
+<path
+   d="m 4135,1240 v -7 h 14 l 7,7 -7,7 h -14 z"
+   id="path2575"
+   inkscape:connector-curvature="0"
+   style="fill:#ddd4d0;stroke:none" />
+</g>
+<g
+   id="g2585">
+<path
+   d="m 4135,1240 v -7 h 14 l 7,7 -7,7 h -14 z"
+   id="path2579"
+   inkscape:connector-curvature="0" />
+<text
+   x="4160"
+   y="1240"
+   dy="3.8499999"
+   id="text2581"
+   style="fill:#000000;stroke-width:0">LED0</text>
+
+<path
+   d="m 4135,1310 v -7 h 14 l 7,7 -7,7 h -14 z"
+   id="path2583"
+   inkscape:connector-curvature="0"
+   style="fill:#ddd4d0;stroke:none" />
+</g>
+<g
+   id="g2593"
+   style="stroke:#2a5e6f;stroke-width:3">
+<path
+   d="m 4135,1310 v -7 h 14 l 7,7 -7,7 h -14 z"
+   id="path2587"
+   inkscape:connector-curvature="0" />
+<text
+   x="4160"
+   y="1310"
+   dy="3.8499999"
+   id="text2589"
+   style="fill:#000000;stroke-width:0">iic_opencapi</text>
+
+<path
+   d="m 4135,1430 v -7 h 14 l 7,7 -7,7 h -14 z"
+   id="path2591"
+   inkscape:connector-curvature="0"
+   style="fill:#ddd4d0;stroke:none" />
+</g>
+<g
+   id="g2599">
+<path
+   d="m 4135,1430 v -7 h 14 l 7,7 -7,7 h -14 z"
+   id="path2595"
+   inkscape:connector-curvature="0" />
+<text
+   x="4160"
+   y="1430"
+   dy="3.8499999"
+   id="text2597"
+   style="fill:#000000;stroke-width:0">TxD_0</text>
+
+</g>
+<g
+   id="g2603"
+   style="stroke:#41619f;stroke-width:4">
+<path
+   d="m 155,480 h 1080 v 240 h 510 V 500 h 1970 v 120 h 30"
+   id="path2601"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2615"
+   style="stroke:#99cc00">
+<path
+   d="m 965,990 h -20 v 310 h 830 V 520 h 1480 v 310 h 30"
+   id="path2605"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3255,530 h 840 v 150 h -30"
+   id="path2607"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3255,710 h 70"
+   id="path2609"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3253,528 h 5 v 5 h -5 z"
+   id="path2611"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+<path
+   d="m 3253,708 h 5 v 5 h -5 z"
+   id="path2613"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+</g>
+<g
+   id="g2623">
+<path
+   d="m 545,1090 h -40 v -80 h 400 v 140 h 470 v -20 h 480 v -80 h 1870"
+   id="path2617"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3723,1048 h 5 v 5 h -5 z"
+   id="path2619"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="M 3825,1140 H 3725 V 980 h 370 V 700 h -30"
+   id="path2621"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2629"
+   style="stroke:#41619f;stroke-width:4">
+<path
+   d="m 2175,840 h 60 V 620 h 70"
+   id="path2625"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1445,570 h -20 v 160 h 770 v 130 h -20"
+   id="path2627"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2633">
+<path
+   d="m 2175,900 h 100 v -10 h 70"
+   id="path2631"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2643"
+   style="stroke:#41619f;stroke-width:4">
+<path
+   d="m 1725,540 h 470 v 100 h 110"
+   id="path2635"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1725,560 h 100 v 310 h 70"
+   id="path2637"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 965,930 H 945 V 490 h 300 v -10 h 1680 v 420 h -20"
+   id="path2639"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2905,880 h 40 V 730 h 30"
+   id="path2641"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2647">
+<path
+   d="m 1455,1030 h -30 v 280 H 2925 V 920 h -20"
+   id="path2645"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2667"
+   style="stroke:#99cc00">
+<path
+   d="m 415,1060 h 80 v -60 h 430"
+   id="path2649"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 923,998 h 5 v 5 h -5 z"
+   id="path2651"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+<path
+   d="m 965,970 h -40 v 190 h 440 v -50 h 400 V 710 h 440 V 540 h 400 v 320 h 40"
+   id="path2653"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2605,660 h 350 v 90 h 20"
+   id="path2655"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2955,660 h 280 v 30 h 90"
+   id="path2657"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2205,680 h 100"
+   id="path2659"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2203,678 h 5 v 5 h -5 z"
+   id="path2661"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+<path
+   d="m 2603,658 h 5 v 5 h -5 z"
+   id="path2663"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+<path
+   d="m 2953,658 h 5 v 5 h -5 z"
+   id="path2665"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+</g>
+<g
+   id="g2679">
+<path
+   d="m 1695,1610 h 1930 v 160 h 490 v -340 h 20"
+   id="path2669"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 4015,1670 h 100"
+   id="path2671"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 4005,1510 h 110"
+   id="path2673"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 4113,1668 h 5 v 5 h -5 z"
+   id="path2675"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 4113,1508 h 5 v 5 h -5 z"
+   id="path2677"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+</g>
+<g
+   id="g2685"
+   style="stroke:#41619f;stroke-width:4">
+<path
+   d="m 1705,390 h 220"
+   id="path2681"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1705,410 h 220"
+   id="path2683"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2697"
+   style="stroke-width:3">
+<path
+   d="m 1715,880 h 80 v 50 h 100"
+   id="path2687"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1705,1230 h 160 v -120 h 400"
+   id="path2689"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2262,1107 h 7 v 7 h -7 z"
+   id="path2691"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 2295,1180 h -30 v -80 h 310 v 10 h 1080 v 70 h 170"
+   id="path2693"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1445,630 h -30 v 850 h 340 v 300 h -40"
+   id="path2695"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2701"
+   style="stroke:#41619f;stroke-width:4">
+<path
+   d="m 4015,1310 h 120"
+   id="path2699"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2711">
+<path
+   d="m 2345,910 h -70 v 500 h 1810 v -80 h -70"
+   id="path2703"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1695,1590 h 1940 v 190 h 460 v -250 h -90"
+   id="path2705"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1685,100 h 60 v 140 h -60"
+   id="path2707"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1685,80 h 70 v 180 h -70"
+   id="path2709"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2773"
+   style="stroke:#99cc00">
+<path
+   d="m 415,1080 h 70 V 700 h 450"
+   id="path2713"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 933,698 h 5 v 5 h -5 z"
+   id="path2715"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+<path
+   d="m 1485,90 h -140 v 1680 h 110"
+   id="path2717"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1345,250 h 140"
+   id="path2719"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1345,400 h 120"
+   id="path2721"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 485,1070 h 60"
+   id="path2723"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 483,1068 h 5 v 5 h -5 z"
+   id="path2725"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+<path
+   d="M 965,950 H 935 V 610 h 410"
+   id="path2727"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1345,610 h 100"
+   id="path2729"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1345,780 h 490"
+   id="path2731"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1833,778 h 5 v 5 h -5 z"
+   id="path2733"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+<path
+   d="m 2305,660 h -30 V 510 h 1400 v 1190 h 120"
+   id="path2735"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3675,1330 h 120"
+   id="path2737"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3675,1520 h 130"
+   id="path2739"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3673,1328 h 5 v 5 h -5 z"
+   id="path2741"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+<path
+   d="m 3673,1518 h 5 v 5 h -5 z"
+   id="path2743"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+<path
+   d="m 1345,870 h 110"
+   id="path2745"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1345,1220 h 120"
+   id="path2747"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1345,1400 h 120"
+   id="path2749"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1345,1630 h 130"
+   id="path2751"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1343,248 h 5 v 5 h -5 z"
+   id="path2753"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+<path
+   d="m 1343,398 h 5 v 5 h -5 z"
+   id="path2755"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+<path
+   d="m 1343,608 h 5 v 5 h -5 z"
+   id="path2757"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+<path
+   d="m 1343,778 h 5 v 5 h -5 z"
+   id="path2759"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+<path
+   d="m 1343,868 h 5 v 5 h -5 z"
+   id="path2761"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+<path
+   d="m 1343,1218 h 5 v 5 h -5 z"
+   id="path2763"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+<path
+   d="m 1343,1398 h 5 v 5 h -5 z"
+   id="path2765"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+<path
+   d="m 1343,1628 h 5 v 5 h -5 z"
+   id="path2767"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+<path
+   d="m 1895,910 h -60 V 660 h 440"
+   id="path2769"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2273,658 h 5 v 5 h -5 z"
+   id="path2771"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+</g>
+<g
+   id="g2781">
+<path
+   d="m 415,1100 h 80 v 110 h 890 v -110 h 820 v -40 h 400"
+   id="path2775"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2603,1058 h 5 v 5 h -5 z"
+   id="path2777"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 2645,880 h -40 v 180 h 1220"
+   id="path2779"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2785"
+   style="stroke:#41619f;stroke-width:4">
+<path
+   d="m 4065,600 h 70"
+   id="path2783"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2793">
+<path
+   d="m 2645,900 h -20 v 170 h 1070 v 170 h 410 V 620 h -40"
+   id="path2787"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3695,1080 h 130"
+   id="path2789"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3693,1078 h 5 v 5 h -5 z"
+   id="path2791"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+</g>
+<g
+   id="g2797"
+   style="stroke-width:3">
+<path
+   d="m 2505,920 h 80 v 40 h 60"
+   id="path2795"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2809">
+<path
+   d="m 155,1160 h 20 V 980 h 330"
+   id="path2799"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 503,978 h 5 v 5 h -5 z"
+   id="path2801"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 555,850 h -50 v 130 h 380 v 190 h 520 v -30 h 470"
+   id="path2803"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1873,1138 h 5 v 5 h -5 z"
+   id="path2805"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 1905,1170 h -30 v -100 h 730 v 10 h 1080 v 40 h 140"
+   id="path2807"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2813"
+   style="stroke:#41619f;stroke-width:4">
+<path
+   d="m 155,800 h 50"
+   id="path2811"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2887"
+   style="stroke-width:3">
+<path
+   d="m 965,1030 h -70 v 160 h 460"
+   id="path2815"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1355,1240 h 110"
+   id="path2817"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1355,1420 h 110"
+   id="path2819"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1355,1610 h 120"
+   id="path2821"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1352,267 h 7 v 7 h -7 z"
+   id="path2823"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 1352,417 h 7 v 7 h -7 z"
+   id="path2825"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 1352,587 h 7 v 7 h -7 z"
+   id="path2827"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 1352,737 h 7 v 7 h -7 z"
+   id="path2829"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 1352,887 h 7 v 7 h -7 z"
+   id="path2831"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 1352,1007 h 7 v 7 h -7 z"
+   id="path2833"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 1352,1187 h 7 v 7 h -7 z"
+   id="path2835"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 1352,1237 h 7 v 7 h -7 z"
+   id="path2837"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 1352,1417 h 7 v 7 h -7 z"
+   id="path2839"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 1352,1607 h 7 v 7 h -7 z"
+   id="path2841"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 865,1150 h 30"
+   id="path2843"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 892,1147 h 7 v 7 h -7 z"
+   id="path2845"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 1485,110 h -130 v 1680 h 100"
+   id="path2847"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1355,270 h 130"
+   id="path2849"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1355,420 h 110"
+   id="path2851"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1355,590 h 90"
+   id="path2853"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1355,740 h 920"
+   id="path2855"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2272,737 h 7 v 7 h -7 z"
+   id="path2857"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 1355,890 h 100"
+   id="path2859"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1355,1010 h 100"
+   id="path2861"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2305,720 h -30 v 60 h 310 v -10 h 370 v 60 h 290"
+   id="path2863"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3245,730 h 80"
+   id="path2865"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3242,827 h 7 v 7 h -7 z"
+   id="path2867"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 3242,727 h 7 v 7 h -7 z"
+   id="path2869"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 2955,770 h 20"
+   id="path2871"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2952,767 h 7 v 7 h -7 z"
+   id="path2873"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 3285,850 h -40 V 590 h 420 v 1090 h 130"
+   id="path2875"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3665,1350 h 130"
+   id="path2877"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3665,1540 h 140"
+   id="path2879"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3662,1347 h 7 v 7 h -7 z"
+   id="path2881"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 3662,1537 h 7 v 7 h -7 z"
+   id="path2883"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 3605,910 h 100 V 660 h 40"
+   id="path2885"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2899">
+<path
+   d="m 855,820 h 40 v -50 h 1370 v 20 h 350"
+   id="path2889"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2613,788 h 5 v 5 h -5 z"
+   id="path2891"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 2645,920 h -30 V 780 h 320 v 190 h 770 v 280 h 410 v -10 h 20"
+   id="path2893"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3705,1100 h 120"
+   id="path2895"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3703,1098 h 5 v 5 h -5 z"
+   id="path2897"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+</g>
+<g
+   id="g2911"
+   style="stroke-width:3">
+<path
+   d="m 2165,1170 h 70 v -90 h 360 v 10 h 1120"
+   id="path2901"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3712,1087 h 7 v 7 h -7 z"
+   id="path2903"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 2235,1160 h 60"
+   id="path2905"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2232,1157 h 7 v 7 h -7 z"
+   id="path2907"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 3745,680 h -30 v 480 h 110"
+   id="path2909"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2947"
+   style="stroke:#41619f;stroke-width:4">
+<path
+   d="m 1205,850 h 120 v 740 h 150"
+   id="path2913"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1205,870 h 60 v 450 h 1680 v -10 h 850"
+   id="path2915"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1205,990 h 70 V 550 h 170"
+   id="path2917"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1205,1010 h 20 V 70 h 260"
+   id="path2919"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1205,1030 h 50 V 230 h 230"
+   id="path2921"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1205,1050 h 110 v 40 h 1270 v 10 h 1060 v 560 h 150"
+   id="path2923"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1205,1070 h 90 V 380 h 170"
+   id="path2925"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1205,1090 h 30 v 660 h 220"
+   id="path2927"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3565,690 h 80 v -50 h 100"
+   id="path2929"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2545,650 h 50 v 190 h 50"
+   id="path2931"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2545,670 h 780"
+   id="path2933"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 3215,750 h 50 V 650 h 60"
+   id="path2935"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1205,890 h 40 v 310 h 220"
+   id="path2937"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1205,910 h 130 v -60 h 120"
+   id="path2939"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1205,930 h 100 v 450 h 160"
+   id="path2941"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1205,950 h 80 v 550 h 2520"
+   id="path2943"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1205,970 h 110 v -20 h 470 V 850 h 110"
+   id="path2945"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2951">
+<path
+   d="m 1695,1650 h 150 V 780 h 400 v 70 h 100"
+   id="path2949"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2957"
+   style="stroke:#99cc00;stroke-width:3">
+<path
+   d="m 465,810 h 90"
+   id="path2953"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 465,790 h 40 v 40 h 50"
+   id="path2955"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2967"
+   style="stroke-width:3">
+<path
+   d="m 2555,1170 h 60 V 940 h 30"
+   id="path2959"
+   inkscape:connector-curvature="0" />
+<path
+   d="M 2615,1040 H 3825"
+   id="path2961"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2612,1037 h 7 v 7 h -7 z"
+   id="path2963"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 1715,1020 h 110 V 890 h 70"
+   id="path2965"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2973"
+   style="stroke:#41619f;stroke-width:4">
+<path
+   d="m 855,760 h 410 v -10 h 950 V 600 h 90"
+   id="path2969"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 855,780 h 70 v 130 h 40"
+   id="path2971"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2985"
+   style="stroke:#99cc00">
+<path
+   d="M 255,1080 H 185 V 990 H 915"
+   id="path2975"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 915,1010 h 50"
+   id="path2977"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 913,988 h 5 v 5 h -5 z"
+   id="path2979"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+<path
+   d="m 913,1008 h 5 v 5 h -5 z"
+   id="path2981"
+   inkscape:connector-curvature="0"
+   style="fill:#99cc00;stroke:none" />
+<path
+   d="m 855,840 h 60 v 340 h 480 v -60 h 410 V 720 h 420 v -20 h 80"
+   id="path2983"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g2989"
+   style="stroke:#41619f;stroke-width:4">
+<path
+   d="m 855,800 h 60 v -10 h 840 V 530 h 1490 v 10 h 890"
+   id="path2987"
+   inkscape:connector-curvature="0" />
+</g>
+<g
+   id="g3025"
+   style="stroke-width:3">
+<path
+   d="m 1705,1410 h 520 v 10 h 1870 v -310 h -110"
+   id="path2991"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1445,650 h -40 v 110 h 410 v 190 h 80"
+   id="path2993"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1815,760 h 440 v 230 h 90"
+   id="path2995"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2255,870 h 90"
+   id="path2997"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2255,930 h 90"
+   id="path2999"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2255,950 h 90"
+   id="path3001"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2255,970 h 90"
+   id="path3003"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 2252,867 h 7 v 7 h -7 z"
+   id="path3005"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 2252,927 h 7 v 7 h -7 z"
+   id="path3007"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 2252,947 h 7 v 7 h -7 z"
+   id="path3009"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 2252,967 h 7 v 7 h -7 z"
+   id="path3011"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 1145,670 h 260"
+   id="path3013"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1402,667 h 7 v 7 h -7 z"
+   id="path3015"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 1812,757 h 7 v 7 h -7 z"
+   id="path3017"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+<path
+   d="m 1695,1630 h 100 v 260 h -150"
+   id="path3019"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1795,1790 h 2290 v -100 h -70"
+   id="path3021"
+   inkscape:connector-curvature="0" />
+<path
+   d="m 1792,1787 h 7 v 7 h -7 z"
+   id="path3023"
+   inkscape:connector-curvature="0"
+   style="fill:#102235;stroke:none" />
+</g>
+<g
+   id="g3045"
+   style="stroke:#000000;stroke-width:2">
+<path
+   d="m 3270,310 h 414 v 156 h -414 z"
+   id="path3027"
+   inkscape:connector-curvature="0" />
+<text
+   x="3280"
+   y="320"
+   dy="7.6999998"
+   id="text3029"
+   style="fill:#000000;stroke-width:0">RocketChip - sys_reset</text>
+
+<text
+   x="3280"
+   y="332"
+   dy="7.6999998"
+   id="text3031"
+   style="fill:#000000;stroke-width:0">RocketChip - clock_ok</text>
+
+<text
+   x="3280"
+   y="344"
+   dy="7.6999998"
+   id="text3033"
+   style="fill:#000000;stroke-width:0">RocketChip - mem_ok = ddr4-c0_init_calib_complete</text>
+
+<text
+   x="3280"
+   y="356"
+   dy="7.6999998"
+   id="text3035"
+   style="fill:#000000;stroke-width:0">RocketChip - io_ok = xdma-user_lnk_up</text>
+
+<text
+   x="3280"
+   y="368"
+   dy="7.6999998"
+   id="text3037"
+   style="fill:#000000;stroke-width:0">pcie_perstn</text>
+
+<text
+   x="3280"
+   y="380"
+   dy="7.6999998"
+   id="text3039"
+   style="fill:#000000;stroke-width:0">c0_ddr4_ui_clk_sync_rst</text>
+
+<text
+   x="3280"
+   y="392"
+   dy="7.6999998"
+   id="text3041"
+   style="fill:#000000;stroke-width:0">NOT(pcie_perstn)</text>
+
+<text
+   x="3280"
+   y="404"
+   dy="7.6999998"
+   id="text3043"
+   style="fill:#000000;stroke-width:0">axi_gpio_1 --&gt; OR --&gt; RocketChip_sys_reset</text>
+
+</g>
+</g>
+</svg>
