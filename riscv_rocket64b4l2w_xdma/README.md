@@ -136,7 +136,7 @@ Open Vivado and `source` [innova2-riscv.tcl](innova2-riscv.tcl) in the Tcl Conso
 
 To change the RISC-V core configuration, run frequency, or initial boot firmware, the RISC-V subsystem will need to be regenerated using a full [RocketChip](https://bar.eecs.berkeley.edu/projects/rocket_chip.html) install which requires about 8GB of downloads. Vivado **2021.2** is currently supported.
 
-Run all the `vivado-risc-v` setup commands (`apt-install`, `update-submodules`) if this is the first use after downloading. 8GB of files will be downloaded. Then `source` Vivado environment settings and run `make` to generate a Vivado project, bitstream, and binary configuration files.
+Run all the `vivado-risc-v` setup commands (`apt-install`, `update-submodules`) if this is the first use. 8GB of files will be downloaded. Then `source` Vivado environment settings and run `make` to generate a Vivado project, bitstream, and binary configuration files.
 ```
 cd vivado-risc-v
 sudo make apt-install
@@ -188,7 +188,7 @@ Run Generate Bitstream to synthesize and implement the design.
 ![Vivado Generate Bitstream](img/Vivado_Generate_Bitstream.png)
 
 
-## JTAG Fails Timing but Works Fine
+## JTAG Fails Timing
 
 JTAG register to TDO pin path fails timing. `xsdb` communication errors may be the result of this.
 
@@ -222,18 +222,19 @@ dd if=vivado-risc-v/bare-metal/hello-world/boot.elf bs=1 count=256 skip=4096 | x
 ![Executable Code Starts at 0x1000=4096](img/Executable_Code_Starts_at_0x1000_4096.png)
 
 After loading the code using `xsdb`'s `dow` command over JTAG, it can be read back on the computer with the Innova2 from address `0x8000_0000`. It matches `boot.elf` from offset address `0x1000`.
+```
+sudo ~/dma_ip_drivers/XDMA/linux-kernel/tools/dma_from_device -d /dev/xdma0_c2h_0 -a 0x80000000 -s 256 -f RECV ; xxd RECV
+```
 
 ![Executable Code Fetched from 0x80000000](img/Executable_Code_Fetched_from_0x80000000.png)
 
-However, the memory cannot be accessed directly from address `0x2_0000_0000`, the `C0_DDR4_MEMORY_MAP`, as the RISC-V system formats the underlying memory. Note `256*8388608 = 2147483648 = 0x8000_0000`. Reading the full `4GB = 4294967296 bytes` memory map results in a mostly blank file with no data that matches the loaded `boot.elf`.
+However, the memory cannot be accessed directly from address `0x2_0000_0000`, the `C0_DDR4_MEMORY_MAP`, as the RISC-V system maps `0x80000000` to internal FPGA memory. Note `256*8388608 = 2147483648 = 0x8000_0000`. What is the full memory map?
 ```
 sudo ~/dma_ip_drivers/XDMA/linux-kernel/tools/dma_from_device -d /dev/xdma0_c2h_0 -a 0x200000000 -s 4294967296 -f READ
 dd if=READ bs=256 count=1 skip=8388608  |  xxd
 ```
 
 ![Memory Fetched from 0x280000000](img/Memory_Fetched_from_0x280000000.png)
-
-Is it even loaded into DDR4 or just the RISC-V's URAM? Endianness?
 
 I performed a cold boot on the Innova2 system and read the full DDR4 memory.
 ```
