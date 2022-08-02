@@ -2,6 +2,7 @@
 
 # TODO:
  * Test beyond bare-metal, load Linux
+ * `make CONFIG=rocket64b4l2w BOARD=innova2 bitstream` is broken
  * [CUSE](https://libfuse.github.io/doxygen/cuse_8c.html) driver for UART
  * [CUSE](https://libfuse.github.io/doxygen/cuse_8c.html) driver for Ethernet
 
@@ -137,7 +138,7 @@ Open Vivado and `source` [innova2_experiments/riscv_rocket64b4l2w_xdma/innova2-r
 
 ![Vivado source innova2-riscv.tcl](img/Vivado_source_innova2-riscv_tcl.png)
 
-Run Generate Bitstream to to compile the design. Refer to the `innova2_flex_xcku15p_notes` project's instructions on [Loading a User Image](https://github.com/mwrnd/innova2_flex_xcku15p_notes/#loading-a-user-image) to load the bitstream.
+Run Generate Bitstream to compile the design. Refer to the `innova2_flex_xcku15p_notes` project's instructions on [Loading a User Image](https://github.com/mwrnd/innova2_flex_xcku15p_notes/#loading-a-user-image) to load the bitstream.
 
 ![Vivado Generate Bitstream](img/Vivado_Generate_Bitstream.png)
 
@@ -202,29 +203,6 @@ Run Generate Bitstream to synthesize and implement the design.
 ![Vivado Generate Bitstream](img/Vivado_Generate_Bitstream.png)
 
 
-## JTAG Fails Timing
-
-JTAG register to TDO pin path fails timing. `xsdb` communication errors may be the result of this.
-
-```
-xsdb% Info: Hart #0 (target 3) Running (Debug Transport Module: data corruption (ID))
-...
-Failed to download vivado-risc-v/workspace/boot.elf
-Memory write error at 0x80222C00. FPGA reprogrammed, wait for debugger resync
-...
-aborting, 1 pending requests...                                                                                 
-Failed to download vivado-risc-v/workspace/boot.elf
-Memory write error at 0x80000100. Debug Transport Module timeout
-xsdb% Info: Hart #0 (target 3) Running (Debug Transport Module: data corruption (ID))
-```
-
-![JTAG TDO Fails Timing](img/JTAG_Fails_Timing.png)
-
-The Device View shows the path is very short.
-
-![Device View Shows Elements are Nearby](img/JTAG_Fails_Timing_DeviceView.png)
-
-
 
 ## xsdb Notes
 
@@ -282,7 +260,7 @@ sudo ~/dma_ip_drivers/XDMA/linux-kernel/tools/dma_from_device -d /dev/xdma0_c2h_
 
 ![Executable Code Fetched from 0x80000000](img/Executable_Code_Fetched_from_0x80000000.png)
 
-However, the memory cannot be accessed directly from address `0x2_0000_0000`, the `C0_DDR4_MEMORY_MAP`, as the RISC-V system maps `0x80000000` to internal FPGA memory. Note `256*8388608 = 2147483648 = 0x8000_0000`. What is the full memory map?
+However, the memory cannot be accessed directly from address `0x2_0000_0000`, the `C0_DDR4_MEMORY_MAP`, as the RISC-V system appears to map at least the leading portion of `0x80000000` into internal FPGA memory. Note `256*8388608 = 2147483648 = 0x8000_0000`.
 ```
 sudo ~/dma_ip_drivers/XDMA/linux-kernel/tools/dma_from_device -d /dev/xdma0_c2h_0 -a 0x200000000 -s 4294967296 -f READ
 dd if=READ bs=256 count=1 skip=8388608  |  xxd
@@ -345,7 +323,7 @@ xsdb% exit
 exit
 ```
 
-I performed a second read of the Innova2's DDR4 memory and ran `vbindiff` on the two and there was no difference. `boot.elf` is NOT loaded into DDR4.
+I performed a second read of the Innova2's DDR4 memory and ran `vbindiff` on the two and there was no difference. `boot.elf` is NOT loaded into the DDR4 address space.
 ```
 sudo ~/dma_ip_drivers/XDMA/linux-kernel/tools/dma_from_device -d /dev/xdma0_c2h_0 -a 0x200000000 -s 4294967296 -f READ2
 vbindiff READ1 READ2
@@ -353,3 +331,31 @@ vbindiff READ1 READ2
 
 
 
+
+
+
+---
+
+## JTAG Fails Timing - Fixed
+
+This has been [fixed!](https://github.com/eugene-tarassov/vivado-risc-v/issues/97).
+
+JTAG register to TDO pin path fails timing. `xsdb` communication errors may be the result of this.
+
+```
+xsdb% Info: Hart #0 (target 3) Running (Debug Transport Module: data corruption (ID))
+...
+Failed to download vivado-risc-v/workspace/boot.elf
+Memory write error at 0x80222C00. FPGA reprogrammed, wait for debugger resync
+...
+aborting, 1 pending requests...                                                                                 
+Failed to download vivado-risc-v/workspace/boot.elf
+Memory write error at 0x80000100. Debug Transport Module timeout
+xsdb% Info: Hart #0 (target 3) Running (Debug Transport Module: data corruption (ID))
+```
+
+![JTAG TDO Fails Timing](img/JTAG_Fails_Timing.png)
+
+The Device View shows the path is very short.
+
+![Device View Shows Elements are Nearby](img/JTAG_Fails_Timing_DeviceView.png)
