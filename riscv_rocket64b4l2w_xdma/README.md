@@ -338,7 +338,7 @@ vbindiff READ1 READ2
 
 ## JTAG Fails Timing - Fixed
 
-This has been [fixed!](https://github.com/eugene-tarassov/vivado-risc-v/issues/97).
+This has been [fixed!](https://github.com/eugene-tarassov/vivado-risc-v/issues/97)
 
 JTAG register to TDO pin path fails timing. `xsdb` communication errors may be the result of this.
 
