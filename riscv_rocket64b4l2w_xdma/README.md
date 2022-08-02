@@ -123,9 +123,23 @@ sudo ~/dma_ip_drivers/XDMA/linux-kernel/tools/dma_from_device -d /dev/xdma0_c2h_
 
 ## Opening this Project for Editing
 
-Open Vivado and `source` [innova2-riscv.tcl](innova2-riscv.tcl) in the Tcl Console.
+Clone this repository and update the two required submodules.
+```
+cd ~
+git clone https://github.com/mwrnd/innova2_experiments.git
+cd innova2_experiments/
+git submodule update --init riscv_rocket64b4l2w_xdma/vivado-risc-v
+cd riscv_rocket64b4l2w_xdma/vivado-risc-v
+git submodule update --init ethernet/verilog-ethernet
+```
+
+Open Vivado and `source` [innova2_experiments/riscv_rocket64b4l2w_xdma/innova2-riscv.tcl](innova2-riscv.tcl) in the Tcl Console.
 
 ![Vivado source innova2-riscv.tcl](img/Vivado_source_innova2-riscv_tcl.png)
+
+Run Generate Bitstream to to compile the design. Refer to the `innova2_flex_xcku15p_notes` project's instructions on [Loading a User Image](https://github.com/mwrnd/innova2_flex_xcku15p_notes/#loading-a-user-image) to load the bitstream.
+
+![Vivado Generate Bitstream](img/Vivado_Generate_Bitstream.png)
 
 ![Design Runs Overview](img/vivado-innova2-riscv_rocket64b4l2w_DesignRuns.png)
 
@@ -213,6 +227,45 @@ The Device View shows the path is very short.
 
 
 ## xsdb Notes
+
+
+After running `xsdb`'s `dow` command to load `boot.elf`, I read the memory back over XDMA and it is correctly but partially written.
+
+![XDMA Read of Memory at 0x80000000](img/XDMA_Read_of_Memory_at_0x80000000.png)
+
+Here is a hex dump of `boot.elf`:
+```
+xxd /home/user/vivado-risc-v/workspace/boot.elf | less
+
+00000120: 3304 0500 b384 0500 3309 0600 ef00 c054  3.......3......T
+00000130: 3308 0500 3305 0400 b385 0400 3306 0900  3...3.......3...
+00000140: fd58 6304 1801 631d 050b 1728 0100 1308  .Xc...c....(....
+00000150: e8fd 8548 2f28 1801 6314 080a 9722 0100  ...H/(..c...."..
+00000160: 9382 c2fd 1703 0000 1303 c3fb 23b0 6200  ............#.b.
+00000170: 9722 0100 9382 02fd 83b2 0200 b303 5340  ."............S@
+00000180: 172e 0100 130e 0efa 2330 7e00 9732 0100  ........#0~..2..
+00000190: 9382 c2eb 1743 0100 1303 43e4 6383 6206  .....C....C.c.b.
+```
+
+Each run of `dow` correctly writes a random amount of `boot.elf`
+```
+ 49%    0MB   0.0MB/s  00:07 ETA                                                                                                                      
+Failed to download /home/user/vivado-risc-v/workspace/boot.elf
+Memory write error at 0x8000B600. FPGA reprogrammed, wait for debugger resync
+xsdb% Info: Hart #0 (target 3) Stopped at 0x80008ee0 (Suspended)
+...
+ 83%    0MB   0.0MB/s  00:02 ETA                                                                                                                      
+Failed to download /home/user/vivado-risc-v/workspace/boot.elf
+Memory write error at 0x80226400. Debug Transport Module: data corruption (ID)
+xsdb% Info: Hart #0 (target 3) Running (FPGA reprogrammed, wait for debugger resync)   
+```
+
+`vbindiff` has a one button next difference function and I use it to confirm all leading data is identical.
+
+![Memory Partially Written Correctly](img/Memory_Partially_Written_Correctly.png)
+
+Something is regularly interrupting the debugger.
+
 
 Executable code starts at `0x1000=4096`.
 ```
