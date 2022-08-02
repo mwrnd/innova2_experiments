@@ -2,8 +2,8 @@
 
 # TODO:
  * Test beyond bare-metal, load Linux
- * CUSE driver for UART
- * CUSE driver for Ethernet
+ * [CUSE](https://libfuse.github.io/doxygen/cuse_8c.html) driver for UART
+ * [CUSE](https://libfuse.github.io/doxygen/cuse_8c.html) driver for Ethernet
 
 ![Vivado RISC-V Block Diagram](img/vivado-risc-v_rocket64b4l2w_Block_Design_Diagram.png)
 
@@ -58,7 +58,7 @@ riscv64-unknown-elf-objdump -S -l --inlines -D boot.elf  > dis.txt
 
 ![bare-metal hello-world disassembled](img/bare-metal_hello-world_disassembled.png)
 
-The above can also be done using the [Eclipse TCF Debugger](__LINK__).
+The above can also be done using the [Eclipse TCF Debugger](https://www.eclipse.org/tcf/).
 
 
 
@@ -81,7 +81,7 @@ The UART-Lite `STATUS` register is at offset `0x8`. The `00100101` result transl
 sudo ~/dma_ip_drivers/XDMA/linux-kernel/tools/dma_from_device -d /dev/xdma0_c2h_0 -a 0x60800008 -s 1 -f READ ; xxd -b READ
 ```
 
-Refer to the [UART-Lite User Guide](___LINK___).
+Refer to the [UART-Lite User Guide](https://docs.xilinx.com/v/u/en-US/pg142-axi-uartlite).
 
 ![AXI UARTLite Registers](img/AXI_UART_Lite_pg142_Registers.png)
 
@@ -134,12 +134,13 @@ Open Vivado and `source` [innova2-riscv.tcl](innova2-riscv.tcl) in the Tcl Conso
 
 ## Recreating the RISC-V Design
 
-To change the RISC-V core configuration, run frequency, or initial boot firmware, the RISC-V subsystem will need to be regenerated using a full [RocketChip](__LINK__) install which requires about 8GB of downloads. Vivado **2021.2** is currently supported.
+To change the RISC-V core configuration, run frequency, or initial boot firmware, the RISC-V subsystem will need to be regenerated using a full [RocketChip](https://bar.eecs.berkeley.edu/projects/rocket_chip.html) install which requires about 8GB of downloads. Vivado **2021.2** is currently supported.
 
-Run all the `vivado-risc-v` setup commands per the [instructions](___LINK___). Then `source` Vivado environment settings and run `make` to generate a Vivado project, bitstream, and binary configuration files.
+Run all the `vivado-risc-v` setup commands (`apt-install`, `update-submodules`) if this is the first use after downloading. 8GB of files will be downloaded. Then `source` Vivado environment settings and run `make` to generate a Vivado project, bitstream, and binary configuration files.
 ```
 cd vivado-risc-v
-echo Run all required vivado-risc-v setup commands here ...
+sudo make apt-install
+make update-submodules
 source /tools/Xilinx/Vivado/2021.2/settings64.sh
 make  CONFIG=rocket64b4l2w  BOARD=innova2  bitstream
 ```
