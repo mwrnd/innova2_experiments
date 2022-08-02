@@ -1,4 +1,0 @@
-[submodule "riscv_rocket64b4l2w_xdma/vivado-risc-v"]
-	path = riscv_rocket64b4l2w_xdma/vivado-risc-v
-	url = https://github.com/mwrnd/vivado-risc-v/
-	branch = innova2
