@@ -249,23 +249,24 @@ xxd /home/user/vivado-risc-v/workspace/boot.elf | less
 
 Each run of `dow` correctly writes a random amount of `boot.elf`
 ```
- 49%    0MB   0.0MB/s  00:07 ETA                                                                                                                      
+ 49%    0MB   0.0MB/s  00:07 ETA
 Failed to download /home/user/vivado-risc-v/workspace/boot.elf
 Memory write error at 0x8000B600. FPGA reprogrammed, wait for debugger resync
 xsdb% Info: Hart #0 (target 3) Stopped at 0x80008ee0 (Suspended)
 ...
- 83%    0MB   0.0MB/s  00:02 ETA                                                                                                                      
+ 83%    0MB   0.0MB/s  00:02 ETA
 Failed to download /home/user/vivado-risc-v/workspace/boot.elf
 Memory write error at 0x80226400. Debug Transport Module: data corruption (ID)
-xsdb% Info: Hart #0 (target 3) Running (FPGA reprogrammed, wait for debugger resync)   
+xsdb% Info: Hart #0 (target 3) Running (FPGA reprogrammed, wait for debugger resync)
 ```
 
-`vbindiff` has a one button next difference function and I use it to confirm all leading data is identical.
+`vbindiff` has a *next difference* function and I use it to confirm all leading data is identical.
 
 ![Memory Partially Written Correctly](img/Memory_Partially_Written_Correctly.png)
 
 Something is regularly interrupting the debugger.
 
+---
 
 Executable code starts at `0x1000=4096`.
 ```
