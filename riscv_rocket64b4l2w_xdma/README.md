@@ -207,7 +207,17 @@ Run Generate Bitstream to synthesize and implement the design.
 ## xsdb Notes
 
 
-After running `xsdb`'s `dow` command to load `boot.elf`, I read the memory back over XDMA and it is correctly but partially written.
+The following issue has been [fixed!](https://github.com/eugene-tarassov/vivado-risc-v/issues/97)
+
+Innova-2 *JTAG Access* must be enabled before attempting to download programs to a RISC-V core in the FPGA.
+
+![Enable Innova-2 JTAG Access](img/enable_innova2_JTAG_access.png)
+
+`xsdb` then works:
+
+![xsdb successful program download](img/xsdb_successful_program_download.png)
+
+The issue was that after running `xsdb`'s `dow` command to load `boot.elf`, I read the memory back over XDMA and it was correctly but partially written.
 
 ![XDMA Read of Memory at 0x80000000](img/XDMA_Read_of_Memory_at_0x80000000.png)
 
