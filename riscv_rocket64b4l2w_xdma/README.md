@@ -330,8 +330,30 @@ vbindiff READ1 READ2
 ```
 
 
+---
 
+## xsdb Cannot Load boot.elf
 
+`xsdb` fails during `dow boot.elf`:
+```
+Failed to download /home/user/boot.elf
+Memory write error at 0x8022D500. FPGA reprogrammed, wait for debugger resync
+xsdb% Info: Hart #0 (target 3) Stopped at 0x10dd4 (Suspended)
+
+```
+
+However, on the system with the Innova-2 I can read the memory back over XDMA and it is written correctly, but partially.
+
+![dow Memory Write Error](img/xsdb_dow_fails_during_memory_write.png)
+
+`sudo gedit /tools/Xilinx/Vivado/2021.2/bin/xsdb` and add all debug options to the call to `hw_server` except full `jtag` tracing to debug the issue.
+```
+-l alloc,eventcore,waitpid,events,protocol,context,children,discovery,asyncreq,proxy,tcflog,elf,stack,plugin,shutdown,disasm,jtag2,slave,dpc -L hw_server_log_xsdb
+```
+
+![Edit xsdb.tcl](img/Editing_xsdb_tcl.png)
+
+The problem persists and the debug log is not helpful.
 
 
 ---
