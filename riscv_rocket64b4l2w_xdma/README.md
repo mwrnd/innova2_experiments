@@ -127,7 +127,7 @@ sudo ~/dma_ip_drivers/XDMA/linux-kernel/tools/dma_from_device -d /dev/xdma0_c2h_
 Clone this repository and update the two required submodules.
 ```
 cd ~
-git clone https://github.com/mwrnd/innova2_experiments.git
+git clone --depth=1 https://github.com/mwrnd/innova2_experiments.git
 cd innova2_experiments/
 git submodule update --init riscv_rocket64b4l2w_xdma/vivado-risc-v
 cd riscv_rocket64b4l2w_xdma/vivado-risc-v
@@ -186,21 +186,63 @@ Edit `clk_out1` frequency of `clk_wiz_0` to the run frequency of the RISC-V core
 
 ![Check clk_wiz_0 Output1](img/clk_wiz_0_RISC-V_run_frequency.png)
 
-After making changes to the Block Design in Vivado, generate a new script for your current version of Vivado and copy it to the `vivado-risc-v/board/innova2` directory.
+After making changes to the Block Design in Vivado, run Generate Bitstream to synthesize and implement the design.
+
+![Vivado Generate Bitstream](img/Vivado_Generate_Bitstream.png)
+
+### Creating a New Block Design TCL Script
+
+After confirming your design compiles and works, generate a new Block Design script for your current version of Vivado using the `write_bd_tcl` command in the Vivado *Tcl Console*. Copy it to the `vivado-risc-v/board/innova2` directory.
 ```
 write_bd_tcl  riscv-2021.2.tcl
 ```
 
-I add the following Vivado commands to the start of the Block Design script that is generated to ignore unconnected pin errors. The Innova2 has no direct connection for networking or UART RxD. The Ethernet modules cannot have external signals.
+Add the following Vivado commands to the start of the Block Design script that is generated to ignore unconnected pin errors. The Innova2 XCKU15P FPGA has no physical connection for networking or UART RxD. The Ethernet modules cannot have external signals.
 ```
 # Change the following two ERRORs to WARNINGs as they are related to unused signals
 set_property SEVERITY {Warning} [get_drc_checks NSTD-1]
 set_property SEVERITY {Warning} [get_drc_checks UCIO-1]
 ```
 
-Run Generate Bitstream to synthesize and implement the design.
+`set list_check_mods` needs to have `Rocket64b4l2w` or similar replaced with `$rocket_module_name`.
 
-![Vivado Generate Bitstream](img/Vivado_Generate_Bitstream.png)
+```Tcl
+if { $bCheckModules == 1 } {
+   set list_check_mods "\ 
+$rocket_module_name\
+ethernet\
+uart\
+uart\
+"
+```
+
+The `Create instance: RocketChip` code:
+```Tcl
+  # Create instance: RocketChip, and set properties
+  set block_name Rocket64b4l2w
+  set block_cell_name RocketChip
+  if { [catch {set RocketChip [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   } elseif { $RocketChip eq "" } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   }
+```
+
+Needs to be replaced with the following:
+```Tcl
+  # Create instance: RocketChip, and set properties
+  global rocket_module_name
+  set RocketChip [create_bd_cell -type module -reference $rocket_module_name RocketChip]
+```
+
+Run `make` for your intended Rocket RISC-V configuration. You may need to move any currently existing `workspace/rocket64___` folder.
+```
+cd vivado-risc-v
+source /tools/Xilinx/Vivado/2021.2/settings64.sh
+make  CONFIG=rocket64b4l2w  BOARD=innova2  bitstream
+```
 
 
 
@@ -219,11 +261,9 @@ Innova-2 *JTAG Access* must be enabled before attempting to download programs to
 
 The issue was that after running `xsdb`'s `dow` command to load `boot.elf`, I read the memory back over XDMA and it was correctly but partially written.
 
-The start of the written memory was correct:
-
 ![XDMA Read of Memory at 0x80000000](img/XDMA_Read_of_Memory_at_0x80000000.png)
 
-Compare to a hex dump of `boot.elf`:
+Here is a hex dump of `boot.elf`:
 ```
 xxd /home/user/vivado-risc-v/workspace/boot.elf | less
 
@@ -237,7 +277,7 @@ xxd /home/user/vivado-risc-v/workspace/boot.elf | less
 00000190: 9382 c2eb 1743 0100 1303 43e4 6383 6206  .....C....C.c.b.
 ```
 
-Each run of `dow` correctly wrote a random amount of `boot.elf`
+Each run of `dow` correctly writes a random amount of `boot.elf`
 ```
  49%    0MB   0.0MB/s  00:07 ETA
 Failed to download /home/user/vivado-risc-v/workspace/boot.elf
@@ -250,11 +290,11 @@ Memory write error at 0x80226400. Debug Transport Module: data corruption (ID)
 xsdb% Info: Hart #0 (target 3) Running (FPGA reprogrammed, wait for debugger resync)
 ```
 
-`vbindiff` has a *next difference* function and I used it to confirm all leading data was identical.
+`vbindiff` has a *next difference* function and I use it to confirm all leading data is identical.
 
 ![Memory Partially Written Correctly](img/Memory_Partially_Written_Correctly.png)
 
-Something was regularly interrupting the debugger. It turned out to be the Innova-2's JTAG control mechanism.
+Something is regularly interrupting the debugger.
 
 ---
 
@@ -373,8 +413,6 @@ The problem persists and the debug log is not helpful.
 ## JTAG Fails Timing - Fixed
 
 This has been [fixed!](https://github.com/eugene-tarassov/vivado-risc-v/issues/97)
-
-It turns out that the Kintex Ultrascale Plus series of FPGAs has a maximum JTAG frequency of 50MHz instead of the default 60MHz.
 
 JTAG register to TDO pin path fails timing. `xsdb` communication errors may be the result of this.
 
