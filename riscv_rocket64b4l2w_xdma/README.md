@@ -374,6 +374,8 @@ The problem persists and the debug log is not helpful.
 
 This has been [fixed!](https://github.com/eugene-tarassov/vivado-risc-v/issues/97)
 
+It turns out that the Kintex Ultrascale Plus series of FPGAs has a maximum JTAG frequency of 50MHz instead of the default 60MHz.
+
 JTAG register to TDO pin path fails timing. `xsdb` communication errors may be the result of this.
 
 ```
