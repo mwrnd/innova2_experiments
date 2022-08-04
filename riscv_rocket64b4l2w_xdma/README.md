@@ -204,19 +204,18 @@ set_property SEVERITY {Warning} [get_drc_checks NSTD-1]
 set_property SEVERITY {Warning} [get_drc_checks UCIO-1]
 ```
 
-`set list_check_mods` needs to have `Rocket64b4l2w` or similar replaced with `$rocket_module_name`.
+`list_check_mods` needs to have `Rocket64b4l2w` or similar replaced with `$rocket_module_name`.
 
 ```Tcl
 if { $bCheckModules == 1 } {
    set list_check_mods "\ 
-$rocket_module_name\
 ethernet\
-uart\
+$rocket_module_name\
 uart\
 "
 ```
 
-The `Create instance: RocketChip` code:
+The `RocketChip Create instance` code:
 ```Tcl
   # Create instance: RocketChip, and set properties
   set block_name Rocket64b4l2w
@@ -237,7 +236,7 @@ Needs to be replaced with the following:
   set RocketChip [create_bd_cell -type module -reference $rocket_module_name RocketChip]
 ```
 
-Run `make` for your intended Rocket RISC-V configuration. You may need to move any currently existing `workspace/rocket64___` folder.
+Run `make` for your intended Rocket RISC-V configuration to check if the updated Block Design script works. You may need to move any currently existing `workspace/rocket64___` folder.
 ```
 cd vivado-risc-v
 source /tools/Xilinx/Vivado/2021.2/settings64.sh
