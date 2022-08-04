@@ -346,7 +346,7 @@ However, on the system with the Innova-2 I can read the memory back over XDMA an
 
 ![dow Memory Write Error](img/xsdb_dow_fails_during_memory_write.png)
 
-`sudo gedit /tools/Xilinx/Vivado/2021.2/bin/xsdb` and add all debug options to the call to `hw_server` except full `jtag` tracing to debug the issue.
+`sudo gedit /tools/Xilinx/Vivado/2021.2/scripts/xsdb/xsdb/xsdb.tcl` and add all debug options to the call to `hw_server` except full `jtag` tracing to debug the issue.
 ```
 -l alloc,eventcore,waitpid,events,protocol,context,children,discovery,asyncreq,proxy,tcflog,elf,stack,plugin,shutdown,disasm,jtag2,slave,dpc -L hw_server_log_xsdb
 ```
