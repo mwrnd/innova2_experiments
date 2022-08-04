@@ -219,9 +219,11 @@ Innova-2 *JTAG Access* must be enabled before attempting to download programs to
 
 The issue was that after running `xsdb`'s `dow` command to load `boot.elf`, I read the memory back over XDMA and it was correctly but partially written.
 
+The start of the written memory was correct:
+
 ![XDMA Read of Memory at 0x80000000](img/XDMA_Read_of_Memory_at_0x80000000.png)
 
-Here is a hex dump of `boot.elf`:
+Compare to a hex dump of `boot.elf`:
 ```
 xxd /home/user/vivado-risc-v/workspace/boot.elf | less
 
@@ -235,7 +237,7 @@ xxd /home/user/vivado-risc-v/workspace/boot.elf | less
 00000190: 9382 c2eb 1743 0100 1303 43e4 6383 6206  .....C....C.c.b.
 ```
 
-Each run of `dow` correctly writes a random amount of `boot.elf`
+Each run of `dow` correctly wrote a random amount of `boot.elf`
 ```
  49%    0MB   0.0MB/s  00:07 ETA
 Failed to download /home/user/vivado-risc-v/workspace/boot.elf
@@ -248,11 +250,11 @@ Memory write error at 0x80226400. Debug Transport Module: data corruption (ID)
 xsdb% Info: Hart #0 (target 3) Running (FPGA reprogrammed, wait for debugger resync)
 ```
 
-`vbindiff` has a *next difference* function and I use it to confirm all leading data is identical.
+`vbindiff` has a *next difference* function and I used it to confirm all leading data was identical.
 
 ![Memory Partially Written Correctly](img/Memory_Partially_Written_Correctly.png)
 
-Something is regularly interrupting the debugger.
+Something was regularly interrupting the debugger. It turned out to be the Innova-2's JTAG control mechanism.
 
 ---
 
