@@ -36,7 +36,7 @@ source /tools/Xilinx/Vivado/2021.2/settings64.sh
 /tools/Xilinx/Vitis/2021.2/bin/unwrapped/lnx64.o/rlwrap -rc -f /tools/Xilinx/Vitis/2021.2/scripts/xsdb/xsdb/cmdlist /tools/Xilinx/Vitis/2021.2/bin/loader -exec rdi_xsdb  >>hw_server_log_xsdb  2>>hw_server_log_xsdb
 ```
 
-However, this means commands must be sent blindly to `xsdb`. Try running a regular interactive `xsdb` session prior to a logging session to get a sense of the delay required between commands. Or, look into [file and screen redirection](https://unix.stackexchange.com/questions/333198/bash-redirect-stderr-to-file-and-stdout-stderr-to-screen).
+However, this means commands must be sent blindly to `xsdb`. Try running a regular interactive `xsdb` session prior to a logging session to get a sense of the delay required between commands.
 ```
 connect
 targets 3
@@ -44,8 +44,14 @@ dow boot.elf
 exit
 ```
 
-![xsdb ](img/xsdb_into_hw_server_log_xsdb.png)
+![xsdb with logging](img/xsdb_into_hw_server_log_xsdb.png)
 
+It is possible to redirect `xsdb` output to both the screen and the log file but usage is messy. Lines are repeated or disappear.
+```Shell
+(/tools/Xilinx/Vitis/2021.2/bin/unwrapped/lnx64.o/rlwrap -rc -f /tools/Xilinx/Vitis/2021.2/scripts/xsdb/xsdb/cmdlist /tools/Xilinx/Vitis/2021.2/bin/loader -exec rdi_xsdb 2>  >(tee -a /dev/stderr)) | tee -a hw_server_log_xsdb
+```
+
+![xsdb interactive with logging](img/xsdb_into_hw_server_log_xsdb_interactive.png)
 
 Edit `hw_server_log_xsdb` and look for the `Memory write` error:
 
