@@ -1,6 +1,8 @@
 # Innova-2 Experiments
 
-Works in Progress and Experiments for the Innova-2 Flex XCKU15P-based Board
+Works in Progress and Experiments for the Innova-2 Flex XCKU15P-based Board.
+
+Some useful [Debug Notes](debug_notes).
 
 ## RISC-V
 
