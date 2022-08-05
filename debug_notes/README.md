@@ -13,7 +13,7 @@ Memory write error at 0x80000100. Debug Transport Module timeout
 xsdb% Info: Hart #0 (target 3) Running (Debug Transport Module: data corruption (ID))
 ```
 
-Edit the `xsdb.tcl` script to add debug logging to the call to `hw_server`:
+Edit the `xsdb.tcl` script to add debug logging to the call to `exec $server ...` which is on line 2986 in Vivado 2021.2's `xsdb`:
 ```Shell
 sudo gedit /tools/Xilinx/Vivado/2021.2/scripts/xsdb/xsdb/xsdb.tcl
 ```
