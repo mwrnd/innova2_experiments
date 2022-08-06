@@ -2,9 +2,14 @@
 
 # TODO:
  * Test beyond bare-metal, load Linux
- * `make CONFIG=rocket64b4l2w BOARD=innova2 bitstream` is broken
  * [CUSE](https://libfuse.github.io/doxygen/cuse_8c.html) driver for UART
  * [CUSE](https://libfuse.github.io/doxygen/cuse_8c.html) driver for Ethernet
+
+# DONE:
+
+ * `make CONFIG=rocket64b4l2w BOARD=innova2 bitstream` should work now
+
+---
 
 ![Vivado RISC-V Block Diagram](img/vivado-risc-v_rocket64b4l2w_Block_Design_Diagram.png)
 
@@ -26,6 +31,8 @@ echo  should be MD5 checksum of innova2-riscv_secondary.bin
 
 ![Innova2 RISC-V Testing Diagram](img/Innova2_RISC-V_Testing_Diagram.png)
 
+
+---
 
 
 ## JTAG Load of RISC-V Software
@@ -383,7 +390,9 @@ vbindiff READ1 READ2
 
 ---
 
-## xsdb Cannot Load boot.elf
+## xsdb Cannot Load boot.elf - Fixed
+
+This has been [fixed!](https://github.com/eugene-tarassov/vivado-risc-v/issues/97)
 
 `xsdb` fails during `dow boot.elf`:
 ```
