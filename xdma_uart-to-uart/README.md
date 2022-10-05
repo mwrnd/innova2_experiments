@@ -31,6 +31,41 @@ echo f379833eb8ae77b1610be79a9e438265 should be MD5 Checksum of xdma_uart-to-uar
 
 ## Testing
 
+[xdma_tty_cuse.c](xdma_tty_cuse.c) assumes `dma_ip_drivers` are [installed and tested](https://github.com/mwrnd/innova2_flex_xcku15p_notes#install-xilinx-pcie-dma-ip-drivers). Compile then run with:
+
+```
+gcc xdma_tty_cuse.c ./c-ringbuf/ringbuf.c --std=gnu11 -g -Wall -latomic  \
+`pkg-config fuse --cflags --libs` -I`echo $HOME`/dma_ip_drivers/         \
+-I./c-ringbuf/ -o xdma_tty_cuse
+
+sudo ./xdma_tty_cuse  /dev/xdma0_c2h_0  /dev/xdma0_h2c_0  0x60100000 ttyCUSE0
+```
+
+In a second terminal, connect to the CUSE TTY device:
+```
+sudo gtkterm --port /dev/ttyCUSE0
+```
+
+In a third terminal, run a second instance of XDMA TTY CUSE TTY:
+```
+sudo ./xdma_tty_cuse  /dev/xdma0_c2h_1  /dev/xdma0_h2c_1  0x60110000 ttyCUSE1
+```
+
+In a fourth terminal, connect to the second CUSE TTY device:
+```
+sudo gtkterm --port /dev/ttyCUSE1
+```
+
+![XDMA TTY CUSE Loopback Test Commands](img/xdma_tty_cuse_loopback_test_commands.png)
+
+Typing in one `GTKTerm` window should display the characters in the second window. There is currently a bug where one of the windows will fail to display repeated characters.
+
+![XDMA TTY CUSE Loopback Test](img/xdma_tty_cuse_loopback_test.png)
+
+
+
+### Basic XDMA UART Testing
+
 [uart.c](uart.c) assumes `dma_ip_drivers` are [installed and tested](https://github.com/mwrnd/innova2_flex_xcku15p_notes#install-xilinx-pcie-dma-ip-drivers). Compile then run with:
 
 ```
