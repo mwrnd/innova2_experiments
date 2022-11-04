@@ -41,6 +41,7 @@ echo 878b6889ac60429cf00dcc75e01af2f7 should be MD5 checksum of innova2-riscv_se
 
 ### Enable JTAG Access to the Innova-2
 
+On the computer hosting the Innova-2, use `innova2_flex_app` to [enable JTAG Access](https://github.com/mwrnd/innova2_flex_xcku15p_notes#enable-jtag-access-to-the-xcku15p):
 ```
 sudo mst start
 cd ~/Innova_2_Flex_Open_18_12/driver/
