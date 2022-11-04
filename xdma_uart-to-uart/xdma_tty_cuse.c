@@ -33,40 +33,44 @@
 
 /*
 
-TODO: - repeated characters are not being sent during loopback testing
+TODO: - first character in a sequence and occasional random characters get lost
 
 Notes:
- This software is a workaround to avoid using a proper driver for a 
- PCIe XDMA UART to behave as a TTY.
- Interaction with the XDMA UART is byte-wise and sequential. The status byte
- must be read (polled) before a read or write to the XDMA UART.
- I do not know how one would use the XDMA UART's interrupt from host system
- userspace using the Xilinx XDMA driver.
- A customized version of the XDMA driver would be required, at which point
- a proper TTY driver module would be just as much work.
+ This software is a workaround to avoid using a proper
+ driver for a PCIe XDMA AXI UART to behave as a TTY.
  This will NOT work with Xilinx's AXI UART Lite (pg142) as it generates an
- AXI Bus Error if the status byte is read when the UART FIFO is empty.
- A non-blocking UART design is required.
- Set the interval timer alarm to go off often enough to capture 115200 bps
- 115200 / 16  char buffer = 7200 --> 8000 = 0.000125s =  125us
- 115200 / 512 char buffer = 225  -->  256 = 0.003910s = 3910us
+ AXI Bus Error if the status byte is read when the UART Lite FIFO is empty.
+ A UART design that does not generate any AXI errors is required.
+ Interaction with the AXI UART is byte-wise and sequential. The full 16-byte
+ address space of the UART is read and processed for each data byte read.
+ Reading the status byte before a data byte causes data loss. The XDMA driver
+ triggers the UART to decrement its ring buffer index.
+ The code uses an interrupt called by an interval timer to get data from the
+ AXI UART. Main complication is that the XDMA reads and writes cannot be
+ interrupted or they will fail.
+ Note the XDMA driver and this software cannot deal with system suspend.
+
+ Set the interval timer alarm to go off often enough to capture UART baud rate
+ 115200 / 16  char buffer = 7200 --> 1/8000s = 0.000125s =  125us
+ 115200 / 512 char buffer = 225  -->  1/256s = 0.003910s = 3910us
  A call to the interrupt takes up to 4000usec to complete
- Setting INTERRUPT_INTERVAL to 5000 just about works on a 3.7GHz system
+ Setting INTERRUPT_INTERVAL to 4000 just about works on a 3.7GHz system
+ Need to compile with --std=gnu1? instead of C11+ for expected timer operation
 
 Prerequisites:
  - Xilinx XDMA to AXI design with a non-blocking UART with a 512 byte buffer
-   Modify github.com/eugene-tarassov/vivado-risc-v/blob/master/uart/uart.v
+   Set fifo_ptr_bits 9
+   github.com/eugene-tarassov/vivado-risc-v/blob/v3.3.0/uart/uart.v#L93
  - XDMA Drivers from github.com/xilinx/dma_ip_drivers
-   github.com/mwrnd/innova2_flex_xcku15p_notes for install instructions
- - ringbuf.c and ringbuf.h in ./c-ringbuf from github.com/dhess/c-ringbuf
+   Install Instructions at github.com/mwrnd/innova2_flex_xcku15p_notes
+ - ringbuf.c and ringbuf.h from github.com/dhess/c-ringbuf
  - Install libfuse2 and its development library:
    sudo apt install libfuse2 libfuse-dev
 
 Compile with (make sure the -I path resolves to Xilinx's dma_ip_drivers):
 
- gcc xdma_tty_cuse.c ./c-ringbuf/ringbuf.c --std=gnu11 -g -Wall -latomic  \
- `pkg-config fuse --cflags --libs` -I`echo $HOME`/dma_ip_drivers/         \
- -I./c-ringbuf/ -o xdma_tty_cuse
+ gcc xdma_tty_cuse.c ringbuf.c --std=gnu11 -g -Wall -latomic  \
+ `pkg-config fuse --cflags --libs` -I`pwd`/dma_ip_drivers/ -o xdma_tty_cuse
 
 Run with:
 
@@ -76,7 +80,7 @@ In a second terminal:
 
  sudo gtkterm --port /dev/ttyCUSE0
 
-If using with github.com/mwrnd/innova2_experiments/tree/main/xdma_uart-to-uart,
+If using with github.com/mwrnd/innova2_experiments/tree/main/xdma_uart-to-uart
 run a second instance for loopback testing:
 
  sudo ./xdma_tty_cuse  /dev/xdma0_c2h_1  /dev/xdma0_h2c_1  0x60110000 ttyCUSE1
@@ -87,54 +91,36 @@ run a second instance for loopback testing:
 #define FUSE_USE_VERSION  29
 #define _FILE_OFFSET_BITS 64
 
-
-#include <termios.h>
-#include <sys/ioctl.h>
-#define TIOCM_LOOP	0x8000
-
-
+#include <errno.h>
 #include <fuse/cuse_lowlevel.h>
 #include <fuse/fuse_opt.h>
-#include <linux/kd.h>
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <netinet/in.h>
-#include <pthread.h>
-#include <string.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <signal.h>
-#include <stdlib.h>
-#include <stdatomic.h>
-#include <strings.h>
-#include <errno.h>
 #include <poll.h>
-#include <mcheck.h>
-
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/time.h>
-#include <sys/types.h>
+#include <signal.h>
+#include <stdatomic.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <sys/ioctl.h>
+#include <sys/socket.h>
+#include <sys/time.h>
+#include <termios.h>
 
-#include "c-ringbuf/ringbuf.h"
+#include "ringbuf.h"
 
 #include "XDMA/linux-kernel/tools/dma_utils.c"
 
 
-#define INTERRUPT_INTERVAL 5000
+#define INTERRUPT_INTERVAL 4000
 
 
-// SIZE_DEFAULT < 4096 , note 4 bytes = 32 bits
-#define SIZE_DEFAULT (4)
-#define COUNT_DEFAULT (1)
+#define SIZE_DEFAULT (16)
 
 #define UART_RX_ADDR_OFFSET    0x0
 #define UART_TX_ADDR_OFFSET    0x4
 #define UART_STAT_ADDR_OFFSET  0x8
 #define UART_CTRL_ADDR_OFFSET  0xC
+
+void on_ctrl_backslash(int sig);
 
 
 struct _XDMA {
@@ -154,12 +140,23 @@ ringbuf_t rb_out;
 
 atomic_int xdma_rd_running;
 atomic_int xdma_wr_running;
+atomic_int tx_fifo_not_full;
+
+volatile unsigned int xdma_read_errors = 0;
+#define  MAX_XDMA_READ_ERRORS   16
 
 
 
+struct uartread {
+	uint8_t status;
+	uint8_t datavalid;
+	uint8_t data;
+};
 
-int read_uart_status_byte(char *readdevname, int readdev_fd,
-		uint32_t axi_status_address, int debug)
+
+
+int read_xdma_uart(char *readdevname, int readdev_fd,
+		uint32_t xdma_axi_address, struct uartread *ur, int debug)
 {
 
 	uint8_t uart_status = 0;
@@ -173,32 +170,54 @@ int read_uart_status_byte(char *readdevname, int readdev_fd,
 	char buffer[SIZE_DEFAULT];
 
 
-	// Read Status Register
 	if (debug)
-		printf("reading %d bytes from %s at address 0x%x\n",
-			SIZE_DEFAULT, readdevname, axi_status_address);
+		fprintf(stderr, "reading %d bytes from %s at address 0x%x\n",
+			SIZE_DEFAULT, readdevname, xdma_axi_address);
 
+	// Read All UART Registers (SIZE_DEFAULT=16) in one call to avoid
+	// multiple increments of the UART's internal ring buffer index
 	rc = read_to_buffer(readdevname, readdev_fd, buffer,
-		SIZE_DEFAULT, axi_status_address);
+			SIZE_DEFAULT, xdma_axi_address);
 
-	if (rc < 0)
+	if (rc < 0) {
+		fprintf(stderr, "XDMA read failed with rc=%ld\n", rc);
+		xdma_read_errors++;
+		ur->status = 0;
+		ur->datavalid = 0;
+		ur->data = 0;
 		return rc;
+	}
 
 	if (rc < SIZE_DEFAULT) {
 		fprintf(stderr, "underflow %ld/%d.\n", rc, SIZE_DEFAULT);
 	}
 
-	uart_status = (uint8_t)(buffer[0]);
+	if (xdma_read_errors > MAX_XDMA_READ_ERRORS) {
+		printf("\nSomething is wrong with the XDMA driver. ");
+		printf("%d XDMA read errors encountered.\n", xdma_read_errors);
+		on_ctrl_backslash(0); // exit
+	}
 
-	// Bit0 = Rx FIFO Valid Data
+
+	uart_status = (uint8_t)(buffer[UART_STAT_ADDR_OFFSET]);
+
 	uart_rx_fifo_data_valid = (uart_status & 0x01) >> 0;
 	uart_rx_fifo_full       = (uart_status & 0x02) >> 1;
 	uart_tx_fifo_empty      = (uart_status & 0x04) >> 2;
 	uart_tx_fifo_full       = (uart_status & 0x08) >> 3;
 	uart_clear_to_send      = (uart_status & 0x10) >> 4;
 
-	// print the data
+	// return processed UART data and status in the passed uartread struct
+	ur->status = uart_status;
+	ur->datavalid = uart_rx_fifo_data_valid;
+	ur->data = (uint8_t)(buffer[UART_RX_ADDR_OFFSET]);
+	atomic_store(&tx_fifo_not_full, (!uart_tx_fifo_full));
+
+	// print human-readable breakdown of the status byte and data
 	if (debug) {
+		if (uart_rx_fifo_data_valid) {
+			printf("data = 0x%02x = %c ; ", ur->data, ur->data);
+		}
 		printf("uart_status = 0x%02x\n", uart_status);
 		printf("\tBit0 = uart_rx_fifo_data_valid = %d\n",
 				uart_rx_fifo_data_valid);
@@ -213,44 +232,8 @@ int read_uart_status_byte(char *readdevname, int readdev_fd,
 		printf("\n");
 	}
 
-	return uart_status;
-}
-
-
-
-
-char read_uart_char(char *readdevname, int readdev_fd,
-		uint32_t axi_uart_rx_address, int debug)
-{
-
-	char uart_char = 0;
-	ssize_t rc = 0;
-	char buffer[SIZE_DEFAULT];
-
-	if (debug)
-		printf("reading %d bytes from %s at address 0x%x\n",
-			SIZE_DEFAULT, readdevname, axi_uart_rx_address);
-
-	rc = read_to_buffer(readdevname, readdev_fd, buffer,
-		SIZE_DEFAULT, axi_uart_rx_address);
-
-	if (rc < 0)
-		return rc;
-
-	if (rc < SIZE_DEFAULT) {
-		fprintf(stderr, "underflow %ld/%d.\n", rc, SIZE_DEFAULT);
-	}
-
-	if (rc > 0) {
-		uart_char = (char)(buffer[0]);
-
-		if (debug)
-			printf("uart_char = 0x%02x = %c\n\n",
-				(uint8_t)uart_char, uart_char);
-	}
-
-
-	return uart_char;
+	// return number of bytes that were successfully read
+	return rc;
 }
 
 
@@ -263,10 +246,10 @@ static void xdma_tty_ioctl(fuse_req_t req, int cmd, void *arg,
 
 	unsigned int signals;
 
-	if (atomic_load(&xdma_rd_running) == 1) {
+	if (atomic_load(&xdma_rd_running)) {
 		printf("\nFAULT: xdma_tty_ioctl called during read interrupt.\n");
 	}
-	if (atomic_load(&xdma_wr_running) == 1) {
+	if (atomic_load(&xdma_wr_running)) {
 		printf("\nFAULT: xdma_tty_ioctl called during write.\n");
 	}
 
@@ -281,7 +264,7 @@ static void xdma_tty_ioctl(fuse_req_t req, int cmd, void *arg,
 	// CLOCAL = Ignore modem control lines
 	// IGNPAR = Ignore framing errors
 	// IGNBRK = Ignore BREAK condition on input
-	// IGNCR = Ignore carriage return on input
+	// IGNCR  = Ignore carriage return on input
 	static struct termios termios_settings;
 	termios_settings.c_cflag = B115200 | CS8 | CREAD | CLOCAL;
 	termios_settings.c_lflag = 0;
@@ -294,7 +277,7 @@ static void xdma_tty_ioctl(fuse_req_t req, int cmd, void *arg,
 	{
 	case TCGETS:
 		if(out_bufsz) {
-			printf("setting termios\n");
+			printf("Setting termios\n");
 			fuse_reply_ioctl(req, 0, &termios_settings,
 				sizeof(struct termio));
 		} else {
@@ -409,84 +392,96 @@ static void xdma_tty_poll(fuse_req_t req, struct fuse_file_info *fi,
 
 
 
-#define DATA_VALID (((read_uart_status_byte(xdma.c2h_name, \
-			xdma.fd_read, (xdma.addr + UART_STAT_ADDR_OFFSET), \
-			0)) & 0x01) >> 0)
-#define FIFO_NOT_FULL  (!(((read_uart_status_byte(xdma.c2h_name, \
-			xdma.fd_read, (xdma.addr + UART_STAT_ADDR_OFFSET), \
-			0)) & 0x08) >> 3))
 
 
-
-
-struct itimerval itstr;
-struct itimerval itend;
-int max_interrupt_interval = 0;
-int max_interrupt_runtime = 0;
-int min_interrupt_interval = 999999999;
-int itend_valid = 0;
+struct timeval timestr;
+struct timeval timeend;
+struct sigaction sigactalrm;
+volatile long int max_interrupt_interval = 0;
+volatile long int max_interrupt_runtime = 0;
+volatile long int min_interrupt_interval = 999999999;
+volatile int timeend_valid = 0;
 atomic_int interrupt_running;
 
 
 static void read_from_device_interrupt(int signum)
 {
-	char uchr = 0;
-	int  timerdiff = 0;
+	long int seconds = 0;
+	long int microseconds = 0;
+	long int elapsed_usec = 0;
 	struct itimerval it_new;
-	struct itimerval it_old;
+	struct uartread ur;
+	ssize_t rc;
+	atomic_int valid_data_read;
+	atomic_init(&valid_data_read, 0);
 
-	if (atomic_load(&interrupt_running) == 1) {
+	if (atomic_load(&interrupt_running)) {
 		// TODO: The read and/or write to XDMA has timed out
 		printf("\nINTERRUPT GOT INTERRUPTED - XDMA Timed Out\n");
 	}
 	atomic_store(&interrupt_running, 1);
 
 
-	getitimer(ITIMER_REAL, &itstr);
-	if (itend_valid) {
-		timerdiff = (itend.it_value.tv_usec - itstr.it_value.tv_usec);
-		if (timerdiff > max_interrupt_interval) {
-			max_interrupt_interval = timerdiff;
-		}
-		if (timerdiff < min_interrupt_interval) {
-			min_interrupt_interval = timerdiff;
-		}
-	}
+	// xdma_tty_write is running, try again later
+	if (atomic_load(&xdma_wr_running)) { return; }
 
 
-	// disable interrupt as this function is not designed to be reentrant
-	// 5s is enough of a delay to disable the interrupt and ascertain that
-	// XDMA communication has timed out if this function is called again
+	// pause interrupt as this function is not designed to be reentrant
+	// Default XDMA communication timeout is 10s so 5s is enough
+	// of a delay to pause this interrupt and ascertain that
+	// XDMA communication has timed out (this function runs again)
 	it_new.it_value.tv_sec  = 5; 
 	it_new.it_value.tv_usec = 0;
 	it_new.it_interval.tv_sec  = 5;
 	it_new.it_interval.tv_usec = 0;
-
-	setitimer(ITIMER_REAL, &it_new, &it_old);
-	getitimer(ITIMER_REAL, &itstr);
+	setitimer(ITIMER_REAL, &it_new, NULL);
 
 
-	if (atomic_load(&xdma.initialized))
+	// if this signal handler has run at least once, log time between runs
+	gettimeofday(&timestr, 0);
+	if (timeend_valid) {
+		seconds = timestr.tv_sec - timeend.tv_sec;
+		microseconds = timestr.tv_usec - timeend.tv_usec;
+		elapsed_usec = (seconds * 1000000) + microseconds;
+		if (elapsed_usec > max_interrupt_interval) {
+			max_interrupt_interval = elapsed_usec;
+		}
+		if ((elapsed_usec < min_interrupt_interval) && (elapsed_usec > 0)) {
+			min_interrupt_interval = elapsed_usec;
+		}
+	}
+
+	// read data from the XDMA UART (C2H)
+	if (atomic_load(&xdma.initialized) && !atomic_load(&xdma_wr_running))
 	{
 		atomic_store(&xdma_rd_running, 1);
-		atomic_signal_fence(memory_order_acquire);
 
-		// get data from the XDMA UART Device (C2H)
-		while (DATA_VALID)
-		{
-			uchr = read_uart_char(xdma.c2h_name, xdma.fd_read,
-				(xdma.addr + UART_RX_ADDR_OFFSET), 0);
 
-			ringbuf_memcpy_into(rb_out, &uchr, 1);
-
-			// stderr isn't line buffered; will print immediately
-			fprintf(stderr, "%c", uchr);
+		rc = read_xdma_uart(xdma.c2h_name, xdma.fd_read, xdma.addr, &ur, 0);
+		if (ur.datavalid && (!ringbuf_is_full(rb_out))) {
+			// stderr is not line buffered so will print immediately
+			//fprintf(stderr, "%c", ur.data);
+			ringbuf_memcpy_into(rb_out, &(ur.data), 1);
+			atomic_store(&valid_data_read, 1);
 		}
 
-		atomic_signal_fence(memory_order_release);
+		if (rc < 0) {
+			; // TODO - XDMA read failed but can ignore
+		}
+
+
 		atomic_store(&xdma_rd_running, 0);
 	}
 
+	// measure runtime of the above XDMA read
+	gettimeofday(&timeend, 0);
+	seconds = timeend.tv_sec - timestr.tv_sec;
+	microseconds = timeend.tv_usec - timestr.tv_usec;
+	elapsed_usec = (seconds * 1000000) + microseconds;
+	if ((elapsed_usec > max_interrupt_runtime) && atomic_load(&valid_data_read)) {
+		max_interrupt_runtime = elapsed_usec;
+	}
+	timeend_valid = 1; // enable timing the interval between runs of this handler
 
 	// restart this interval timer interrupt
 	it_new.it_value.tv_sec  = 0;
@@ -495,14 +490,12 @@ static void read_from_device_interrupt(int signum)
 	it_new.it_interval.tv_usec = INTERRUPT_INTERVAL;
 
 	setitimer(ITIMER_REAL, &it_new, NULL);
-	signal(SIGALRM, read_from_device_interrupt);
 
-	getitimer(ITIMER_REAL, &itend);
-	itend_valid = 1;
-	timerdiff = (itend.it_value.tv_usec - itstr.it_value.tv_usec);
-	if (timerdiff > max_interrupt_runtime) {
-		max_interrupt_runtime = timerdiff;
-	}
+	// re-enable the recurring XDMA AXI UART read interrupt
+	sigemptyset(&sigactalrm.sa_mask);
+	sigactalrm.sa_flags = (SA_NODEFER); // NO SA_RESTART
+	sigactalrm.sa_handler = read_from_device_interrupt;
+	sigaction(SIGALRM, &sigactalrm, NULL);
 
 	atomic_store(&interrupt_running, 0);
 }
@@ -513,10 +506,10 @@ static void read_from_device_interrupt(int signum)
 static void xdma_tty_read(fuse_req_t req, size_t size,
 		off_t off, struct fuse_file_info *fi)
 {
-	if (atomic_load(&xdma_rd_running) == 1) {
+	if (atomic_load(&xdma_rd_running)) {
 		printf("\nFAULT: xdma_tty_read called during read interrupt.\n");
 	}
-	if (atomic_load(&xdma_wr_running) == 1) {
+	if (atomic_load(&xdma_wr_running)) {
 		printf("\nFAULT: xdma_tty_read called during write.\n");
 	}
 
@@ -545,10 +538,10 @@ static void xdma_tty_read(fuse_req_t req, size_t size,
 static void xdma_tty_write(fuse_req_t req, const char *buf, size_t size,
 		off_t off, struct fuse_file_info *fi)
 {
-	if (atomic_load(&xdma_rd_running) == 1) {
+	if (atomic_load(&xdma_rd_running)) {
 		printf("\nFAULT: xdma_tty_write called during read interrupt.\n");
 	}
-	if (atomic_load(&xdma_wr_running) == 1) {
+	if (atomic_load(&xdma_wr_running)) {
 		printf("\nFAULT: xdma_tty_write called during write.\n");
 	}
 
@@ -567,43 +560,90 @@ static void xdma_tty_write(fuse_req_t req, const char *buf, size_t size,
 
 
 	char buffer[SIZE_DEFAULT];
-	int  rc = 0;
-	int  loop_count = 0;
+	int  write_count = 0;
+	struct uartread ur;
+	ssize_t rc = 0;
+	struct itimerval it_new;
 
-	// copy data the XDMA UART ring buffer to the XDMA UART
-	if (atomic_load(&xdma.initialized))
+
+	// pause read interrupt as it is not designed to be reentrant
+	// Default XDMA communication timeout is 10s so 5s is enough
+	// of a delay to pause the read interrupt
+	it_new.it_value.tv_sec  = 5; 
+	it_new.it_value.tv_usec = 0;
+	it_new.it_interval.tv_sec  = 5;
+	it_new.it_interval.tv_usec = 0;
+	setitimer(ITIMER_REAL, &it_new, NULL);
+
+
+	// move data from the TTY ring buffer to the XDMA UART
+	if (atomic_load(&xdma.initialized) && (!atomic_load(&xdma_rd_running)))
 	{
 		atomic_store(&xdma_wr_running, 1);
-		//atomic_signal_fence(memory_order_acquire);
+
 
 		// send data to the XDMA UART (H2C)
-		while (!ringbuf_is_empty(rb_inp) && FIFO_NOT_FULL)
+		for (int i = 0 ;  i < count  ; i++)
 		{
-			ringbuf_memcpy_from(buffer, rb_inp, 1);
-
-			// stderr is not line buffered; will print immediately
-			fprintf(stderr, "%c", buffer[0]);
-
-			rc = write_from_buffer(xdma.h2c_name, xdma.fd_wrte,
-				buffer, 1, (xdma.addr + UART_TX_ADDR_OFFSET));
-			
-			if (rc < 0) {
-				printf("\nWrite to XDMA Failed!\n");
+			// this reads the status byte and sets tx_fifo_not_full global
+			rc = read_xdma_uart(xdma.c2h_name, xdma.fd_read, xdma.addr, &ur, 0);
+			// take care of any valid data
+			if (ur.datavalid && (!ringbuf_is_full(rb_out)))
+			{
+				// stderr is not line buffered so will print immediately
+				//fprintf(stderr, "%c", ur.data);
+				ringbuf_memcpy_into(rb_out, &(ur.data), 1);
 			}
 
-			loop_count++;
+
+			// write a byte to the XDMA UART
+			if ((!ringbuf_is_empty(rb_inp)) && atomic_load(&tx_fifo_not_full))
+			{
+				// copy a byte from the TTY buffer
+				ringbuf_memcpy_from(buffer, rb_inp, 1);
+
+				// stderr is not line buffered; will print immediately
+				//fprintf(stderr, "%c", buffer[0]);
+
+				rc = write_from_buffer(xdma.h2c_name, xdma.fd_wrte,
+					buffer, 1, (xdma.addr + UART_TX_ADDR_OFFSET));
+
+				if (rc < 0) {
+					printf("\nWrite to XDMA Failed!\n");
+				} else {
+					write_count++;
+				}
+			}
+
 		}
 
-		//atomic_signal_fence(memory_order_release);
+
 		atomic_store(&xdma_wr_running, 0);
 	}
 
+
+	// restart the read interrupt interval timer
+	it_new.it_value.tv_sec  = 0;
+	it_new.it_value.tv_usec = INTERRUPT_INTERVAL;
+	it_new.it_interval.tv_sec  = 0;
+	it_new.it_interval.tv_usec = INTERRUPT_INTERVAL;
+
+	setitimer(ITIMER_REAL, &it_new, NULL);
+
+	// re-enable the recurring XDMA AXI UART read interrupt
+	sigemptyset(&sigactalrm.sa_mask);
+	sigactalrm.sa_flags = (SA_NODEFER); // NO SA_RESTART
+	sigactalrm.sa_handler = read_from_device_interrupt;
+	sigaction(SIGALRM, &sigactalrm, NULL);
+
+
 	// TODO: What if count and loop_count are different?
-	if (count != loop_count) {
+	if (count != write_count) {
 		printf("\nFAULT: xdma_tty_write XDMA write overflow\n");
-		printf("  count=%ld, loop_count=%d\n", count, loop_count);
+		printf("  intended count=%ld, write_count=%d\n", count, write_count);
 	}
 
+	// reply to FUSE with the number of bytes copied to the TTY ring buffer
 	fuse_reply_write(req, count);
 }
 
@@ -622,18 +662,26 @@ static const struct cuse_lowlevel_ops xdma_tty_clop = {
 
 
 
-void on_ctrl_c(int sig)
+void on_ctrl_backslash(int sig)
 {
 	// also used as cleanup function
-	printf("\nCTRL-C Pressed --- Signal=%d=SIGINT --- Exiting...\n", sig);
-	printf("(Min, Max) Interrupt Interval = (%d, %d) usec.", \
+	atomic_store(&xdma.initialized, 0);
+	if (sig == SIGQUIT) {
+		printf("\nCTRL-\\ (SIGQUIT) Pressed.");
+	}
+	printf("\nQuiting...");
+	printf("\n(Min, Max) Interrupt Interval = (%ld, %ld) usec.", \
 		min_interrupt_interval, max_interrupt_interval);
-	printf("\nWith INTERRUPT_INTERVAL = %d, max runtime = %d usec.\n",
+	printf("\nWith INTERRUPT_INTERVAL = %d, max runtime = %ld usec.\n",
 		INTERRUPT_INTERVAL, max_interrupt_runtime);
+	close(xdma.fd_wrte);
+	close(xdma.fd_read);
 	ringbuf_free(&rb_inp);
 	ringbuf_free(&rb_out);
 	free(xdma.c2h_name);
 	free(xdma.h2c_name);
+	// FUSE uses INT signal to run exit functions - see fuse_common.h
+	raise(SIGINT);
 	exit(EXIT_SUCCESS);
 }
 
@@ -651,9 +699,9 @@ int main(int argc, char **argv)
 
 	if (argc != 5)
 	{
-		printf("%s is a software bridge between a ", argv[0]);
+		printf("%s is a bridge between a host ", argv[0]);
 		printf("TTY and an FPGA XDMA AXI UART.\n");
-		printf("Press CTRL-C to exit.\n");
+		printf("Press CTRL-\\ to quit.\n");
 		printf("Usage:\n");
 		printf("  sudo %s C2H_DEVICE_NAME  ", argv[0]);
 		printf("H2C_DEVICE_NAME  AXI_BASE_ADDR TTY_NAME\n");
@@ -672,6 +720,7 @@ int main(int argc, char **argv)
 	atomic_init(&xdma_rd_running, 0);
 	atomic_init(&xdma_wr_running, 0);
 	atomic_init(&xdma.initialized, 0);
+	atomic_init(&tx_fifo_not_full, 0);
 	xdma.fd_read = 0;
 	xdma.fd_wrte = 0;
 	xdma.addr = strtol(argv[3], NULL, 16);
@@ -698,7 +747,7 @@ int main(int argc, char **argv)
 
 	printf("XDMA AXI UART to TTY using CUSE ");
 	printf("(FUSE char device in userspace)\n");
-	printf("Press CTRL-C to exit.\n");
+	printf("Press CTRL-\\ to quit.\n");
 	printf("C2H Device: %s\n", xdma.c2h_name);
 	printf("H2C Device: %s\n", xdma.h2c_name);
 	printf("AXI Base Address: %s = %d\n", argv[3], xdma.addr);
@@ -715,20 +764,33 @@ int main(int argc, char **argv)
 	it_new.it_interval.tv_sec  = 1;
 	it_new.it_interval.tv_usec = 0;
 
-	// enable the interrupt
 	setitimer(ITIMER_REAL, &it_new, &it_old);
-	signal(SIGALRM, read_from_device_interrupt);
 
-	// handle CTRL-C as exit; CUSE set to run in foreground
-	signal(SIGINT, on_ctrl_c);
+	// enable the recurring XDMA AXI UART read interrupt
+	// stackoverflow.com/questions/8903448/libfuse-exiting-fuse-session-loop
+	sigemptyset(&sigactalrm.sa_mask);
+	sigactalrm.sa_flags = (SA_NODEFER); // NO SA_RESTART
+	sigactalrm.sa_handler = read_from_device_interrupt;
+	sigaction(SIGALRM, &sigactalrm, NULL);
+
+
+	// handle CTRL-\ as quit; CUSE is set to run in foreground, need exit
+	struct sigaction sigactquit;
+
+	sigemptyset(&sigactquit.sa_mask);
+	sigactquit.sa_flags = (SA_NODEFER | SA_RESETHAND); // NO SA_RESTART
+	sigactquit.sa_handler = on_ctrl_backslash;
+	sigaction(SIGQUIT, &sigactquit, NULL);
 
 	// -s is for single-threaded mode
 	// -f to run in foreground and use current directory, stderr, stdout
 	// -d to enable FUSE debugging
-	const char* cuse_args[] = {"cuse", "-s", "-f"}; // 3 args
+	// use argv[4] as internal FUSE name to allow multiple instances
+	//const char* cuse_args[] = {"cuse", "-s", "-f"}; // 3 args
+	const char* cuse_args[] = {argv[4], "-s", "-f"}; // 3 args
 	return cuse_lowlevel_main(3, (char**) &cuse_args,
 					&cinfo, &xdma_tty_clop, NULL);
 
-	on_ctrl_c(EXIT_SUCCESS); // use CTRL-C handler as cleanup
+	on_ctrl_backslash(EXIT_SUCCESS); // use CTRL-\ handler for exit and cleanup
 }
 
