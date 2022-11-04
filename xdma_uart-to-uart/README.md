@@ -104,8 +104,8 @@ sudo ./dma_from_device -v -d /dev/xdma0_c2h_0 -a 0x60100000 -s 4 -f RECV ; xxd R
 
 ## Useful References
 
-- [cusexmp.c FUSE example](https://github.com/libfuse/libfuse/blob/fuse-2.9.9/example/cusexmp.c)
-- [tty0tty](https://github.com/lcgamboa/tty0tty)
+- [cusexmp.c CUSE example](https://github.com/libfuse/libfuse/blob/fuse-2.9.9/example/cusexmp.c)
+- [tty0tty](https://github.com/lcgamboa/tty0tty) is a Virtual TTY to TTY Bridge
 - [Linux Device Drivers 3rd Edition](https://lwn.net/Kernel/LDD3/) [tiny_tty example](https://github.com/martinezjavier/ldd3/blob/master/tty/tiny_tty.c)
 - [CuseTTY](https://bitbucket.org/hetii/cusetty/raw/8143a4472710ec90632d010c70e7ef8b87fe1181/cusetty.c) is a [Virtual TTY for ESP-Link](https://github.com/jeelabs/esp-link/issues/215)
 
