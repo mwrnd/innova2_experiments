@@ -58,7 +58,7 @@ source /tools/Xilinx/Vivado/2021.2/settings64.sh
 xsdb
 ```
 
-The `connect` command begins `xsdb` communication with the FPGA's internal JTAG module. `targets` lists available JTAG devices. `targets 3` selects a specific device to communicate with. The `stop` command halts the RISC-V core. `dow` downloads the specified program to the selected RISC-V core. `con` continues execution from the address specified within the loaded `.elf` file, `0x80000008`. `rrd` dumps registers.
+The `connect` command begins `xsdb` communication with the FPGA's internal JTAG module. `targets` lists available JTAG devices. `targets 3` selects a specific device to communicate with. The `stop` command halts the RISC-V core. `dow` downloads the specified program to the selected RISC-V core. `con` continues execution from the address specified within the loaded `.elf` file, `0x80000008`. `rr` reads registers.
 ```
 connect
 targets
@@ -71,7 +71,7 @@ rr pc
 
 ![xsdb program load](img/xsdb_bare-metal_download.png)
 
-`rr pc` is *Register Read Program Counter* which is currently at `0x8000046c`. The `.elf` file can be disassembled to follow along with code execution.
+`rr pc` is *Read Register Program Counter* which is currently at `0x8000046c`. The `.elf` file can be disassembled to follow along with code execution.
 ```
 cd vivado-risc-v/bare-metal/hello-world/
 riscv64-unknown-elf-objdump -S -l --inlines -D boot.elf  > dis.txt
