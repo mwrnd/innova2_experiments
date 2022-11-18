@@ -2,9 +2,9 @@
 
 # TODO:
  * Refer to the [Debug Log](debug_log.md) for progress
+ * Perfect [UART-over-XDMA](../xdma_uart-to-uart) using [CUSE](https://libfuse.github.io/doxygen/cuse_8c.html); drops data
+ * [Ethernet-over-XDMA TUN/TAP](https://en.wikipedia.org/wiki/TUN/TAP) Driver
  * Test beyond bare-metal, load Linux
- * Perfect [CUSE](https://libfuse.github.io/doxygen/cuse_8c.html) driver for UART; drops data
- * [CUSE](https://libfuse.github.io/doxygen/cuse_8c.html) driver for Ethernet
 
 # DONE:
 

@@ -2,7 +2,7 @@
 
 Non-Blocking UART RTL Module Compatible with Xilinx Vivado Block Designs
 
-https://github.com/eugene-tarassov/vivado-risc-v/raw/6c8d522c78bb17abce552fefe4f5cb0f7b8388ee/uart/uart.v
+From: https://github.com/eugene-tarassov/vivado-risc-v/raw/v3.4.0/uart/uart.v
 
 Register  Offset  Contents/Bit Descriptions
 --------  ------  -------------------------
@@ -102,7 +102,7 @@ always @(posedge clock)
 
 // ------ RX/TX
 
-`define fifo_ptr_bits 4
+`define fifo_ptr_bits 9
 
 reg  [7:0] rx_buf [(1<<`fifo_ptr_bits)-1:0];
 reg  [`fifo_ptr_bits-1:0] rx_inp_pos;
