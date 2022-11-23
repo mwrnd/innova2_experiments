@@ -2,7 +2,6 @@
  * XDMA AXI UART to TTY Bridge using CUSE (FUSE char device in userspace)    *
  *                                                                           *
  * BSD 2-Clause License                                                      *
- * SPDX-License-Identifier: BSD-2-Clause                                     *
  *                                                                           *
  * Copyright (c) 2022 Matthew Wielgus (mwrnd.github@gmail.com)               *
  * https://github.com/mwrnd/innova2_experiments/tree/main/xdma_uart-to-uart  *
@@ -34,28 +33,30 @@
 
 /*
 
-TODO: - Cannot send long strings of data. Note UART FIFO length is 16 bytes.
-        Can send up to 15 chars in one terminal and successfully receive
-        it in another, but anything longer will result in data loss.
-        Poll frequency, UART buffer size, and baud rate cause data to be lost.
-        Poll frequency is controlled by CUSE (part of FUSE).
-	15 chars  abcdefghijklmno   works
-	16 chars  abcdefghijklmnop  fails
+TODO: - Can only send a maximum packet size of 4096 bytes, which is
+        the Linux TTY internal buffer size.
+        Send RAW File command ends in an error regardless of data length sent.
+
 
 Notes:
- This software is a workaround to avoid using a proper
- driver for a PCIe XDMA AXI UART to behave as a TTY.
- A UART design that does not generate any AXI errors is required.
+ This software is a userspace driver for UART over XDMA. It allows a host
+ computer with a Xilinx PCIe-based FPGA to communicate with UART modules
+ implemented in the FPGA using standard Linux TTY tools (gtkterm, minicom).
+ An AXI UART design that does not generate any AXI errors is required.
  This will NOT work with Xilinx's AXI UART Lite (pg142) as it generates an
  AXI Bus Error if the status byte is read when the UART Lite FIFO is empty.
  Interaction with the AXI UART is byte-wise and sequential. There is a lot of
- overhead as each byte read or written requires a status byte read.
+ overhead as each byte read or written requires a STATUS byte read.
+ Each byte write also requires a delay to allow for the symbol to be sent.
  Note the XDMA driver and this software cannot deal with system suspend.
  Compile with --std=gnu1x for Atomics and GNU Libc signal support.
+ CUSE periodically calls the _poll function to determine if there are any
+ receive bytes available and if there is room in the transmit FIFO. CUSE
+ then calls _read and _write when and if appropriate.
 
 Prerequisites:
  - Xilinx XDMA to AXI FPGA project with a non-blocking UART such as
-   github.com/eugene-tarassov/vivado-risc-v/blob/v3.3.0/uart/uart.v
+   github.com/eugene-tarassov/vivado-risc-v/blob/v3.4.0/uart/uart.v
  - XDMA Drivers from github.com/xilinx/dma_ip_drivers
    Install Instructions at github.com/mwrnd/innova2_flex_xcku15p_notes
  - libfuse2 and its development library:
@@ -104,11 +105,22 @@ run a second instance for loopback testing:
 
 
 // refer to uart.v for register addresses/offsets
-// github.com/eugene-tarassov/vivado-risc-v/blob/v3.3.0/uart/uart.v
+// github.com/eugene-tarassov/vivado-risc-v/blob/v3.4.0/uart/uart.v
 #define UART_RX_ADDR_OFFSET    0x0
 #define UART_TX_ADDR_OFFSET    0x4
 #define UART_STAT_ADDR_OFFSET  0x8
 #define UART_CTRL_ADDR_OFFSET  0xC
+
+
+// Need to wait the inter-symbol time between writes or data will be lost.
+// In a driver the correct method would be to wait for tx_fifo_empty in the
+// STATUS register to be true again which means the data was sent. However,
+// that would not use the full TX buffer. Instead, wait long enough for a
+// full FIFO buffer of data to transfer to catch all data.
+// 115200 / 16  char buffer = 7200 --> 1/7200s = 0.000139s =  139us
+// 115200 / 512 char buffer = 225  -->  1/256s = 0.003910s = 3910us
+// 9600   / 16  char buffer = 600  -->  1/600s = 0.001667s = 1667us
+#define INTERSYMBOL_DELAY	139
 
 
 void on_ctrl_backslash(int sig);
@@ -142,24 +154,14 @@ ssize_t read_byte_from_xdma(uint64_t offset, char *buffer)
 
 	if (atomic_load(&xdma.initialized))
 	{
-		rc = lseek(xdma.fd_read, (xdma.addr + offset), SEEK_SET);
-
-		if (rc < 0) {
-			fprintf(stderr, "%s, seek offset 0x%lx != 0x%lx.\n",
-					xdma.c2h_name, offset, rc);
-			perror("File Seek");
-			return -EIO;
-		}
-
-		rc = read(xdma.fd_read, buf, 1);
+		rc = pread(xdma.fd_read, buf, 1, (xdma.addr + offset));
 
 		if (rc < 0) {
 			fprintf(stderr, "%s, read byte @ 0x%lx failed %ld.\n",
-				xdma.c2h_name, offset, rc);
+				xdma.c2h_name, (xdma.addr + offset), rc);
 			perror("File Read");
 			return -EIO;
 		}
-
 	}
 
 	return 1;
@@ -175,20 +177,12 @@ ssize_t write_byte_to_xdma(uint64_t offset, char *buffer)
 
 	if (atomic_load(&xdma.initialized))
 	{
-		rc = lseek(xdma.fd_wrte, (xdma.addr + offset), SEEK_SET);
-
-		if (rc < 0) {
-			fprintf(stderr, "%s, seek offset 0x%lx != 0x%lx.\n",
-					xdma.h2c_name, offset, rc);
-			perror("File Seek");
-			return -EIO;
-		}
-
-		rc = write(xdma.fd_wrte, buf, 1);
+		rc = pwrite(xdma.fd_wrte, buf, 1, (xdma.addr + offset));
+		fsync(xdma.fd_wrte);
 
 		if (rc < 0) {
 			fprintf(stderr, "%s, write byte @ 0x%lx failed %ld.\n",
-				xdma.h2c_name, offset, rc);
+				xdma.h2c_name, (xdma.addr + offset), rc);
 			perror("write file");
 			return -EIO;
 		}
@@ -229,23 +223,23 @@ void print_debug_info(void)
 		uart_status = (uint8_t)(buffer[0]);
 
 		// refer to uart.v for STATUS byte bit offsets and definitions
-		// github.com/eugene-tarassov/vivado-risc-v/blob/v3.3.0/uart/uart.v
+		// github.com/eugene-tarassov/vivado-risc-v/blob/v3.4.0/uart/uart.v
 		uart_rx_fifo_data_valid = (uart_status & 0x01) >> 0;
 		uart_rx_fifo_full       = (uart_status & 0x02) >> 1;
 		uart_tx_fifo_empty      = (uart_status & 0x04) >> 2;
 		uart_tx_fifo_full       = (uart_status & 0x08) >> 3;
 		uart_clear_to_send      = (uart_status & 0x10) >> 4;
 
-		printf("\nuart_status = 0x%02x\n", uart_status);
-		printf("\tBit0 = uart_rx_fifo_data_valid = %d\n",
+		printf("\n\tuart_status = 0x%02x\n", uart_status);
+		printf("\t\tBit0 = uart_rx_fifo_data_valid = %d\n",
 				uart_rx_fifo_data_valid);
-		printf("\tBit1 = uart_rx_fifo_full       = %d\n",
+		printf("\t\tBit1 = uart_rx_fifo_full       = %d\n",
 				uart_rx_fifo_full);
-		printf("\tBit2 = uart_tx_fifo_empty      = %d\n",
+		printf("\t\tBit2 = uart_tx_fifo_empty      = %d\n",
 				uart_tx_fifo_empty);
-		printf("\tBit3 = uart_tx_fifo_full       = %d\n",
+		printf("\t\tBit3 = uart_tx_fifo_full       = %d\n",
 				uart_tx_fifo_full);
-		printf("\tBit4 = uart_clear_to_send      = %d\n",
+		printf("\t\tBit4 = uart_clear_to_send      = %d\n",
 				uart_clear_to_send);
 
 		xdma.uart_rx_has_data = uart_rx_fifo_data_valid;
@@ -253,8 +247,8 @@ void print_debug_info(void)
 		xdma.uart_tx_fifo_not_full =
 				!((uart_status & 0x08) >> 3);
 
-		printf("xdma.uart_rx_has_data = %d\n", xdma.uart_rx_has_data);
-		printf("xdma.uart_tx_fifo_not_full = %d\n",
+		printf("\txdma.uart_rx_has_data = %d\n", xdma.uart_rx_has_data);
+		printf("\txdma.uart_tx_fifo_not_full = %d\n",
 			xdma.uart_tx_fifo_not_full);
 
 
@@ -273,16 +267,16 @@ void print_debug_info(void)
 		tx_irq_enabled = (uart_control & 0x20) >> 5;
 		tx_stop        = (uart_control & 0x40) >> 6;
 
-		printf("\nuart_control = 0x%02x\n", uart_control);
-		printf("\tBit4 = rx_irq_enabled = %d\n",
+		printf("\n\tuart_control = 0x%02x\n", uart_control);
+		printf("\t\tBit4 = rx_irq_enabled = %d\n",
 				rx_irq_enabled);
-		printf("\tBit5 = tx_irq_enabled = %d\n",
+		printf("\t\tBit5 = tx_irq_enabled = %d\n",
 				tx_irq_enabled);
-		printf("\tBit6 = tx_stop        = %d\n",
+		printf("\t\tBit6 = tx_stop        = %d\n",
 				tx_stop);
 
 
-		printf("xdma.fd_read = %d, xdma.fd_wrte = %d",
+		printf("\txdma.fd_read = %d, xdma.fd_wrte = %d",
 			xdma.fd_read, xdma.fd_wrte);
 
 		printf("\n\n");
@@ -337,15 +331,15 @@ static void xdma_tty_ioctl(fuse_req_t req, int cmd, void *arg,
 		{
 			if ((size_t)arg == TCIFLUSH) {
 				printf("TCIFLUSH: Reset XDMA UART RX FIFO\n");
-				buf[0] = 1;
+				buf[0] = 1; // Bit0=1 resets RX FIFO
 				write_byte_to_xdma(UART_CTRL_ADDR_OFFSET, buf);
 			} else if ((size_t)arg == TCOFLUSH) {
 				printf("TCOFLUSH: Reset XDMA UART TX FIFO\n");
-				buf[0] = 2;
+				buf[0] = 2; // Bit1=1 resets TX FIFO
 				write_byte_to_xdma(UART_CTRL_ADDR_OFFSET, buf);
 			} else if ((size_t)arg == TCIOFLUSH) {
 				printf("TCIOFLUSH: Reset XDMA UART FIFOs\n");
-				buf[0] = 3;
+				buf[0] = 3; // Bit0=1, Bit1=1 resets both
 				write_byte_to_xdma(UART_CTRL_ADDR_OFFSET, buf);
 			}
 		}
@@ -399,6 +393,7 @@ static void xdma_tty_release(fuse_req_t req, struct fuse_file_info *fi)
 
 static void xdma_tty_open(fuse_req_t req, struct fuse_file_info *fi)
 {
+
 	xdma.fd_wrte = open(xdma.h2c_name, O_WRONLY);
 
 	if (xdma.fd_wrte < 0) {
@@ -415,9 +410,9 @@ static void xdma_tty_open(fuse_req_t req, struct fuse_file_info *fi)
 		perror("open device");
 	}
 
-	fuse_reply_open(req, fi);
-
 	atomic_store(&xdma.initialized, 1);
+
+	fuse_reply_open(req, fi);
 }
 
 
@@ -491,7 +486,7 @@ static void xdma_tty_poll(fuse_req_t req, struct fuse_file_info *fi,
 		uart_status = (uint8_t)(buffer[0]);
 
 		// refer to uart.v for STATUS byte bit offsets and definitions
-		// github.com/eugene-tarassov/vivado-risc-v/blob/v3.3.0/uart/uart.v
+		// github.com/eugene-tarassov/vivado-risc-v/blob/v3.4.0/uart/uart.v
 		uart_rx_fifo_data_valid = (uart_status & 0x01) >> 0;
 		//uart_rx_fifo_full       = (uart_status & 0x02) >> 1;
 		//uart_tx_fifo_empty      = (uart_status & 0x04) >> 2;
@@ -507,11 +502,12 @@ static void xdma_tty_poll(fuse_req_t req, struct fuse_file_info *fi,
 			pollmask |= POLLIN;
 		}
 
-		// If the UART TX FIFO is not full
+		// If the UART TX FIFO is not full and Clear-To-Send
 		// CUSE will be able to call _write when it has data ready
 		if ((xdma.uart_tx_fifo_not_full) && (xdma.uart_clear_to_send)) {
 			pollmask |= POLLOUT;
 		}
+
 	}
 
 
@@ -639,6 +635,14 @@ static void xdma_tty_write(fuse_req_t req, const char *buf, size_t size,
 			fprintf(stderr, "with rc=%ld\n", rc);
 			_xdma_write_errors++;
 		}
+
+		// Need to wait the inter-symbol time between writes or data
+		// will be lost. In a driver the correct method would be to
+		// wait for tx_fifo_empty in the STATUS register to be true
+		// again which means the data was sent. However, that would
+		// lock up this function and not use the full TX buffer.
+		// Instead, the while loop checks the FIFO buffer is not full.
+		usleep(INTERSYMBOL_DELAY);
 
 		count++;
 
@@ -769,11 +773,16 @@ int main(int argc, char **argv)
 	printf("XDMA AXI UART to TTY using CUSE ");
 	printf("(FUSE char device in userspace)\n");
 	printf("Press CTRL-\\ to quit.\n");
-	printf("C2H Device: %s\n", xdma.c2h_name);
-	printf("H2C Device: %s\n", xdma.h2c_name);
-	printf("AXI Base Address: %s = %ld\n", argv[3], xdma.addr);
+	printf("Card-To-Host Device: %s\n", xdma.c2h_name);
+	printf("Host-To-Card Device: %s\n", xdma.h2c_name);
+	printf("AXI UART Base Address: %s = 0x%lX = %ld\n",
+		argv[3], xdma.addr, xdma.addr);
 	printf("%s\n", cinfo.dev_info_argv[0]);
 	printf("TTY Name: /dev/%s\n", argv[4]);
+	printf("Delay between UART TX writes = %d us\n", INTERSYMBOL_DELAY);
+	printf("Maximum Baud Rate ~= %d", ((16*1000000)/INTERSYMBOL_DELAY));
+	printf(" baud if the UART FIFO has a 16 byte depth.\n");
+	printf("Note (1/(115200baud/16char_FIFO)) = 0.000139s = 139us\n");
 	printf("\n");
 
 

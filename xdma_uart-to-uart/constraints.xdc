@@ -21,12 +21,16 @@ set_property PACKAGE_PIN F2 [get_ports reset_rtl_0]
 set_property IOSTANDARD LVCMOS33 [get_ports reset_rtl_0]
 
 
-# Innova-2 Flex - LEDs - A6=D19, B6=D18
+
+
+# LEDs - Innova-2 Flex - A6=D19, B6=D18
 set_property PACKAGE_PIN B6 [get_ports TxD_0]
 set_property IOSTANDARD LVCMOS33 [get_ports TxD_0]
 
 
-# Memory Configuration File Settings
+
+
+# Bitstream Memory Configuration File Settings
 
 set_property CONFIG_MODE SPIx8 [current_design]
 set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]

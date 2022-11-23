@@ -1,16 +1,19 @@
 /*
 
-Non-Blocking UART RTL Module Compatible with Xilinx Vivado Block Designs
+Non-Blocking AXI UART RTL Module for Xilinx Vivado Block Designs
 
-From: https://github.com/eugene-tarassov/vivado-risc-v/raw/v3.4.0/uart/uart.v
+Modified from: github.com/eugene-tarassov/vivado-risc-v/blob/v3.4.0/uart/uart.v
 
 Register  Offset  Contents/Bit Descriptions
 --------  ------  -------------------------
 RX FIFO   0x00    16-Byte Receive FIFO
 TX FIFO   0x04    16-Byte Transmit FIFO
 STATUS    0x08    4=CTS,  3=TX_Full,  2=TX_Empty,  1=RX_Full,  0=RX_Data_Valid
-CONTROL   0x0C    6=TX_Stop,  5:4=IRQ_Enable
+CONTROL   0x0C    6=TX_Stop,  5=TX_Interrupt_Enable,  4=RX_Interrupt_Enable,
+                  1=TX_FIFO_Reset,  0=RX_FIFO_Reset
 
+Alter "define fifo_ptr_bits 9" to change RX+TX FIFO depth
+Default value for the Interrupt Enable registers is 0=OFF
 
 Copyright (c) 2020 Eugene Tarassov
 
@@ -38,7 +41,7 @@ module uart (
     input wire async_resetn,
 
     (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 clock CLK" *)
-    (* X_INTERFACE_PARAMETER = "ASSOCIATED_BUSIF S_AXI_LITE, FREQ_HZ 100000000" *)
+    (* X_INTERFACE_PARAMETER = "ASSOCIATED_BUSIF S_AXI_LITE, FREQ_HZ 50000000" *)
     input wire clock,
 
     (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI_LITE AWADDR" *)
@@ -86,7 +89,12 @@ module uart (
     (* X_INTERFACE_INFO = "xilinx.com:interface:uart:1.0 RS232 RTSn" *)
     output reg RTSn,
     (* X_INTERFACE_INFO = "xilinx.com:interface:uart:1.0 RS232 CTSn" *)
-    input wire CTSn
+    input wire CTSn,
+
+    // Debug Signals
+    output reg DBG_tx_empty,
+    output reg DBG_rx_full,
+    output reg DBG_tx_full
 );
 
 wire reset;
@@ -102,7 +110,7 @@ always @(posedge clock)
 
 // ------ RX/TX
 
-`define fifo_ptr_bits 9
+`define fifo_ptr_bits 4
 
 reg  [7:0] rx_buf [(1<<`fifo_ptr_bits)-1:0];
 reg  [`fifo_ptr_bits-1:0] rx_inp_pos;
@@ -113,10 +121,10 @@ wire rx_full;
 wire rx_empty;
 wire rx_irq;
 
-assign rx_full = rx_inp_nxt == rx_out_pos;
-assign rx_empty = rx_inp_pos == rx_out_pos;
-assign rx_inp_nxt = rx_inp_pos + 1;
-assign rx_out_nxt = rx_out_pos + 1;
+assign rx_full  = (rx_inp_nxt == rx_out_pos);
+assign rx_empty = (rx_inp_pos == rx_out_pos);
+assign rx_inp_nxt = (rx_inp_pos + 1);
+assign rx_out_nxt = (rx_out_pos + 1);
 assign rx_irq = !rx_empty;
 
 reg  [7:0] tx_buf [(1<<`fifo_ptr_bits)-1:0];
@@ -133,12 +141,12 @@ reg tx_stop;
 reg [7:0] xon_xoff_inp;
 reg [7:0] xon_xoff_out;
 
-assign tx_full = tx_inp_nxt == tx_out_pos;
-assign tx_empty = tx_inp_pos == tx_out_pos;
-assign tx_inp_nxt = tx_inp_pos + 1;
-assign tx_out_nxt = tx_out_pos + 1;
-assign tx_len = tx_inp_pos - tx_out_pos;
-assign tx_irq = tx_len <= (1 << (`fifo_ptr_bits - 2));
+assign tx_full  = (tx_inp_nxt == tx_out_pos);
+assign tx_empty = (tx_inp_pos == tx_out_pos);
+assign tx_inp_nxt = (tx_inp_pos + 1);
+assign tx_out_nxt = (tx_out_pos + 1);
+assign tx_len = (tx_inp_pos - tx_out_pos);
+assign tx_irq = (tx_len <= (1 << (`fifo_ptr_bits - 2)));
 
 `define STATE_SIZE 4
 `define IDLE  0
@@ -154,8 +162,8 @@ assign tx_irq = tx_len <= (1 << (`fifo_ptr_bits - 2));
 
 parameter BAUD_RATE = 115200;
 
- // Clock divider
-`define PHASE_MAX (100000000 / BAUD_RATE - 1)
+// Clock divider
+`define PHASE_MAX (50000000 / BAUD_RATE - 1)
 
 // RxD sampling point
 `define PHASE_RXC (`PHASE_MAX / 2)
@@ -176,6 +184,9 @@ always @(posedge clock) begin
         RTSn <= 1;
         CTS0 <= 1;
         TxD <= 1;
+        DBG_tx_empty <= 1;
+        DBG_rx_full <= 0;
+        DBG_tx_full <= 0;
         rx_inp_pos <= 0;
         tx_out_pos <= 0;
         rx_state <= `IDLE;
@@ -185,11 +196,14 @@ always @(posedge clock) begin
         xon_xoff_out <= 0;
     end else begin
         RTSn <= rx_full;
+        DBG_tx_empty <= tx_empty;
+        DBG_rx_full <= rx_full;
+        DBG_tx_full <= tx_full;
         if (tx_phase == `PHASE_MAX) begin
             CTS0 <= CTSn;
             case (tx_state)
             `IDLE:
-                if (CTSn == 0 && CTS0 == 0) begin
+                if ((CTSn == 0) && (CTS0 == 0)) begin
                   if (xon_xoff_inp != xon_xoff_out) begin
                       if (xon_xoff_inp != 0) begin
                           TxD <= 0;
@@ -205,14 +219,14 @@ always @(posedge clock) begin
                   end
                 end
             `START: begin TxD <= tx_rg[0]; tx_state <= `BIT0; end
-            `BIT0: begin TxD <= tx_rg[1]; tx_state <= `BIT1; end
-            `BIT1: begin TxD <= tx_rg[2]; tx_state <= `BIT2; end
-            `BIT2: begin TxD <= tx_rg[3]; tx_state <= `BIT3; end
-            `BIT3: begin TxD <= tx_rg[4]; tx_state <= `BIT4; end
-            `BIT4: begin TxD <= tx_rg[5]; tx_state <= `BIT5; end
-            `BIT5: begin TxD <= tx_rg[6]; tx_state <= `BIT6; end
-            `BIT6: begin TxD <= tx_rg[7]; tx_state <= `BIT7; end
-            `BIT7: begin TxD <= 1; tx_state <= `IDLE; end
+            `BIT0:  begin TxD <= tx_rg[1]; tx_state <= `BIT1; end
+            `BIT1:  begin TxD <= tx_rg[2]; tx_state <= `BIT2; end
+            `BIT2:  begin TxD <= tx_rg[3]; tx_state <= `BIT3; end
+            `BIT3:  begin TxD <= tx_rg[4]; tx_state <= `BIT4; end
+            `BIT4:  begin TxD <= tx_rg[5]; tx_state <= `BIT5; end
+            `BIT5:  begin TxD <= tx_rg[6]; tx_state <= `BIT6; end
+            `BIT6:  begin TxD <= tx_rg[7]; tx_state <= `BIT7; end
+            `BIT7:  begin TxD <= 1;        tx_state <= `IDLE; end
             endcase
             tx_phase <= 0;
         end else begin
@@ -220,15 +234,15 @@ always @(posedge clock) begin
         end
         if (rx_phase == `PHASE_MAX) begin
             case (rx_state)
-            `IDLE: if (RxD == 0) begin rx_state <= `START; end
+            `IDLE:  if (RxD == 0) begin rx_state <= `START; end
             `START: begin rx_rg[0] <= RxD; rx_state <= `BIT0; end
-            `BIT0: begin rx_rg[1] <= RxD; rx_state <= `BIT1; end
-            `BIT1: begin rx_rg[2] <= RxD; rx_state <= `BIT2; end
-            `BIT2: begin rx_rg[3] <= RxD; rx_state <= `BIT3; end
-            `BIT3: begin rx_rg[4] <= RxD; rx_state <= `BIT4; end
-            `BIT4: begin rx_rg[5] <= RxD; rx_state <= `BIT5; end
-            `BIT5: begin rx_rg[6] <= RxD; rx_state <= `BIT6; end
-            `BIT6: begin rx_rg[7] <= RxD; rx_state <= `BIT7; end
+            `BIT0:  begin rx_rg[1] <= RxD; rx_state <= `BIT1; end
+            `BIT1:  begin rx_rg[2] <= RxD; rx_state <= `BIT2; end
+            `BIT2:  begin rx_rg[3] <= RxD; rx_state <= `BIT3; end
+            `BIT3:  begin rx_rg[4] <= RxD; rx_state <= `BIT4; end
+            `BIT4:  begin rx_rg[5] <= RxD; rx_state <= `BIT5; end
+            `BIT5:  begin rx_rg[6] <= RxD; rx_state <= `BIT6; end
+            `BIT6:  begin rx_rg[7] <= RxD; rx_state <= `BIT7; end
             `BIT7:
                 begin
                     rx_buf[rx_inp_pos] <= rx_rg;
@@ -237,7 +251,7 @@ always @(posedge clock) begin
                 end
             endcase
             rx_phase <= 0;
-        end else if (rx_state == `IDLE && RxD == 1) begin
+        end else if ((rx_state == `IDLE) && (RxD == 1)) begin
             rx_phase <= `PHASE_RXC;
         end else begin
             rx_phase <= rx_phase + 1;
@@ -257,9 +271,9 @@ reg [31:0] write_data;
 reg rd_req;
 reg [1:0] wr_req;
 
-assign s_axi_arready = !rd_req && !s_axi_rvalid;
+assign s_axi_arready = !rd_req    && !s_axi_rvalid;
 assign s_axi_awready = !wr_req[0] && !s_axi_bvalid;
-assign s_axi_wready = !wr_req[1] && !s_axi_bvalid;
+assign s_axi_wready  = !wr_req[1] && !s_axi_bvalid;
 
 always @(posedge clock) begin
     if (reset) begin
@@ -280,7 +294,7 @@ always @(posedge clock) begin
         xon_xoff_inp <= 0;
         tx_stop <= 0;
     end else begin
-        interrupt <= (irq_enable[0] && rx_irq) || (irq_enable[1] && tx_irq);
+        interrupt <= ((irq_enable[0] && rx_irq) || (irq_enable[1] && tx_irq));
         if (s_axi_arready && s_axi_arvalid) begin
             read_addr <= s_axi_araddr;
             rd_req <= 1;
@@ -326,7 +340,7 @@ always @(posedge clock) begin
                         if (write_data[0]) begin rx_out_pos <= rx_inp_pos; end
                         if (write_data[1]) begin tx_inp_pos <= tx_out_pos; end
                         irq_enable <= write_data[5:4];
-                        tx_stop <= write_data[6];
+                        tx_stop    <= write_data[6];
                     end
                 endcase
             end

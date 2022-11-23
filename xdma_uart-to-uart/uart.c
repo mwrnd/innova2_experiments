@@ -1,43 +1,15 @@
-/*****************************************************************************
- * XDMA AXI UART Test Program                                                *
- *                                                                           *
- * BSD 2-Clause License                                                      *
- * SPDX-License-Identifier: BSD-2-Clause                                     *
- *                                                                           *
- * Copyright (c) 2022 Matthew Wielgus (mwrnd.github@gmail.com)               *
- * https://github.com/mwrnd/innova2_experiments/tree/main/xdma_uart-to-uart  *
- *                                                                           *
- * Redistribution and use in source and binary forms, with or without        *
- * modification, are permitted provided that the following conditions        *
- * are met:                                                                  *
- *                                                                           *
- * 1. Redistributions of source code must retain the above copyright notice, *
- *    this list of conditions and the following disclaimer.                  *
- *                                                                           *
- * 2. Redistributions in binary form must reproduce the above copyright      *
- *    notice, this list of conditions and the following disclaimer in the    *
- *    documentation and/or other materials provided with the distribution.   *
- *                                                                           *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS       *
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED *
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A           *
- * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER *
- * OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,  *
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,       *
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR        *
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF    *
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING      *
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS        *
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.              *
- *****************************************************************************
- */
-
 /*
+ * BSD 2-Clause License
+
+ xdma_uart-to-uart UART Debug
 
 TODO: - Can write up to count=25 bytes of data to XDMA0
         Then successfully read up to count=17 bytes of data from XDMA1
         How? UART FIFO length is 2^4 = 16
 
+Need to wait the inter-symbol time between writes and reads
+ 115200 / 16  char buffer = 7200 --> 1/8000s = 0.000125s =  125us
+ 
 Notes:
  This software is a workaround to avoid using a proper
  driver for a PCIe XDMA AXI UART to behave as a TTY.
@@ -121,6 +93,7 @@ ssize_t read_byte_from_xdma(struct _XDMA *xdma, uint64_t offset, char *buffer)
 
 	if (atomic_load(&xdma->initialized))
 	{
+		/*
 		rc = lseek(xdma->fd_read, (xdma->addr + offset), SEEK_SET);
 
 		if (rc < 0) {
@@ -131,6 +104,8 @@ ssize_t read_byte_from_xdma(struct _XDMA *xdma, uint64_t offset, char *buffer)
 		}
 
 		rc = read(xdma->fd_read, buf, 1);
+		*/
+		rc = pread(xdma->fd_read, buf, 1, (xdma->addr + offset));
 
 		if (rc < 0) {
 			fprintf(stderr, "%s, read byte @ 0x%lx failed %ld.\n",
@@ -154,6 +129,7 @@ ssize_t write_byte_to_xdma(struct _XDMA *xdma, uint64_t offset, char *buffer)
 
 	if (atomic_load(&xdma->initialized))
 	{
+		/*
 		rc = lseek(xdma->fd_wrte, (xdma->addr + offset), SEEK_SET);
 
 		if (rc < 0) {
@@ -164,6 +140,9 @@ ssize_t write_byte_to_xdma(struct _XDMA *xdma, uint64_t offset, char *buffer)
 		}
 
 		rc = write(xdma->fd_wrte, buf, 1);
+		*/
+		rc = pwrite(xdma->fd_wrte, buf, 1, (xdma->addr + offset));
+		fsync(xdma->fd_wrte);
 
 		if (rc < 0) {
 			fprintf(stderr, "%s, write byte @ 0x%lx failed %ld.\n",
@@ -175,6 +154,78 @@ ssize_t write_byte_to_xdma(struct _XDMA *xdma, uint64_t offset, char *buffer)
 
 	return 1;
 }
+
+
+
+
+
+
+
+
+void print_gpio2_state(struct _XDMA *xdma)
+{
+	char readbuffer[1];
+	uint8_t gpio2;
+	ssize_t rc = 0;
+	uint8_t async_resetn = 0;
+	uint8_t uart0_DBG_tx_empty = 0;
+	uint8_t uart0_DBG_rx_full = 0;
+	uint8_t uart0_DBG_tx_full = 0;
+	uint8_t uart1_DBG_tx_empty = 0;
+	uint8_t uart1_DBG_rx_full = 0;
+	uint8_t uart1_DBG_tx_full = 0;
+	uint8_t uart1_RTSn = 0;
+
+
+
+	printf("\n");
+
+	// Read GPIO2
+	rc = lseek(xdma->fd_read, (uint64_t)0x60220000, SEEK_SET);
+	if (rc < 0) { printf("GPIO2 seek failed\n");  }
+
+	rc = read(xdma->fd_read, readbuffer, 1);
+
+	if (rc < 0) {
+		printf("GPIO2 read failed\n");
+	} else {
+
+		gpio2 = (uint8_t)(readbuffer[0]);
+
+		async_resetn        = (gpio2 & 0x01) >> 0;
+		uart0_DBG_tx_empty  = (gpio2 & 0x02) >> 1;
+		uart0_DBG_rx_full   = (gpio2 & 0x04) >> 2;
+		uart0_DBG_tx_full   = (gpio2 & 0x08) >> 3;
+		uart1_DBG_tx_empty  = (gpio2 & 0x10) >> 4;
+		uart1_DBG_rx_full   = (gpio2 & 0x20) >> 5;
+		uart1_DBG_tx_full   = (gpio2 & 0x40) >> 6;
+		uart1_RTSn          = (gpio2 & 0x80) >> 7;
+
+		printf("\nGPIO2 = 0x%02x\n", gpio2);
+		printf("\tBit0 = async_resetn       = %d\n",
+				async_resetn);
+		printf("\tBit1 = uart0_DBG_tx_empty = %d\n",
+				uart0_DBG_tx_empty);
+		printf("\tBit2 = uart0_DBG_rx_full  = %d\n",
+				uart0_DBG_rx_full);
+		printf("\tBit3 = uart0_DBG_tx_full  = %d\n",
+				uart0_DBG_tx_full);
+		printf("\tBit4 = uart1_DBG_tx_empty = %d\n",
+				uart1_DBG_tx_empty);
+		printf("\tBit5 = uart1_DBG_rx_full  = %d\n",
+				uart1_DBG_rx_full);
+		printf("\tBit6 = uart1_DBG_tx_full  = %d\n",
+				uart1_DBG_tx_full);
+		printf("\tBit7 = uart1_RTSn         = %d\n",
+				uart1_RTSn);
+		printf("\n");
+	}
+}
+
+
+
+
+
 
 
 
@@ -665,6 +716,10 @@ int main(int argc, char **argv)
 
 
 	xdma_tty_open(&xdma0);
+printf("\nGPIO2 Reset Signal Initial Value");
+print_gpio2_state(&xdma0);
+on_ctrl_backslash(EXIT_FAILURE);
+
 	xdma_tty_open(&xdma1);
 	printf("XDMA0 read fd: %d\n",  xdma0.fd_read);
 	printf("XDMA0 write fd: %d\n", xdma0.fd_wrte);
@@ -684,24 +739,17 @@ int main(int argc, char **argv)
 	printf("\n");
 
 	// Read GPIO2 to check state of RESET signal
-	rc = lseek(xdma0.fd_read, (uint64_t)0x60220000, SEEK_SET);
-	if (rc < 0) { printf("GPIO2 seek failed\n");  }
+	printf("\nGPIO2 Reset Signal Initial Value");
+	print_gpio2_state(&xdma0);
 
-	rc = read(xdma0.fd_read, databuf, 1);
-	if (rc < 0) { printf("GPIO2 read failed\n");  }
-	
-	printf("GPIO2 Reset Signal Initial Value = %d\n", (uint8_t)databuf[0]);
-
-
-
+/*
 	// Read GPIO0 to check state of RESET signal
 	rc = lseek(xdma0.fd_read, (uint64_t)0x60200000, SEEK_SET);
 	if (rc < 0) { printf("GPIO0 seek failed\n");  }
 
 	rc = read(xdma0.fd_read, databuf, 1);
-	if (rc < 0) { printf("GPIO0 read failed\n");  }
-	
-	printf("GPIO0 Reset Signal Initial Value = %d\n", (uint8_t)databuf[0]);
+	if (rc < 0) { printf("GPIO0 read failed\n");  } else
+	{ printf("GPIO0 Reset Signal Initial Value = %d\n", (uint8_t)databuf[0]); }
 
 
 
@@ -716,13 +764,8 @@ int main(int argc, char **argv)
 
 
 	// Read GPIO2 to confirm RESET signal is Active
-	rc = lseek(xdma0.fd_read, (uint64_t)0x60220000, SEEK_SET);
-	if (rc < 0) { printf("GPIO2 seek failed\n");  }
-
-	rc = read(xdma0.fd_read, databuf, 1);
-	if (rc < 0) { printf("GPIO2 read failed\n");  }
-	
-	printf("GPIO2 Reset Signal after GPIO0 write = %d\n", (uint8_t)databuf[0]);
+	printf("\nGPIO2 After GPIO0 Write 0xFF");
+	print_gpio2_state(&xdma0);
 
 
 
@@ -731,9 +774,8 @@ int main(int argc, char **argv)
 	if (rc < 0) { printf("GPIO0 seek failed\n");  }
 
 	rc = read(xdma0.fd_read, databuf, 1);
-	if (rc < 0) { printf("GPIO0 read failed\n");  }
-	
-	printf("GPIO0 Reset Signal Value after write = %d\n", (uint8_t)databuf[0]);
+	if (rc < 0) { printf("GPIO0 read failed\n");  } else
+	{ printf("GPIO0 Reset Signal Value after write = %d\n", (uint8_t)databuf[0]); }
 
 
 
@@ -747,14 +789,9 @@ int main(int argc, char **argv)
 
 
 
-	// Read GPIO2 to confirm RESET signal is off
-	rc = lseek(xdma0.fd_read, (uint64_t)0x60220000, SEEK_SET);
-	if (rc < 0) { printf("GPIO2 seek failed\n");  }
-
-	rc = read(xdma0.fd_read, databuf, 1);
-	if (rc < 0) { printf("GPIO2 read failed\n");  }
-	
-	printf("GPIO2 Reset Signal Final State = %d\n", (uint8_t)databuf[0]);
+	// Read GPIO2 to confirm RESET signal is de-activeted
+	printf("\nGPIO2 After GPIO0 Write 0x00");
+	print_gpio2_state(&xdma0);
 
 
 
@@ -770,7 +807,7 @@ int main(int argc, char **argv)
 
 	printf("\n");
 
-
+*/
 
 
 	printf("-----------------------------------------------\n");
@@ -789,6 +826,7 @@ int main(int argc, char **argv)
 	char readstring[BUFSIZE];
 
 	xdma_tty_poll(&xdma0);
+
 	buf[0] = 3; // reset all FIFOs and disable interrupts
 	write_byte_to_xdma(&xdma0, UART_CTRL_ADDR_OFFSET, buf);
 	write_byte_to_xdma(&xdma1, UART_CTRL_ADDR_OFFSET, buf);
@@ -799,7 +837,7 @@ int main(int argc, char **argv)
 	for (int i = 0; i < BUFSIZE; i++) {
 		buf[i] = count;
 		count++;
-		if (count > 122) { count = 65; }
+		if (count > 90) { count = 65; }
 	}
 
 
@@ -815,6 +853,7 @@ int main(int argc, char **argv)
 		//fprintf(stderr, "W-%c-", buf[count]);
 
 		rc = write_byte_to_xdma(&xdma0, UART_TX_ADDR_OFFSET, writebuffer);
+		usleep(10000);
 
 		if (rc < 0) {
 			fprintf(stderr, "\nXDMA UART write failed ");
@@ -824,11 +863,15 @@ int main(int argc, char **argv)
 
 		count++;
 		xdma_tty_poll(&xdma0);
+
 	}
 
 	buf[count] = '\0';
 	printf("\n\nWrote count = %d bytes of data to XDMA0 : %s\n\n", count, buf);
 
+	// Read GPIO2 to confirm state of signals
+	printf("\nGPIO2 After Write");
+	print_gpio2_state(&xdma0);
 
 
 	printf("-----------------------------------------------\n");
@@ -838,7 +881,7 @@ int main(int argc, char **argv)
 	printf("-----------------------------------------------\n");
 
 
-	printf("============Reading Data from XDMA0============\n");
+	printf("============Reading Data from XDMA1============\n");
 
 
 	// zero out text buffers
@@ -846,7 +889,11 @@ int main(int argc, char **argv)
 		buf[i] = '\0';
 		readstring[i] = '\0';
 	}
-	printf("readstring = %s END", readstring);
+	printf("initial readstring = %s\n", readstring);
+
+	// Read GPIO2 to confirm state of signals
+	printf("\nGPIO2 After GPIO0 Write 0x00");
+	print_gpio2_state(&xdma0);
 
 	xdma_tty_poll(&xdma1);
 
@@ -871,12 +918,18 @@ int main(int argc, char **argv)
 		count++;
 
 		xdma_tty_poll(&xdma1);
+
 	}
 
 
 
 	printf("\n\nRead count = %d bytes of data from XDMA1, readstring = %s\n", count, readstring);
 
+	// Read GPIO2 to confirm state of signals
+	printf("\nGPIO2 After XDMA1 Read");
+	print_gpio2_state(&xdma0);
+
+	print_debug_info(&xdma1);
 
 
 	on_ctrl_backslash(EXIT_SUCCESS); // use CTRL-\ handler for exit and cleanup

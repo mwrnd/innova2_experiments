@@ -1,6 +1,6 @@
 # Innova-2 PCIe UART over XDMA Test
 
-Two non-blocking [UARTs](https://github.com/eugene-tarassov/vivado-risc-v/raw/6c8d522c78bb17abce552fefe4f5cb0f7b8388ee/uart/uart.v) are connected to each other and to PCIe XDMA. This is a test platform for UART over XDMA.
+Two non-blocking [UARTs](https://github.com/eugene-tarassov/vivado-risc-v/blob/v3.4.0/uart/uart.v) are connected to each other and to PCIe XDMA. This is a test platform for UART over XDMA.
 
 
 
@@ -12,7 +12,7 @@ Two non-blocking [UARTs](https://github.com/eugene-tarassov/vivado-risc-v/raw/6c
 
 ## Bitstream
 
-Refer to the `innova2_flex_xcku15p_notes` project's instructions on [Loading a User Image](https://github.com/mwrnd/innova2_flex_xcku15p_notes/#loading-a-user-image) and load the included bitstream into the Innova-2's FPGA Configuration Memory.
+Refer to the `innova2_flex_xcku15p_notes` project's instructions on installing XDMA drivers and [Loading a User Image](https://github.com/mwrnd/innova2_flex_xcku15p_notes/#loading-a-user-image) to load the included bitstream into the Innova-2's FPGA Configuration Memory.
 
 ```
 unzip  xdma_uart-to-uart_bitstream.zip
@@ -31,12 +31,10 @@ echo f379833eb8ae77b1610be79a9e438265 should be MD5 Checksum of xdma_uart-to-uar
 
 ## Testing
 
-[xdma_tty_cuse.c](xdma_tty_cuse.c) assumes `dma_ip_drivers` are [installed and tested](https://github.com/mwrnd/innova2_flex_xcku15p_notes#install-xilinx-pcie-dma-ip-drivers). Compile then run with:
+[xdma_tty_cuse.c](xdma_tty_cuse.c) bridges the AXI UARTs to the host's TTY subsystem. Compile then run with:
 
 ```
-gcc xdma_tty_cuse.c ./c-ringbuf/ringbuf.c --std=gnu11 -g -Wall -latomic  \
-`pkg-config fuse --cflags --libs` -I`echo $HOME`/dma_ip_drivers/         \
--I./c-ringbuf/ -o xdma_tty_cuse
+gcc xdma_tty_cuse.c `pkg-config fuse --cflags --libs` --std=gnu17 -g -Wall -latomic -o xdma_tty_cuse
 
 sudo ./xdma_tty_cuse  /dev/xdma0_c2h_0  /dev/xdma0_h2c_0  0x60100000 ttyCUSE0
 ```
@@ -58,7 +56,7 @@ sudo gtkterm --port /dev/ttyCUSE1
 
 ![XDMA TTY CUSE Loopback Test Commands](img/xdma_tty_cuse_loopback_test_commands.png)
 
-Typing in one `GTKTerm` window should display the characters in the second window. There is currently a bug where one of the windows will fail to display repeated characters.
+Typing in one `GTKTerm` window should display the characters in the second window.
 
 ![XDMA TTY CUSE Loopback Test](img/xdma_tty_cuse_loopback_test.png)
 
@@ -66,32 +64,18 @@ Typing in one `GTKTerm` window should display the characters in the second windo
 
 ### Basic XDMA UART Testing
 
-[uart.c](uart.c) assumes `dma_ip_drivers` are [installed and tested](https://github.com/mwrnd/innova2_flex_xcku15p_notes#install-xilinx-pcie-dma-ip-drivers). Compile then run with:
+[`uart.c`](uart.c) sends as much data as it can to the first UART then reads as much data as it can from the second. Compile then run with:
 
 ```
-cp uart.c ~
-cd ~
-gcc -Wall -Wno-unused-variable -Wno-unused-but-set-variable  -lrt -o uart uart.c
-sudo ./uart
+gcc uart.c `pkg-config fuse --cflags --libs` --std=gnu17 -g -Wall -latomic -o uart
 ```
-
 
 In a seperate terminal, test with:
 
 ```
-cd  dma_ip_drivers/XDMA/linux-kernel/tools/
-
-echo -n -e "\xa5" >a5.bin   ;   xxd a5.bin
-
-sudo ./dma_to_device   -v -d /dev/xdma0_h2c_0 -a 0x60100004 -s 1 -f a5.bin
-sudo ./dma_to_device   -v -d /dev/xdma0_h2c_0 -a 0x60110004 -s 1 -f a5.bin
-sudo ./dma_from_device -v -d /dev/xdma0_c2h_0 -a 0x60110008 -s 4 -f RECV ; xxd -b RECV
-sudo ./dma_from_device -v -d /dev/xdma0_c2h_0 -a 0x60110000 -s 4 -f RECV ; xxd RECV
-sudo ./dma_from_device -v -d /dev/xdma0_c2h_0 -a 0x60100008 -s 4 -f RECV ; xxd -b RECV
-sudo ./dma_from_device -v -d /dev/xdma0_c2h_0 -a 0x60100000 -s 4 -f RECV ; xxd RECV
+sudo ./uart /dev/xdma0_c2h_0 /dev/xdma0_h2c_0 0x60100000 /dev/xdma0_c2h_1 /dev/xdma0_h2c_1 0x60110000
 ```
 
-![PCIe UART over XDMA Testing](img/xdma_uart-to-uart_testing.png)
 
 
 
@@ -104,8 +88,9 @@ sudo ./dma_from_device -v -d /dev/xdma0_c2h_0 -a 0x60100000 -s 4 -f RECV ; xxd R
 
 ## Useful References
 
+- [fpga-axi-uart.c](https://github.com/eugene-tarassov/vivado-risc-v/blob/v3.4.0/patches/fpga-axi-uart.c) is the RISC-V UART driver code from `vivado-risc-v`
 - [cusexmp.c CUSE example](https://github.com/libfuse/libfuse/blob/fuse-2.9.9/example/cusexmp.c)
 - [tty0tty](https://github.com/lcgamboa/tty0tty) is a Virtual TTY to TTY Bridge
 - [Linux Device Drivers 3rd Edition](https://lwn.net/Kernel/LDD3/) [tiny_tty example](https://github.com/martinezjavier/ldd3/blob/master/tty/tiny_tty.c)
-- [CuseTTY](https://bitbucket.org/hetii/cusetty/raw/8143a4472710ec90632d010c70e7ef8b87fe1181/cusetty.c) is a [Virtual TTY for ESP-Link](https://github.com/jeelabs/esp-link/issues/215)
+- [CuseTTY](https://bitbucket.org/hetii/cusetty/raw/8143a4472710ec90632d010c70e7ef8b87fe1181/cusetty.c) is a [Virtual TTY for ESP-Link](https://github.com/jeelabs/esp-link/issues/215) and a great example of a TTY using CUSE
 
