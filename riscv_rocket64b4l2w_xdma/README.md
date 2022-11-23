@@ -1,28 +1,24 @@
 # Innova-2 RISC-V
 
 # TODO:
- * Refer to the [Debug Log](debug_log.md) for progress
- * Perfect [UART-over-XDMA](../xdma_uart-to-uart) using [CUSE](https://libfuse.github.io/doxygen/cuse_8c.html); drops data
- * [Ethernet-over-XDMA TUN/TAP](https://en.wikipedia.org/wiki/TUN/TAP) Driver
- * Test beyond bare-metal, load Linux
-
-# DONE:
-
- * `make CONFIG=rocket64b4l2w BOARD=innova2 bitstream` should work now
+ * Refer to the [Debug Log](debug_log.md) for progress notes
+ * [Ethernet-over-XDMA using TUN/TAP](https://en.wikipedia.org/wiki/TUN/TAP) Driver
+ * Test beyond `bare-metal` and `OpenSBI`; load Linux
 
 ---
 
 ![Vivado RISC-V Block Diagram](img/vivado-risc-v_rocket64b4l2w_Block_Design_Diagram.png)
 
-**RocketChip AXI Addresses**
+**AXI Addresses**
 
-![RocketChip AXI Addresses](img/vivado-risc-v_rocket64b4l2w_RocketChip_AXI_Addresses.png)
+![RocketChip and XDMA AXI Addresses](img/vivado-risc-v_rocket64b4l2w_AXI_Addresses.png)
 
-**XDMA AXI Addresses**
 
-![XDMA AXI Addresses](img/vivado-risc-v_rocket64b4l2w_XDMA_AXI-Lite_Addresses.png)
 
-Refer to the `innova2_flex_xcku15p_notes` project's instructions on [Loading a User Image](https://github.com/mwrnd/innova2_flex_xcku15p_notes/#loading-a-user-image) to load the FPGA Bitstream Configuration files.
+
+## JTAG Load of RISC-V Software
+
+Refer to the `innova2_flex_xcku15p_notes` project's instructions to install XDMA Drivers and [Load the RISC-V User Image](https://github.com/mwrnd/innova2_flex_xcku15p_notes/#loading-a-user-image) into the FPGA's Configuration Memory.
 
 ```
 unzip innova2-riscv_bitstream.zip
@@ -53,13 +49,26 @@ sudo ~/Innova_2_Flex_Open_18_12/app/innova2_flex_app -v
 
 ![Enable Innova-2 JTAG Access](img/Innova-2_Enable_JTAG_Access.png)
 
-Connect a [Xilinx-Compatible](https://docs.xilinx.com/r/en-US/ug908-vivado-programming-debugging/JTAG-Cables-and-Devices-Supported-by-hw_server) **1.8V** [JTAG Adapter](https://www.waveshare.com/platform-cable-usb.htm) to the Innova2. Run `xsdb` on the system hosting the JTAG Adapter.
+
+### Upload RISC-V Firmware to the Innova-2 using JTAG
+
+Modify [`bare-metal hello-world boot.elf`](vivado-risc-v/bare-metal/hello-world/main.c) to print a string of consecutive characters and then compile it.
+
+![bare-metal hello-world boot.elf](img/bare-metal_hello-world_modified.png)
+
+```
+cd vivado-risc-v/bare-metal/hello-world/
+make
+cd ../..
+```
+
+Connect a [Xilinx-Compatible](https://docs.xilinx.com/r/en-US/ug908-vivado-programming-debugging/JTAG-Cables-and-Devices-Supported-by-hw_server) **1.8V** [JTAG Adapter](https://www.waveshare.com/platform-cable-usb.htm) to the Innova2. Run [`xsdb`](https://docs.xilinx.com/v/u/en-US/ug1043-embedded-system-tools) on the system hosting the JTAG Adapter. Note `xsdb` is included with [Vivado](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vivado-design-tools/2021-2.html).
 ```
 source /tools/Xilinx/Vivado/2021.2/settings64.sh
 xsdb
 ```
 
-The `connect` command begins `xsdb` communication with the FPGA's internal JTAG module. `targets` lists available JTAG devices. `targets 3` selects a specific device to communicate with. The `stop` command halts the RISC-V core. `dow` downloads the specified program to the selected RISC-V core. `con` continues execution from the address specified within the loaded `.elf` file, `0x80000008`. `rr` reads registers.
+The `connect` command begins communication with the FPGA's internal JTAG module. `targets` lists available JTAG devices. `targets 3` selects a specific device to communicate with. The `stop` command halts the current `target` RISC-V core. `dow` downloads the specified program to the current RISC-V core. `con` continues execution from the address specified within the loaded `.elf` file, `0x80000008`. `rr` reads registers.
 ```
 connect
 targets
@@ -76,6 +85,7 @@ rr pc
 ```
 cd vivado-risc-v/bare-metal/hello-world/
 riscv64-unknown-elf-objdump -S -l --inlines -D boot.elf  > dis.txt
+cd ../..
 ```
 
 ![objdump disassemble](img/objdump_disassemble.png)
@@ -88,17 +98,18 @@ The above can also be done using the [Eclipse TCF Debugger](https://www.eclipse.
 
 ## Communicating with the RISC-V UART over XDMA
 
-The [`bare-metal hello-world boot.elf`](https://github.com/mwrnd/vivado-risc-v/blob/innova2/bare-metal/hello-world/main.c) program is modified to print a string of consecutive characters.
-
-![bare-metal hello-world boot.elf](img/bare-metal_hello-world_modified.png)
-
 On the computer with the Innova2, the data that `boot.elf` is generating can be read over XDMA from an AXI UART connected to the RISC-V core using [`xdma_tty_cuse.c`](https://github.com/mwrnd/innova2_experiments/blob/main/xdma_uart-to-uart/xdma_tty_cuse.c).
 
-In one terminal, run `xdma_tty_cuse.c`:
+Install the `libfuse2` development library:
+```
+sudo apt install libfuse2 libfuse-dev
+```
+
+In one terminal, run `xdma_tty_cuse`:
 ```
 cd innova2_experiments/riscv_rocket64b4l2w_xdma
-cp ../xdma_uart-to-uart/xdma_tty_cuse.c .
-gcc xdma_tty_cuse.c ringbuf.c --std=gnu11 -g -Wall -latomic `pkg-config fuse --cflags --libs` -I`pwd`/dma_ip_drivers/ -o xdma_tty_cuse
+cp ../xdma_uart-to-uart/xdma_tty_cuse.c  .
+gcc xdma_tty_cuse.c `pkg-config fuse --cflags --libs` --std=gnu17 -g -Wall -latomic -o xdma_tty_cuse
 sudo ./xdma_tty_cuse  /dev/xdma0_c2h_0  /dev/xdma0_h2c_0  0x60100000 ttyCUSE0
 ```
 
@@ -109,9 +120,48 @@ sudo gtkterm --port /dev/ttyCUSE0
 
 ![xdma_cuse_tty RISC-V communication](img/xdma_tty_cuse_running_riscv.png)
 
-If you allow the RISC-V core to run for several minutes before starting `xdma_tty_cuse.c`, the UART will buffer data. `xdma_tty_cuse.c` will successfully read the buffered data but new data consistently drops the last character, `0`, as well as occasional random characters.
+You should be able to see the text being output by the `hello-world` firmware.
 
 ![xdma_cuse_tty UART reads after a delay](img/xdma_tty_cuse_riscv_uart_reads.png)
+
+
+
+
+## OpenSBI
+
+```
+cd vivado-risc-v
+make  CONFIG=rocket64b4l2w  BOARD=innova2  workspace/boot.elf
+```
+
+Still connected to the Innova-2 using JTAG, start `xsdb` on the computer hosting the JTAG adapter:
+```
+source /tools/Xilinx/Vivado/2021.2/settings64.sh
+xsdb
+```
+
+Load OpenSBI:
+```
+connect
+targets
+target 3
+stop
+dow -clear workspace/boot.elf
+rwr s0 0x80000000
+rwr pc 0x80000000
+rwr a0 0
+rwr a1 0x10080
+rr
+con
+```
+
+![xsdb Load of OpenSBI](img/XSDB_OpenSBI_Load_and_Start.png)
+
+On the PC hosting the Innova-2, run `xdma_tty_cuse` and `gtkterm` to communicate with the RISC-V system:
+
+![GTKTerm Communication with OpenSBI](img/GTKTerm_OpenSBI_Boot.png)
+
+
 
 
 ## RISC-V Status Signals

@@ -1,6 +1,34 @@
 # Innova-2 RISC-V Debug Log
 
+
+## UART over XDMA Drops Data Bytes
+
+When the two UARTs (one for the RISC-V core and the second for XDMA) are connected to the same AXI SmartConnect:
+
+![UARTs Connect to Same AXI Network](img/UARTs_Connected_to_Same_AXI_SmartConnect-Block_Design.png)
+
+Communication fails as a result and drops RX FIFO bytes after a `STATUS` byte read:
+
+![Communication between UARTs Connected to the Same AXI Network](img/UARTs_Connected_to_Same_AXI_SmartConnect-Communication.png)
+
+Note that [`bare-metal hello-world`](https://github.com/eugene-tarassov/vivado-risc-v/blob/v3.4.0/bare-metal/hello-world/main.c#L20) is modified to print numerical digits.
+
+![bare-metal boot.elf](img/UARTs_Read_Error_bare-metal_boot_elf.png)
+
+Grouping the RISC-V IO Blocks solves the communication issues!
+
+![Grouping RISC-V IO Blocks Solves Communication Issues](img/Group_AXI_Blocks.png)
+
+Communication with the RISC-V can now be done using standard Linux TTY Terminal Software such as [`gtkterm`](https://manpages.ubuntu.com/manpages/focal/man1/gtkterm.1.html).
+
+![Successful RISC-V to TTY Communication](img/GTKTerm_OpenSBI_Boot.png)
+
+
+
+
 ## UART over XDMA Debug
+
+This issue has been fixed!
 
 If you allow the RISC-V core to run for several minutes before starting [`xdma_tty_cuse.c`](https://github.com/mwrnd/innova2_experiments/blob/main/xdma_uart-to-uart/xdma_tty_cuse.c), the UART will buffer data. `xdma_tty_cuse.c` will successfully read the buffered data but new data consistently drops the last character, `0`, as well as occasional random characters.
 
@@ -23,6 +51,8 @@ XDMA 16-Byte Read of all `UART2` Registers:
 ![AXI UART ILA XDMA Read Start](img/ILA_AXI_XDMA_UART_Read-Start.png)
 
 ![AXI UART ILA XDMA Read End](img/ILA_AXI_XDMA_UART_Read-End.png)
+
+
 
 
 ## xsdb Notes
@@ -161,6 +191,8 @@ vbindiff READ1 READ2
 ```
 
 
+
+
 ---
 
 ## xsdb Cannot Load boot.elf - Fixed
@@ -187,6 +219,8 @@ However, on the system with the Innova-2 I can read the memory back over XDMA an
 ![Edit xsdb.tcl](img/Editing_xsdb_tcl.png)
 
 The problem persists and the debug log is not helpful.
+
+
 
 
 ---
