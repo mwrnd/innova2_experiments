@@ -26,7 +26,7 @@ The design currently has a functional RISC-V core and UART.
 
 ## JTAG Load of RISC-V Software
 
-Refer to the `innova2_flex_xcku15p_notes` project's instructions to install XDMA Drivers and [Load the RISC-V User Image](https://github.com/mwrnd/innova2_flex_xcku15p_notes/#loading-a-user-image) into the FPGA's Configuration Memory.
+Refer to the `innova2_flex_xcku15p_notes` project's instructions to install XDMA Drivers and [Load the RISC-V User Image](https://github.com/mwrnd/innova2_flex_xcku15p_notes/#loading-a-user-image) into the FPGA's Configuration Memory. [`innova2-riscv_bitstream.zip` is available in releases](https://github.com/mwrnd/innova2_experiments/releases/download/v0.1-alpha/innova2-riscv_bitstream.zip).
 
 ```
 unzip -d .  innova2-riscv_bitstream.zip

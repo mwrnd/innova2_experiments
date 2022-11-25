@@ -21,7 +21,7 @@ Grouping the RISC-V IO Blocks solves the communication issues!
 
 Communication with the RISC-V can now be done using standard Linux TTY Terminal Software such as [`gtkterm`](https://manpages.ubuntu.com/manpages/focal/man1/gtkterm.1.html).
 
-![Successful RISC-V to TTY Communication](img/GTKTerm_OpenSBI_Boot.png)
+![Successful RISC-V to TTY Communication](img/Innova2_RISC-V_bare-metal_xdma_tty_cuse_working.png)
 
 
 
