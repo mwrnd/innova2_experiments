@@ -13,6 +13,8 @@ The design currently has a functional RISC-V core and UART.
 
 ---
 
+**Block Diagram**
+
 ![Vivado RISC-V Block Diagram](img/vivado-risc-v_rocket64b4l2w_Block_Design_Diagram.png)
 
 **AXI Addresses**
@@ -27,7 +29,7 @@ The design currently has a functional RISC-V core and UART.
 Refer to the `innova2_flex_xcku15p_notes` project's instructions to install XDMA Drivers and [Load the RISC-V User Image](https://github.com/mwrnd/innova2_flex_xcku15p_notes/#loading-a-user-image) into the FPGA's Configuration Memory.
 
 ```
-unzip innova2-riscv_bitstream.zip
+unzip -d .  innova2-riscv_bitstream.zip
 md5sum innova2-riscv_primary.bin innova2-riscv_secondary.bin
 echo 01d74b05d4b5421fdcf21be70f2048af should be MD5 checksum of innova2-riscv_primary.bin
 echo 1948edcbf584d456683f0bd1530fb65a should be MD5 checksum of innova2-riscv_secondary.bin
@@ -63,12 +65,15 @@ Modify [`bare-metal hello-world boot.elf`](vivado-risc-v/bare-metal/hello-world/
 ![bare-metal hello-world boot.elf](img/bare-metal_hello-world_modified.png)
 
 ```
+git clone --depth=1 https://github.com/mwrnd/innova2_experiments.git
+cd innova2_experiments/riscv_rocket64b4l2w_xdma/
+git submodule update --init vivado-risc-v
 cd vivado-risc-v/bare-metal/hello-world/
 make
-cd ../..
+cd ../../..
 ```
 
-Connect a [Xilinx-Compatible](https://docs.xilinx.com/r/en-US/ug908-vivado-programming-debugging/JTAG-Cables-and-Devices-Supported-by-hw_server) **1.8V** [JTAG Adapter](https://www.waveshare.com/platform-cable-usb.htm) to the Innova2. Run [`xsdb`](https://docs.xilinx.com/v/u/en-US/ug1043-embedded-system-tools) on the system hosting the JTAG Adapter. Note `xsdb` is included with [Vivado](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vivado-design-tools/2021-2.html).
+Connect a [Xilinx-Compatible](https://docs.xilinx.com/r/en-US/ug908-vivado-programming-debugging/JTAG-Cables-and-Devices-Supported-by-hw_server) **1.8V** [JTAG Adapter](https://www.waveshare.com/platform-cable-usb.htm) to the Innova2. Run [`xsdb`](https://docs.xilinx.com/v/u/en-US/ug1043-embedded-system-tools) on the system hosting the JTAG Adapter. Note `xsdb` is included with [Vivado or Vivado Lab Edition](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vivado-design-tools/2021-2.html).
 ```
 source /tools/Xilinx/Vivado/2021.2/settings64.sh
 xsdb
@@ -138,8 +143,8 @@ The Linux system files can be [recreated](#recreating-the-risc-v-design) or [dow
 
 Confirm the files downloaded correctly:
 ```
-unzip -d . innova2-riscv_system.zip
-
+unzip -d .  innova2-riscv_system.zip
+md5sum  Image  ramdisk  opensbi_boot.elf
 echo fd156f7719b39f41e0fe0f04dca36214  should be MD5 Checksum of  Image
 echo 868f767b0b6e838852c9075643a9fd1d  should be MD5 Checksum of  ramdisk
 echo 0fef4ba92ff5d3014ab4787675458bfb  should be MD5 Checksum of  opensbi_boot.elf
@@ -177,7 +182,7 @@ targets
 ```
 
 
-On the computer hosting the Innova-2, upload the Linux `Image` and `ramdisk` using [`dma_ip_driver`](https://github.com/mwrnd/innova2_flex_xcku15p_notes#install-xilinx-pcie-dma-ip-drivers)'s `dma_to_device` software. Note `Image` needs to be uploaded to `0x81000000` and `ramdisk` needs to be uploaded to `0x85000000`. `dma_to_device` also requires the exact size in bytes that will be uploaded. Using XDMA instead of JTAG is *significantly* faster.
+On the computer hosting the Innova-2, upload the Linux `Image` and `ramdisk` using [`dma_ip_driver`](https://github.com/mwrnd/innova2_flex_xcku15p_notes#install-xilinx-pcie-dma-ip-drivers)'s `dma_to_device` software. Note `Image` needs to be uploaded to `0x81000000` and `ramdisk` needs to be uploaded to `0x85000000`. `dma_to_device` also requires the exact size in bytes that will be uploaded. Using XDMA instead of JTAG is *significantly* faster. Once all firmware is uploaded, you can use `dma_from_device` to capture all memory for later upload. For now, JTAG is still required to set registers.
 
 ```
 sudo ./dma_to_device --verbose --device /dev/xdma0_h2c_0 --address 0x81000000 --size 19723012 -f Image
@@ -187,7 +192,7 @@ sudo ./dma_to_device --verbose --device /dev/xdma0_h2c_0 --address 0x85000000 --
 ![Load Linux Image and ramdisk](img/Innova2_Linux_Image_and_RAMDisk_XDMA_Upload.png)
 
 
-Back on the computer hosting the [**1.8V** JTAG Adapter](https://docs.xilinx.com/r/en-US/ug908-vivado-programming-debugging/JTAG-Cables-and-Devices-Supported-by-hw_server), 
+Back on the computer hosting the [**1.8V** JTAG Adapter](https://docs.xilinx.com/r/en-US/ug908-vivado-programming-debugging/JTAG-Cables-and-Devices-Supported-by-hw_server), upload OpenSBI and set the RISC-V core's registers to the start condition.
 
 
 ```
@@ -211,7 +216,7 @@ On the computer hosting the Innova-2, [`xdma_tty_cuse` + `gtkterm`](#communicati
 
 ![xdma_tty_cuse and gtkterm OpenSBI Boot](img/Innova2_OpenSBI_Boot_Complete.png)
 
-For some reason, `^@` gets added to every character typed into `gtkterm`. `initramfs` core correctly parses the input and commands work.
+For some reason, `^@` gets added to every character typed into `gtkterm`. `initramfs` correctly parses the input and commands work.
 
 ![initramfs communication fault](img/Innova2_initramfs_Communication.png)
 
@@ -275,7 +280,11 @@ Run Generate Bitstream to compile the design. Refer to the `innova2_flex_xcku15p
 
 ![Vivado Generate Bitstream](img/Vivado_Generate_Bitstream.png)
 
+The design takes around 2 hours to synthesize and implement.
+
 ![Design Runs Overview](img/vivado-innova2-riscv_rocket64b4l2w_DesignRuns.png)
+
+About half the XCKU15P FPGA is used.
 
 ![Utilization](img/vivado-innova2-riscv_rocket64b4l2w_Utilization.png)
 
@@ -284,7 +293,7 @@ Run Generate Bitstream to compile the design. Refer to the `innova2_flex_xcku15p
 
 To change the RISC-V core configuration, run frequency, or initial boot firmware, the RISC-V subsystem will need to be regenerated using a full [RocketChip](https://bar.eecs.berkeley.edu/projects/rocket_chip.html) install which requires about 8GB of downloads. Vivado **2021.2** is currently supported.
 
-Run all the `vivado-risc-v` setup commands (`apt-install`, `update-submodules`) if this is the first use. 8GB of files will be downloaded. Then `source` Vivado environment settings and run `make` to generate a Vivado project, bitstream, and binary configuration files.
+Run all the `vivado-risc-v` setup commands (`apt-install`, `update-submodules`) if this is the first use. 8GB of files will be downloaded. Then `source` Vivado environment settings and run `make` for the `jtag-boot` target to generate a Vivado project, bitstream, binary configuration files, and all the Linux system boot files.
 ```
 cd vivado-risc-v
 sudo make apt-install
@@ -311,7 +320,7 @@ source /tools/Xilinx/Vivado/2021.2/settings64.sh
 make  CONFIG=rocket64b4l2w  BOARD=innova2  vivado-tcl
 ```
 
-`source` the generated `vivado-risc-v/workspace/rocket64b4l2w/system-innova2.tcl` in Vivado.
+[`source`](https://docs.xilinx.com/r/2021.2-English/ug939-vivado-designing-with-ip-tutorial/Source-the-Tcl-Script?tocId=K45Kl8hoyn9dApZ7PZP~Ng) the generated `vivado-risc-v/workspace/rocket64b4l2w/system-innova2.tcl` in Vivado.
 
 ![Vivado source system-innova2.tcl](img/Vivado_source_system-innova2_tcl.png)
 

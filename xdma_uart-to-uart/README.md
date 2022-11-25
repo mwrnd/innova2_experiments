@@ -12,10 +12,10 @@ Two non-blocking [UARTs](https://github.com/eugene-tarassov/vivado-risc-v/blob/v
 
 ## Bitstream
 
-Refer to the `innova2_flex_xcku15p_notes` project's instructions on installing XDMA drivers and [Loading a User Image](https://github.com/mwrnd/innova2_flex_xcku15p_notes/#loading-a-user-image) to load the included bitstream into the Innova-2's FPGA Configuration Memory.
+Refer to the `innova2_flex_xcku15p_notes` project's instructions on installing XDMA drivers and [Loading a User Image](https://github.com/mwrnd/innova2_flex_xcku15p_notes/#loading-a-user-image) to load the [release bitstream](https://github.com/mwrnd/innova2_experiments/releases) into the Innova-2's FPGA Configuration Memory.
 
 ```
-unzip  xdma_uart-to-uart_bitstream.zip
+unzip -d .  xdma_uart-to-uart_bitstream.zip
 md5sum  xdma_uart-to-uart_primary.bin  xdma_uart-to-uart_secondary.bin
 echo 4cab44d93b10960a7dd0ce653630d69b should be MD5 Checksum of xdma_uart-to-uart_primary.bin
 echo 015c797003f4ddf770c6ea418bd22a18 should be MD5 Checksum of xdma_uart-to-uart_secondary.bin
@@ -64,18 +64,18 @@ Typing in one `GTKTerm` window should display the characters in the other window
 
 ### Sending Files Larger than twice the FIFO Buffer Depth Fails
 
-If you attempt to send a file, the TTY will lock up after sending twice the number of characters that the RX and TX FIFOs hold.
+If you attempt to send a file, the TTY will lock up after sending about twice the number of characters that the RX and TX FIFOs hold.
 
 ![Send RAW File](img/xdma_tty_cuse_Send_RAW_File_test.png)
 
-`001abcdefghijklmnopqrstuvwxyzA` is 30 bytes while each FIFO has a [16-byte depth](https://github.com/mwrnd/innova2_experiments/blob/74f1473361b246bbb64e40fe7234f68de22aa502/xdma_uart-to-uart/uart.v#L113).
+`001abcdefghijklmnopqrstuvwxyzA` is 30 bytes while each FIFO has a [2^4=16-byte depth](https://github.com/mwrnd/innova2_experiments/blob/74f1473361b246bbb64e40fe7234f68de22aa502/xdma_uart-to-uart/uart.v#L113).
 
 ![TTY Locks](img/xdma_tty_cuse_Send_RAW_File_test_result.png)
 
 
 ### Basic XDMA UART Testing
 
-[`uart.c`](uart.c) sends as much data as it can to the first UART then reads as much data as it can from the second. Compile then run with:
+[`uart.c`](uart.c) sends as much data as it can to the first [AXI UART](uart.v) then reads as much data as it can from the second. Compile then run with:
 ```
 gcc uart.c `pkg-config fuse --cflags --libs` --std=gnu17 -g -Wall -latomic -o uart
 ```
@@ -85,7 +85,7 @@ In a seperate terminal, test with:
 sudo ./uart /dev/xdma0_c2h_0 /dev/xdma0_h2c_0 0x60100000 /dev/xdma0_c2h_1 /dev/xdma0_h2c_1 0x60110000
 ```
 
-The software is able to fill the RX and TX FIFOs to 30 bytes, and successfully read them back.
+The software is able to fill the RX and TX FIFOs with 30 bytes (15 to each FIFO), and successfully read them back.
 ```
 ...
 Wrote count = 30 bytes of data to XDMA0 : ABCDEFGHIJKLMNOPQRSTUVWXYZABCD
@@ -94,10 +94,10 @@ Read count = 30 bytes of data from XDMA1, readstring = ABCDEFGHIJKLMNOPQRSTUVWXY
 ...
 ```
 
-Similarly, for the [`UARTlite`](https://docs.xilinx.com/v/u/en-US/pg142-axi-uartlite) interfaces:
+Similarly with [`uartlite.c`](uartlite.c) for the [`UARTlite`](https://docs.xilinx.com/v/u/en-US/pg142-axi-uartlite) interfaces:
 ```
 gcc uartlite.c `pkg-config fuse --cflags --libs` --std=gnu17 -g -Wall -latomic -o uartlite
-sudo ./uartlite /dev/xdma0_c2h_0 /dev/xdma0_h2c_0 0x60100000 /dev/xdma0_c2h_1 /dev/xdma0_h2c_1 0x60110000
+sudo ./uartlite /dev/xdma0_c2h_0 /dev/xdma0_h2c_0 0x60300000 /dev/xdma0_c2h_1 /dev/xdma0_h2c_1 0x60310000
 ```
 
 The `UARTlite` software needs further debugging. Either delay after each byte sent or wait for the transmit FIFO to empty before sending another byte. Check for the various *STATUS* register errors.
@@ -125,7 +125,7 @@ sudo ~/Innova_2_Flex_Open_18_12/app/innova2_flex_app -v
 
 ![Enable JTAG Access](img/Innova-2_Enable_JTAG_Access.png)
 
-Connect a [Xilinx-Compatible JTAG](https://docs.xilinx.com/r/en-US/ug908-vivado-programming-debugging/JTAG-Cables-and-Devices-Supported-by-hw_server) to the Innova-2 and run [Vivado Hardware Manager](https://docs.xilinx.com/r/en-US/ug908-vivado-programming-debugging/Debugging-Logic-Designs-in-Hardware). Add [`debug_nets.ltx`](debug_nets.ltx) to the *Trigger Setup* and capture AXI communication.
+Connect a [Xilinx-Compatible **1.8V** JTAG Adapter](https://docs.xilinx.com/r/en-US/ug908-vivado-programming-debugging/JTAG-Cables-and-Devices-Supported-by-hw_server) to the Innova-2 and run [Vivado Hardware Manager](https://docs.xilinx.com/r/en-US/ug908-vivado-programming-debugging/Debugging-Logic-Designs-in-Hardware). Add [`debug_nets.ltx`](debug_nets.ltx) to the *Trigger Setup* and capture AXI communication.
 
 ![Capture from Integrated Logic Analyzer](img/XDMA_UART_Integrated_Logic_Analyzer_ILA_Capture.png)
 
@@ -133,7 +133,7 @@ Connect a [Xilinx-Compatible JTAG](https://docs.xilinx.com/r/en-US/ug908-vivado-
 
 ## Recreating the Design in Vivado
 
-`source` [xdma_uart-to-uart.tcl](xdma_uart-to-uart.tcl) in Vivado.
+[`source`](https://docs.xilinx.com/r/2021.2-English/ug939-vivado-designing-with-ip-tutorial/Source-the-Tcl-Script?tocId=K45Kl8hoyn9dApZ7PZP~Ng) [xdma_uart-to-uart.tcl](xdma_uart-to-uart.tcl) in Vivado.
 
 
 
