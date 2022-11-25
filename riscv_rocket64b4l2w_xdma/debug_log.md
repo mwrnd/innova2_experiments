@@ -25,6 +25,41 @@ Communication with the RISC-V can now be done using standard Linux TTY Terminal 
 
 
 
+## OpenSBI
+
+```
+cd vivado-risc-v
+make  CONFIG=rocket64b4l2w  BOARD=innova2  workspace/boot.elf
+```
+
+Still connected to the Innova-2 using JTAG, start `xsdb` on the computer hosting the JTAG adapter:
+```
+source /tools/Xilinx/Vivado/2021.2/settings64.sh
+xsdb
+```
+
+Load OpenSBI:
+```
+connect
+targets
+target 3
+stop
+dow -clear workspace/boot.elf
+rwr s0 0x80000000
+rwr pc 0x80000000
+rwr a0 0
+rwr a1 0x10080
+rr
+con
+```
+
+![xsdb Load of OpenSBI](img/XSDB_OpenSBI_Load_and_Start.png)
+
+On the PC hosting the Innova-2, run `xdma_tty_cuse` and `gtkterm` to communicate with the RISC-V system:
+
+![GTKTerm Communication with OpenSBI](img/GTKTerm_OpenSBI_Boot.png)
+
+
 
 ## UART over XDMA Debug
 

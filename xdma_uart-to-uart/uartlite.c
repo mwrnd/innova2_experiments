@@ -835,6 +835,7 @@ write_byte_to_xdma(&xdma0, UART_TX_ADDR_OFFSET, writebuffer);
 		//fprintf(stderr, "W-%c-", buf[count]);
 
 		rc = write_byte_to_xdma(&xdma0, UART_TX_ADDR_OFFSET, writebuffer);
+		usleep(4000);
 
 		if (rc < 0) {
 			fprintf(stderr, "\nXDMA UART write failed ");

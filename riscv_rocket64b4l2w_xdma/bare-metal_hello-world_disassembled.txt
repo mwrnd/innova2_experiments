@@ -1,0 +1,829 @@
+
+boot.elf:     file format elf64-littleriscv
+
+
+Disassembly of section .text:
+
+0000000080000000 <_start-0x8>:
+	...
+
+0000000080000008 <_start>:
+_start():
+/mnt/project/vivado-risc-v/bare-metal/hello-world/head.S:6
+#include "common.h"
+
+.section .text.start, "ax", @progbits
+.globl _start
+_start:
+  li sp, BOOT_MEM_END
+    80000008:	0810011b          	addiw	sp,zero,129
+    8000000c:	01811113          	slli	sp,sp,0x18
+/mnt/project/vivado-risc-v/bare-metal/hello-world/head.S:7
+  call main
+    80000010:	494000ef          	jal	ra,800004a4 <main>
+
+0000000080000014 <_hang>:
+_hang():
+/mnt/project/vivado-risc-v/bare-metal/hello-world/head.S:9
+_hang:
+  wfi
+    80000014:	10500073          	wfi
+/mnt/project/vivado-risc-v/bare-metal/hello-world/head.S:10
+  j _hang
+    80000018:	ffdff06f          	j	80000014 <_hang>
+
+000000008000001c <kputc>:
+kputc():
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:19
+    volatile uint32_t tx_fifo;
+    volatile uint32_t status;
+    volatile uint32_t control;
+};
+
+void kputc(char ch) {
+    8000001c:	fd010113          	addi	sp,sp,-48
+    80000020:	02813423          	sd	s0,40(sp)
+    80000024:	03010413          	addi	s0,sp,48
+    80000028:	00050793          	mv	a5,a0
+    8000002c:	fcf40fa3          	sb	a5,-33(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:20
+    struct uart_regs * regs = (struct uart_regs *)0x60010000;
+    80000030:	600107b7          	lui	a5,0x60010
+    80000034:	fef43423          	sd	a5,-24(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:21
+    while (regs->status & SR_TX_FIFO_FULL) {}
+    80000038:	00000013          	nop
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:21 (discriminator 1)
+    8000003c:	fe843783          	ld	a5,-24(s0)
+    80000040:	0087a783          	lw	a5,8(a5) # 60010008 <_start-0x1fff0000>
+    80000044:	0007879b          	sext.w	a5,a5
+    80000048:	0087f793          	andi	a5,a5,8
+    8000004c:	0007879b          	sext.w	a5,a5
+    80000050:	fe0796e3          	bnez	a5,8000003c <kputc+0x20>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:22
+    regs->tx_fifo = ch & 0xff;
+    80000054:	fdf44783          	lbu	a5,-33(s0)
+    80000058:	0007871b          	sext.w	a4,a5
+    8000005c:	fe843783          	ld	a5,-24(s0)
+    80000060:	00e7a223          	sw	a4,4(a5)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:23
+}
+    80000064:	00000013          	nop
+    80000068:	02813403          	ld	s0,40(sp)
+    8000006c:	03010113          	addi	sp,sp,48
+    80000070:	00008067          	ret
+
+0000000080000074 <kputs>:
+kputs():
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:25
+
+void kputs(const char * s) {
+    80000074:	fe010113          	addi	sp,sp,-32
+    80000078:	00113c23          	sd	ra,24(sp)
+    8000007c:	00813823          	sd	s0,16(sp)
+    80000080:	02010413          	addi	s0,sp,32
+    80000084:	fea43423          	sd	a0,-24(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:26
+    while (*s) kputc(*s++);
+    80000088:	01c0006f          	j	800000a4 <kputs+0x30>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:26 (discriminator 2)
+    8000008c:	fe843783          	ld	a5,-24(s0)
+    80000090:	00178713          	addi	a4,a5,1
+    80000094:	fee43423          	sd	a4,-24(s0)
+    80000098:	0007c783          	lbu	a5,0(a5)
+    8000009c:	00078513          	mv	a0,a5
+    800000a0:	f7dff0ef          	jal	ra,8000001c <kputc>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:26 (discriminator 1)
+    800000a4:	fe843783          	ld	a5,-24(s0)
+    800000a8:	0007c783          	lbu	a5,0(a5)
+    800000ac:	fe0790e3          	bnez	a5,8000008c <kputs+0x18>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:27
+    kputc('\r');
+    800000b0:	00d00513          	li	a0,13
+    800000b4:	f69ff0ef          	jal	ra,8000001c <kputc>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:28
+    kputc('\n');
+    800000b8:	00a00513          	li	a0,10
+    800000bc:	f61ff0ef          	jal	ra,8000001c <kputc>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:29
+}
+    800000c0:	00000013          	nop
+    800000c4:	01813083          	ld	ra,24(sp)
+    800000c8:	01013403          	ld	s0,16(sp)
+    800000cc:	02010113          	addi	sp,sp,32
+    800000d0:	00008067          	ret
+
+00000000800000d4 <kprintf>:
+kprintf():
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:31
+
+void kprintf(const char * fmt, ...) {
+    800000d4:	f3010113          	addi	sp,sp,-208
+    800000d8:	08113423          	sd	ra,136(sp)
+    800000dc:	08813023          	sd	s0,128(sp)
+    800000e0:	09010413          	addi	s0,sp,144
+    800000e4:	f6a43c23          	sd	a0,-136(s0)
+    800000e8:	00b43423          	sd	a1,8(s0)
+    800000ec:	00c43823          	sd	a2,16(s0)
+    800000f0:	00d43c23          	sd	a3,24(s0)
+    800000f4:	02e43023          	sd	a4,32(s0)
+    800000f8:	02f43423          	sd	a5,40(s0)
+    800000fc:	03043823          	sd	a6,48(s0)
+    80000100:	03143c23          	sd	a7,56(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:33
+    va_list vl;
+    int is_format = 0;
+    80000104:	fe042623          	sw	zero,-20(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:34
+    int is_long = 0;
+    80000108:	fe042423          	sw	zero,-24(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:35
+    int is_char = 0;
+    8000010c:	fe042223          	sw	zero,-28(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:38
+    char c;
+
+    va_start(vl, fmt);
+    80000110:	04040793          	addi	a5,s0,64
+    80000114:	fc878793          	addi	a5,a5,-56
+    80000118:	faf43023          	sd	a5,-96(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:39
+    while ((c = *fmt++) != '\0') {
+    8000011c:	2f00006f          	j	8000040c <kprintf+0x338>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:40
+        if (is_format) {
+    80000120:	fec42783          	lw	a5,-20(s0)
+    80000124:	0007879b          	sext.w	a5,a5
+    80000128:	28078c63          	beqz	a5,800003c0 <kprintf+0x2ec>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:41
+            switch (c) {
+    8000012c:	fb744783          	lbu	a5,-73(s0)
+    80000130:	0007879b          	sext.w	a5,a5
+    80000134:	f9d7869b          	addiw	a3,a5,-99
+    80000138:	0006871b          	sext.w	a4,a3
+    8000013c:	01500793          	li	a5,21
+    80000140:	26e7e863          	bltu	a5,a4,800003b0 <kprintf+0x2dc>
+    80000144:	02069793          	slli	a5,a3,0x20
+    80000148:	0207d793          	srli	a5,a5,0x20
+    8000014c:	00279713          	slli	a4,a5,0x2
+    80000150:	00000797          	auipc	a5,0x0
+    80000154:	38078793          	addi	a5,a5,896 # 800004d0 <main+0x2c>
+    80000158:	00f707b3          	add	a5,a4,a5
+    8000015c:	0007a783          	lw	a5,0(a5)
+    80000160:	0007871b          	sext.w	a4,a5
+    80000164:	00000797          	auipc	a5,0x0
+    80000168:	36c78793          	addi	a5,a5,876 # 800004d0 <main+0x2c>
+    8000016c:	00f707b3          	add	a5,a4,a5
+    80000170:	00078067          	jr	a5
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:43
+            case 'l':
+                is_long = 1;
+    80000174:	00100793          	li	a5,1
+    80000178:	fef42423          	sw	a5,-24(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:44
+                continue;
+    8000017c:	2900006f          	j	8000040c <kprintf+0x338>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:46
+            case 'h':
+                is_char = 1;
+    80000180:	00100793          	li	a5,1
+    80000184:	fef42223          	sw	a5,-28(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:47
+                continue;
+    80000188:	2840006f          	j	8000040c <kprintf+0x338>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:51
+            case 'x': {
+                unsigned long n;
+                long i;
+                if (is_long) {
+    8000018c:	fe842783          	lw	a5,-24(s0)
+    80000190:	0007879b          	sext.w	a5,a5
+    80000194:	02078263          	beqz	a5,800001b8 <kprintf+0xe4>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:52
+                    n = va_arg(vl, unsigned long);
+    80000198:	fa043783          	ld	a5,-96(s0)
+    8000019c:	00878713          	addi	a4,a5,8
+    800001a0:	fae43023          	sd	a4,-96(s0)
+    800001a4:	0007b783          	ld	a5,0(a5)
+    800001a8:	fcf43c23          	sd	a5,-40(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:53
+                    i = (sizeof(unsigned long) << 3) - 4;
+    800001ac:	03c00793          	li	a5,60
+    800001b0:	fcf43823          	sd	a5,-48(s0)
+    800001b4:	09c0006f          	j	80000250 <kprintf+0x17c>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:56
+                }
+                else {
+                    n = va_arg(vl, unsigned int);
+    800001b8:	fa043783          	ld	a5,-96(s0)
+    800001bc:	00878713          	addi	a4,a5,8
+    800001c0:	fae43023          	sd	a4,-96(s0)
+    800001c4:	0007a783          	lw	a5,0(a5)
+    800001c8:	02079793          	slli	a5,a5,0x20
+    800001cc:	0207d793          	srli	a5,a5,0x20
+    800001d0:	fcf43c23          	sd	a5,-40(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:57
+                    i = is_char ? 4 : (sizeof(unsigned int) << 3) - 4;
+    800001d4:	fe442783          	lw	a5,-28(s0)
+    800001d8:	0007879b          	sext.w	a5,a5
+    800001dc:	00078663          	beqz	a5,800001e8 <kprintf+0x114>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:57 (discriminator 1)
+    800001e0:	00400793          	li	a5,4
+    800001e4:	0080006f          	j	800001ec <kprintf+0x118>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:57 (discriminator 2)
+    800001e8:	01c00793          	li	a5,28
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:57 (discriminator 4)
+    800001ec:	fcf43823          	sd	a5,-48(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:59 (discriminator 4)
+                }
+                for (; i >= 0; i -= 4) {
+    800001f0:	0600006f          	j	80000250 <kprintf+0x17c>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:61
+                    long d;
+                    d = (n >> i) & 0xF;
+    800001f4:	fd043783          	ld	a5,-48(s0)
+    800001f8:	0007879b          	sext.w	a5,a5
+    800001fc:	fd843703          	ld	a4,-40(s0)
+    80000200:	00f757b3          	srl	a5,a4,a5
+    80000204:	00f7f793          	andi	a5,a5,15
+    80000208:	faf43423          	sd	a5,-88(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:62
+                    kputc(d < 10 ? '0' + d : 'a' + d - 10);
+    8000020c:	fa843703          	ld	a4,-88(s0)
+    80000210:	00900793          	li	a5,9
+    80000214:	00e7cc63          	blt	a5,a4,8000022c <kprintf+0x158>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:62 (discriminator 1)
+    80000218:	fa843783          	ld	a5,-88(s0)
+    8000021c:	0ff7f793          	andi	a5,a5,255
+    80000220:	0307879b          	addiw	a5,a5,48
+    80000224:	0ff7f793          	andi	a5,a5,255
+    80000228:	0140006f          	j	8000023c <kprintf+0x168>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:62 (discriminator 2)
+    8000022c:	fa843783          	ld	a5,-88(s0)
+    80000230:	0ff7f793          	andi	a5,a5,255
+    80000234:	0577879b          	addiw	a5,a5,87
+    80000238:	0ff7f793          	andi	a5,a5,255
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:62 (discriminator 4)
+    8000023c:	00078513          	mv	a0,a5
+    80000240:	dddff0ef          	jal	ra,8000001c <kputc>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:59 (discriminator 4)
+                for (; i >= 0; i -= 4) {
+    80000244:	fd043783          	ld	a5,-48(s0)
+    80000248:	ffc78793          	addi	a5,a5,-4
+    8000024c:	fcf43823          	sd	a5,-48(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:59 (discriminator 1)
+    80000250:	fd043783          	ld	a5,-48(s0)
+    80000254:	fa07d0e3          	bgez	a5,800001f4 <kprintf+0x120>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:64
+                }
+                break;
+    80000258:	1580006f          	j	800003b0 <kprintf+0x2dc>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:69
+            }
+            case 'd': {
+                char buf[32];
+                long n;
+                long i = sizeof(buf);
+    8000025c:	02000793          	li	a5,32
+    80000260:	fcf43023          	sd	a5,-64(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:70
+                if (is_long) {
+    80000264:	fe842783          	lw	a5,-24(s0)
+    80000268:	0007879b          	sext.w	a5,a5
+    8000026c:	00078e63          	beqz	a5,80000288 <kprintf+0x1b4>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:71
+                    n = va_arg(vl, long);
+    80000270:	fa043783          	ld	a5,-96(s0)
+    80000274:	00878713          	addi	a4,a5,8
+    80000278:	fae43023          	sd	a4,-96(s0)
+    8000027c:	0007b783          	ld	a5,0(a5)
+    80000280:	fcf43423          	sd	a5,-56(s0)
+    80000284:	0180006f          	j	8000029c <kprintf+0x1c8>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:74
+                }
+                else {
+                    n = va_arg(vl, int);
+    80000288:	fa043783          	ld	a5,-96(s0)
+    8000028c:	00878713          	addi	a4,a5,8
+    80000290:	fae43023          	sd	a4,-96(s0)
+    80000294:	0007a783          	lw	a5,0(a5)
+    80000298:	fcf43423          	sd	a5,-56(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:76
+                }
+                if (n < 0) {
+    8000029c:	fc843783          	ld	a5,-56(s0)
+    800002a0:	0607d463          	bgez	a5,80000308 <kprintf+0x234>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:77
+                    kputc('-');
+    800002a4:	02d00513          	li	a0,45
+    800002a8:	d75ff0ef          	jal	ra,8000001c <kputc>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:78
+                    n = -n;
+    800002ac:	fc843783          	ld	a5,-56(s0)
+    800002b0:	40f007b3          	neg	a5,a5
+    800002b4:	fcf43423          	sd	a5,-56(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:80
+                }
+                while (i > 0) {
+    800002b8:	0500006f          	j	80000308 <kprintf+0x234>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:81
+                    buf[--i] = n % 10 + '0';
+    800002bc:	fc843703          	ld	a4,-56(s0)
+    800002c0:	00a00793          	li	a5,10
+    800002c4:	02f767b3          	rem	a5,a4,a5
+    800002c8:	0ff7f793          	andi	a5,a5,255
+    800002cc:	fc043703          	ld	a4,-64(s0)
+    800002d0:	fff70713          	addi	a4,a4,-1
+    800002d4:	fce43023          	sd	a4,-64(s0)
+    800002d8:	0307879b          	addiw	a5,a5,48
+    800002dc:	0ff7f713          	andi	a4,a5,255
+    800002e0:	fc043783          	ld	a5,-64(s0)
+    800002e4:	ff040693          	addi	a3,s0,-16
+    800002e8:	00f687b3          	add	a5,a3,a5
+    800002ec:	f8e78823          	sb	a4,-112(a5)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:82
+                    n = n / 10;
+    800002f0:	fc843703          	ld	a4,-56(s0)
+    800002f4:	00a00793          	li	a5,10
+    800002f8:	02f747b3          	div	a5,a4,a5
+    800002fc:	fcf43423          	sd	a5,-56(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:83
+                    if (n == 0) break;
+    80000300:	fc843783          	ld	a5,-56(s0)
+    80000304:	00078863          	beqz	a5,80000314 <kprintf+0x240>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:80
+                while (i > 0) {
+    80000308:	fc043783          	ld	a5,-64(s0)
+    8000030c:	faf048e3          	bgtz	a5,800002bc <kprintf+0x1e8>
+    80000310:	02c0006f          	j	8000033c <kprintf+0x268>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:83
+                    if (n == 0) break;
+    80000314:	00000013          	nop
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:85
+                }
+                while (i < sizeof(buf)) kputc(buf[i++]);
+    80000318:	0240006f          	j	8000033c <kprintf+0x268>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:85 (discriminator 2)
+    8000031c:	fc043783          	ld	a5,-64(s0)
+    80000320:	00178713          	addi	a4,a5,1
+    80000324:	fce43023          	sd	a4,-64(s0)
+    80000328:	ff040713          	addi	a4,s0,-16
+    8000032c:	00f707b3          	add	a5,a4,a5
+    80000330:	f907c783          	lbu	a5,-112(a5)
+    80000334:	00078513          	mv	a0,a5
+    80000338:	ce5ff0ef          	jal	ra,8000001c <kputc>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:85 (discriminator 1)
+    8000033c:	fc043703          	ld	a4,-64(s0)
+    80000340:	01f00793          	li	a5,31
+    80000344:	fce7fce3          	bleu	a4,a5,8000031c <kprintf+0x248>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:86
+                break;
+    80000348:	00000013          	nop
+    8000034c:	0640006f          	j	800003b0 <kprintf+0x2dc>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:89
+            }
+            case 's': {
+                const char * s = va_arg(vl, const char *);
+    80000350:	fa043783          	ld	a5,-96(s0)
+    80000354:	00878713          	addi	a4,a5,8
+    80000358:	fae43023          	sd	a4,-96(s0)
+    8000035c:	0007b783          	ld	a5,0(a5)
+    80000360:	faf43c23          	sd	a5,-72(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:90
+                while (*s) kputc(*s++);
+    80000364:	01c0006f          	j	80000380 <kprintf+0x2ac>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:90 (discriminator 2)
+    80000368:	fb843783          	ld	a5,-72(s0)
+    8000036c:	00178713          	addi	a4,a5,1
+    80000370:	fae43c23          	sd	a4,-72(s0)
+    80000374:	0007c783          	lbu	a5,0(a5)
+    80000378:	00078513          	mv	a0,a5
+    8000037c:	ca1ff0ef          	jal	ra,8000001c <kputc>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:90 (discriminator 1)
+    80000380:	fb843783          	ld	a5,-72(s0)
+    80000384:	0007c783          	lbu	a5,0(a5)
+    80000388:	fe0790e3          	bnez	a5,80000368 <kprintf+0x294>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:91
+                break;
+    8000038c:	0240006f          	j	800003b0 <kprintf+0x2dc>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:94
+            }
+            case 'c':
+                kputc(va_arg(vl, int));
+    80000390:	fa043783          	ld	a5,-96(s0)
+    80000394:	00878713          	addi	a4,a5,8
+    80000398:	fae43023          	sd	a4,-96(s0)
+    8000039c:	0007a783          	lw	a5,0(a5)
+    800003a0:	0ff7f793          	andi	a5,a5,255
+    800003a4:	00078513          	mv	a0,a5
+    800003a8:	c75ff0ef          	jal	ra,8000001c <kputc>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:95
+                break;
+    800003ac:	00000013          	nop
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:97
+            }
+            is_format = 0;
+    800003b0:	fe042623          	sw	zero,-20(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:98
+            is_long = 0;
+    800003b4:	fe042423          	sw	zero,-24(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:99
+            is_char = 0;
+    800003b8:	fe042223          	sw	zero,-28(s0)
+    800003bc:	0500006f          	j	8000040c <kprintf+0x338>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:101
+        }
+        else if (c == '%') {
+    800003c0:	fb744783          	lbu	a5,-73(s0)
+    800003c4:	0ff7f713          	andi	a4,a5,255
+    800003c8:	02500793          	li	a5,37
+    800003cc:	00f71863          	bne	a4,a5,800003dc <kprintf+0x308>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:102
+            is_format = 1;
+    800003d0:	00100793          	li	a5,1
+    800003d4:	fef42623          	sw	a5,-20(s0)
+    800003d8:	0340006f          	j	8000040c <kprintf+0x338>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:104
+        }
+        else if (c == '\n') {
+    800003dc:	fb744783          	lbu	a5,-73(s0)
+    800003e0:	0ff7f713          	andi	a4,a5,255
+    800003e4:	00a00793          	li	a5,10
+    800003e8:	00f71c63          	bne	a4,a5,80000400 <kprintf+0x32c>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:105
+            kputc('\r');
+    800003ec:	00d00513          	li	a0,13
+    800003f0:	c2dff0ef          	jal	ra,8000001c <kputc>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:106
+            kputc('\n');
+    800003f4:	00a00513          	li	a0,10
+    800003f8:	c25ff0ef          	jal	ra,8000001c <kputc>
+    800003fc:	0100006f          	j	8000040c <kprintf+0x338>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:109
+        }
+        else {
+            kputc(c);
+    80000400:	fb744783          	lbu	a5,-73(s0)
+    80000404:	00078513          	mv	a0,a5
+    80000408:	c15ff0ef          	jal	ra,8000001c <kputc>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:39
+    while ((c = *fmt++) != '\0') {
+    8000040c:	f7843783          	ld	a5,-136(s0)
+    80000410:	00178713          	addi	a4,a5,1
+    80000414:	f6e43c23          	sd	a4,-136(s0)
+    80000418:	0007c783          	lbu	a5,0(a5)
+    8000041c:	faf40ba3          	sb	a5,-73(s0)
+    80000420:	fb744783          	lbu	a5,-73(s0)
+    80000424:	0ff7f793          	andi	a5,a5,255
+    80000428:	ce079ce3          	bnez	a5,80000120 <kprintf+0x4c>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/kprintf.c:113
+        }
+    }
+    va_end(vl);
+}
+    8000042c:	00000013          	nop
+    80000430:	08813083          	ld	ra,136(sp)
+    80000434:	08013403          	ld	s0,128(sp)
+    80000438:	0d010113          	addi	sp,sp,208
+    8000043c:	00008067          	ret
+
+0000000080000440 <usleep>:
+usleep():
+/mnt/project/vivado-risc-v/bare-metal/hello-world/main.c:7
+#include <stdlib.h>
+
+#include "common.h"
+#include "kprintf.h"
+
+static void usleep(unsigned us) {
+    80000440:	fd010113          	addi	sp,sp,-48
+    80000444:	02813423          	sd	s0,40(sp)
+    80000448:	03010413          	addi	s0,sp,48
+    8000044c:	00050793          	mv	a5,a0
+    80000450:	fcf42e23          	sw	a5,-36(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/main.c:10
+    uintptr_t cycles0;
+    uintptr_t cycles1;
+    asm volatile ("csrr %0, 0xB00" : "=r" (cycles0));
+    80000454:	b00027f3          	csrr	a5,mcycle
+    80000458:	fef43423          	sd	a5,-24(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/main.c:12
+    for (;;) {
+        asm volatile ("csrr %0, 0xB00" : "=r" (cycles1));
+    8000045c:	b00027f3          	csrr	a5,mcycle
+    80000460:	fef43023          	sd	a5,-32(s0)
+/mnt/project/vivado-risc-v/bare-metal/hello-world/main.c:13
+        if (cycles1 - cycles0 >= us * 100) break;
+    80000464:	fe043703          	ld	a4,-32(s0)
+    80000468:	fe843783          	ld	a5,-24(s0)
+    8000046c:	40f70733          	sub	a4,a4,a5
+    80000470:	fdc42683          	lw	a3,-36(s0)
+    80000474:	06400793          	li	a5,100
+    80000478:	02f687bb          	mulw	a5,a3,a5
+    8000047c:	0007879b          	sext.w	a5,a5
+    80000480:	02079793          	slli	a5,a5,0x20
+    80000484:	0207d793          	srli	a5,a5,0x20
+    80000488:	00f77463          	bleu	a5,a4,80000490 <usleep+0x50>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/main.c:12
+        asm volatile ("csrr %0, 0xB00" : "=r" (cycles1));
+    8000048c:	fd1ff06f          	j	8000045c <usleep+0x1c>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/main.c:13
+        if (cycles1 - cycles0 >= us * 100) break;
+    80000490:	00000013          	nop
+/mnt/project/vivado-risc-v/bare-metal/hello-world/main.c:15
+    }
+}
+    80000494:	00000013          	nop
+    80000498:	02813403          	ld	s0,40(sp)
+    8000049c:	03010113          	addi	sp,sp,48
+    800004a0:	00008067          	ret
+
+00000000800004a4 <main>:
+main():
+/mnt/project/vivado-risc-v/bare-metal/hello-world/main.c:17
+
+int main(void) {
+    800004a4:	ff010113          	addi	sp,sp,-16
+    800004a8:	00113423          	sd	ra,8(sp)
+    800004ac:	00813023          	sd	s0,0(sp)
+    800004b0:	01010413          	addi	s0,sp,16
+/mnt/project/vivado-risc-v/bare-metal/hello-world/main.c:21 (discriminator 1)
+//    kprintf("\n");
+    for (;;) {
+//        kprintf("Hello World!\n");
+        kprintf("1234567890");
+    800004b4:	00000517          	auipc	a0,0x0
+    800004b8:	07450513          	addi	a0,a0,116 # 80000528 <main+0x84>
+    800004bc:	c19ff0ef          	jal	ra,800000d4 <kprintf>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/main.c:22 (discriminator 1)
+        usleep(1000000);
+    800004c0:	000f47b7          	lui	a5,0xf4
+    800004c4:	24078513          	addi	a0,a5,576 # f4240 <_start-0x7ff0bdc8>
+    800004c8:	f79ff0ef          	jal	ra,80000440 <usleep>
+/mnt/project/vivado-risc-v/bare-metal/hello-world/main.c:21 (discriminator 1)
+        kprintf("1234567890");
+    800004cc:	fe9ff06f          	j	800004b4 <main+0x10>
+    800004d0:	fec0                	sd	s0,184(a3)
+    800004d2:	ffff                	0xffff
+    800004d4:	fd8c                	sd	a1,56(a1)
+    800004d6:	ffff                	0xffff
+    800004d8:	fee0                	sd	s0,248(a3)
+    800004da:	ffff                	0xffff
+    800004dc:	fee0                	sd	s0,248(a3)
+    800004de:	ffff                	0xffff
+    800004e0:	fee0                	sd	s0,248(a3)
+    800004e2:	ffff                	0xffff
+    800004e4:	fcb0                	sd	a2,120(s1)
+    800004e6:	ffff                	0xffff
+    800004e8:	fee0                	sd	s0,248(a3)
+    800004ea:	ffff                	0xffff
+    800004ec:	fee0                	sd	s0,248(a3)
+    800004ee:	ffff                	0xffff
+    800004f0:	fee0                	sd	s0,248(a3)
+    800004f2:	ffff                	0xffff
+    800004f4:	fca4                	sd	s1,120(s1)
+    800004f6:	ffff                	0xffff
+    800004f8:	fee0                	sd	s0,248(a3)
+    800004fa:	ffff                	0xffff
+    800004fc:	fee0                	sd	s0,248(a3)
+    800004fe:	ffff                	0xffff
+    80000500:	fee0                	sd	s0,248(a3)
+    80000502:	ffff                	0xffff
+    80000504:	fee0                	sd	s0,248(a3)
+    80000506:	ffff                	0xffff
+    80000508:	fee0                	sd	s0,248(a3)
+    8000050a:	ffff                	0xffff
+    8000050c:	fee0                	sd	s0,248(a3)
+    8000050e:	ffff                	0xffff
+    80000510:	fe80                	sd	s0,56(a3)
+    80000512:	ffff                	0xffff
+    80000514:	fee0                	sd	s0,248(a3)
+    80000516:	ffff                	0xffff
+    80000518:	fee0                	sd	s0,248(a3)
+    8000051a:	ffff                	0xffff
+    8000051c:	fee0                	sd	s0,248(a3)
+    8000051e:	ffff                	0xffff
+    80000520:	fee0                	sd	s0,248(a3)
+    80000522:	ffff                	0xffff
+    80000524:	fcbc                	sd	a5,120(s1)
+    80000526:	ffff                	0xffff
+    80000528:	3231                	addiw	tp,tp,-20
+    8000052a:	36353433          	0x36353433
+    8000052e:	30393837          	lui	a6,0x30393
+	...
+
+Disassembly of section .bss:
+
+0000000080000533 <.bss>:
+    80000533:	0000                	unimp
+    80000535:	0000                	unimp
+	...
+
+Disassembly of section .debug_line:
+
+0000000000000000 <.debug_line>:
+   0:	00000047          	fmsub.s	ft0,ft0,ft0,ft0,rne
+   4:	0002                	c.slli	zero,0x0
+   6:	001d                	c.nop	7
+   8:	0000                	unimp
+   a:	0101                	addi	sp,sp,0
+
+[REMOVED]
+
+ 4ca:	000c                	0xc
+ 4cc:	0901                	addi	s2,s2,0
+ 4ce:	0004                	0x4
+ 4d0:	0100                	addi	s0,sp,128
+ 4d2:	01              	Address 0x00000000000004d2 is out of bounds.
+
+
+Disassembly of section .debug_info:
+
+0000000000000000 <.debug_info>:
+   0:	002a                	c.slli	zero,0xa
+   2:	0000                	unimp
+   4:	0002                	c.slli	zero,0x0
+   6:	0000                	unimp
+
+[REMOVED]
+
+ bb6:	0100                	addi	s0,sp,128
+ bb8:	6509                	lui	a0,0x2
+ bba:	0000                	unimp
+ bbc:	0200                	addi	s0,sp,256
+ bbe:	6091                	lui	ra,0x4
+	...
+
+Disassembly of section .debug_abbrev:
+
+0000000000000000 <.debug_abbrev>:
+   0:	1101                	addi	sp,sp,-32
+   2:	1000                	addi	s0,sp,32
+   4:	1106                	slli	sp,sp,0x21
+   6:	1201                	addi	tp,tp,-32
+
+[REMOVED]
+
+  6e:	0000                	unimp
+  70:	0440                	addi	s0,sp,516
+  72:	8000                	0x8000
+  74:	0000                	unimp
+  76:	0000                	unimp
+  78:	0090                	addi	a2,sp,64
+	...
+
+Disassembly of section .debug_str:
+
+0000000000000000 <.debug_str>:
+   0:	6568                	ld	a0,200(a0)
+   2:	6461                	lui	s0,0x18
+   4:	532e                	lw	t1,232(sp)
+   6:	2f00                	fld	fs0,24(a4)
+   8:	6e6d                	lui	t3,0x1b
+
+[REMOVED]
+
+ 596:	6961                	lui	s2,0x18
+ 598:	006e                	c.slli	zero,0x1b
+ 59a:	5f5f 6d74 6d5f      	0x6d5f6d745f5f
+ 5a0:	6164                	ld	s1,192(a0)
+ 5a2:	0079                	c.nop	30
+
+Disassembly of section .comment:
+
+0000000000000000 <.comment>:
+   0:	3a434347          	fmsub.d	ft6,ft6,ft4,ft7,rmm
+   4:	2820                	fld	fs0,80(s0)
+   6:	29554e47          	fmsub.s	ft8,fa0,fs5,ft5,rmm
+   a:	3720                	fld	fs0,104(a4)
+   c:	322e                	fld	ft4,232(sp)
+   e:	302e                	fld	ft0,232(sp)
+	...
+
+Disassembly of section .debug_frame:
+
+0000000000000000 <.debug_frame>:
+   0:	000c                	0xc
+   2:	0000                	unimp
+   4:	ffff                	0xffff
+   6:	ffff                	0xffff
+   8:	0001                	nop
+   a:	7c01                	lui	s8,0xfffe0
+   c:	0d01                	addi	s10,s10,0
+   e:	0002                	c.slli	zero,0x0
+  10:	0024                	addi	s1,sp,8
+  12:	0000                	unimp
+  14:	0000                	unimp
+  16:	0000                	unimp
+  18:	001c                	0x1c
+  1a:	8000                	0x8000
+  1c:	0000                	unimp
+  1e:	0000                	unimp
+  20:	0058                	addi	a4,sp,4
+  22:	0000                	unimp
+  24:	0000                	unimp
+  26:	0000                	unimp
+  28:	0e44                	addi	s1,sp,788
+  2a:	4430                	lw	a2,72(s0)
+  2c:	0288                	addi	a0,sp,320
+  2e:	0c44                	addi	s1,sp,532
+  30:	0008                	0x8
+  32:	4402                	lw	s0,0(sp)
+  34:	44c8                	lw	a0,12(s1)
+  36:	020d                	addi	tp,tp,3
+  38:	002c                	addi	a1,sp,8
+  3a:	0000                	unimp
+  3c:	0000                	unimp
+  3e:	0000                	unimp
+  40:	0074                	addi	a3,sp,12
+  42:	8000                	0x8000
+  44:	0000                	unimp
+  46:	0000                	unimp
+  48:	0060                	addi	s0,sp,12
+  4a:	0000                	unimp
+  4c:	0000                	unimp
+  4e:	0000                	unimp
+  50:	0e44                	addi	s1,sp,788
+  52:	4820                	lw	s0,80(s0)
+  54:	0281                	addi	t0,t0,0
+  56:	0488                	addi	a0,sp,576
+  58:	0c44                	addi	s1,sp,532
+  5a:	0008                	0x8
+  5c:	4402                	lw	s0,0(sp)
+  5e:	44c1                	li	s1,16
+  60:	44c8                	lw	a0,12(s1)
+  62:	020d                	addi	tp,tp,3
+  64:	0000                	unimp
+  66:	0000                	unimp
+  68:	002c                	addi	a1,sp,8
+  6a:	0000                	unimp
+  6c:	0000                	unimp
+  6e:	0000                	unimp
+  70:	00d4                	addi	a3,sp,68
+  72:	8000                	0x8000
+  74:	0000                	unimp
+  76:	0000                	unimp
+  78:	036c                	addi	a1,sp,396
+  7a:	0000                	unimp
+  7c:	0000                	unimp
+  7e:	0000                	unimp
+  80:	0e44                	addi	s1,sp,788
+  82:	01d0                	addi	a2,sp,196
+  84:	8148                	0x8148
+  86:	8812                	mv	a6,tp
+  88:	4414                	lw	a3,8(s0)
+  8a:	080c                	addi	a1,sp,16
+  8c:	0340                	addi	s0,sp,388
+  8e:	0350                	addi	a2,sp,388
+  90:	44c1                	li	s1,16
+  92:	44c8                	lw	a0,12(s1)
+  94:	020c                	addi	a1,sp,256
+  96:	0000                	unimp
+  98:	000c                	0xc
+  9a:	0000                	unimp
+  9c:	ffff                	0xffff
+  9e:	ffff                	0xffff
+  a0:	0001                	nop
+  a2:	7c01                	lui	s8,0xfffe0
+  a4:	0d01                	addi	s10,s10,0
+  a6:	0002                	c.slli	zero,0x0
+  a8:	0024                	addi	s1,sp,8
+  aa:	0000                	unimp
+  ac:	0098                	addi	a4,sp,64
+  ae:	0000                	unimp
+  b0:	0440                	addi	s0,sp,516
+  b2:	8000                	0x8000
+  b4:	0000                	unimp
+  b6:	0000                	unimp
+  b8:	0064                	addi	s1,sp,12
+  ba:	0000                	unimp
+  bc:	0000                	unimp
+  be:	0000                	unimp
+  c0:	0e44                	addi	s1,sp,788
+  c2:	4430                	lw	a2,72(s0)
+  c4:	0288                	addi	a0,sp,320
+  c6:	0c44                	addi	s1,sp,532
+  c8:	0008                	0x8
+  ca:	5002                	0x5002
+  cc:	44c8                	lw	a0,12(s1)
+  ce:	020d                	addi	tp,tp,3
+  d0:	0024                	addi	s1,sp,8
+  d2:	0000                	unimp
+  d4:	0098                	addi	a4,sp,64
+  d6:	0000                	unimp
+  d8:	04a4                	addi	s1,sp,584
+  da:	8000                	0x8000
+  dc:	0000                	unimp
+  de:	0000                	unimp
+  e0:	002c                	addi	a1,sp,8
+  e2:	0000                	unimp
+  e4:	0000                	unimp
+  e6:	0000                	unimp
+  e8:	0e44                	addi	s1,sp,788
+  ea:	4810                	lw	a2,16(s0)
+  ec:	0281                	addi	t0,t0,0
+  ee:	0488                	addi	a0,sp,576
+  f0:	0c44                	addi	s1,sp,532
+  f2:	0008                	0x8
+  f4:	0000                	unimp
+	...

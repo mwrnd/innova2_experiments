@@ -2,6 +2,3 @@
 	path = riscv_rocket64b4l2w_xdma/vivado-risc-v
 	url = https://github.com/mwrnd/vivado-risc-v.git
 	branch = innova2
-[submodule "xdma_uart-to-uart/c-ringbuf"]
-	path = xdma_uart-to-uart/c-ringbuf
-	url = https://github.com/dhess/c-ringbuf.git

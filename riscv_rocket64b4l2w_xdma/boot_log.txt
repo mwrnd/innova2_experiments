@@ -1,0 +1,236 @@
+M: JTAG
+
+OpenSBI v1.0
+   ____                    _____ ____ _____
+  / __ \                  / ____|  _ \_   _|
+ | |  | |_ __   ___ _ __ | (___ | |_) || |
+ | |  | | '_ \ / _ \ '_ \ \___ \|  _ < | |
+ | |__| | |_) |  __/ | | |____) | |_) || |_
+  \____/| .__/ \___|_| |_|_____/|____/_____|
+        | |
+        |_|
+
+Platform Name             : Vivado RISC-V
+Platform Features         : medeleg
+Platform HART Count       : 32
+Platform IPI Device       : aclint-mswi
+Platform Timer Device     : aclint-mtimer @ 625000Hz
+Platform Console Device   : axi-uart
+Platform HSM Device       : ---
+Platform Reboot Device    : ---
+Platform Shutdown Device  : ---
+Firmware Base             : 0x80000000
+Firmware Size             : 468 KB
+Runtime SBI Version       : 0.3
+
+Domain0 Name              : root
+Domain0 Boot HART         : 0
+Domain0 HARTs             : 0*,1*,2*,3*,4*,5*,6*,7*,8*,9*,10*,11*,12*,13*,14*,15*,16*,17*,18*,19*,20*,21*,22*,23*,24*,25*,26*,27*,28*,29*,30*,31*
+Domain0 Region00          : 0x0000000002000000-0x000000000200ffff (I)
+Domain0 Region01          : 0x0000000080000000-0x000000008007ffff ()
+Domain0 Region02          : 0x0000000000000000-0xffffffffffffffff (R,W,X)
+Domain0 Next Address      : 0x0000000080200000
+Domain0 Next Arg1         : 0x0000000000010080
+Domain0 Next Mode         : S-mode
+Domain0 SysReset          : yes
+
+Boot HART ID              : 0
+Boot HART Domain          : root
+Boot HART ISA             : rv64imafdcsux
+Boot HART Features        : scounteren,mcounteren,mcountinhibit
+Boot HART PMP Count       : 16
+Boot HART PMP Granularity : 4
+Boot HART PMP Address Bits: 30
+Boot HART MHPM Count      : 0
+Boot HART MIDELEG         : 0x0000000000000222
+Boot HART MEDELEG         : 0x000000000000b109
+
+
+U-Boot 2022.01-dirty (Nov 24 2022 - 05:25:55 +0000)
+
+CPU:   rv64imafdc
+Model: freechips,rocketchip-vivado
+DRAM:  2 GiB
+MMC:   
+Loading Environment from nowhere... OK
+In:    uart@60010000
+Out:   uart@60010000
+Err:   uart@60010000
+Net:   No ethernet found.
+Hit any key to stop autoboot:  0 
+Moving Image from 0x81000000 to 0x80200000, end=8152ef60
+## Loading init Ramdisk from Legacy Image at 85000000 ...
+   Image Name:   
+   Image Type:   RISC-V Linux RAMDisk Image (gzip compressed)
+   Data Size:    4630283 Bytes = 4.4 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 00010080
+   Booting using the fdt blob at 0x010080
+   Loading Device Tree to 0000000084ffb000, end 0000000084fff343 ... OK
+
+Starting kernel ...
+
+[    0.000000] Linux version 5.19.16-dirty (ubuntu@ip-172-31-27-13) (riscv64-linux-gnu-gcc (Ubuntu 9.4.0-1ubuntu1~20.04) 9.4.0, GNU ld (GNU Binutils for Ubuntu) 2.34) #1 SMP Thu Nov 24 08:13:01 UTC 2022
+[    0.000000] OF: fdt: Ignoring memory range 0x80000000 - 0x80200000
+[    0.000000] Machine model: freechips,rocketchip-vivado
+[    0.000000] earlycon: axi_uart0 at MMIO 0x0000000060010000 (options '')
+[    0.000000] printk: bootconsole [axi_uart0] enabled
+[    0.000000] Zone ranges:
+[    0.000000]   DMA32    [mem 0x0000000080200000-0x00000000ffffffff]
+[    0.000000]   Normal   empty
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000080200000-0x00000000ffffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000080200000-0x00000000ffffffff]
+[    0.000000] On node 0, zone DMA32: 512 pages in unavailable ranges
+[    0.000000] SBI specification v0.3 detected
+[    0.000000] SBI implementation ID=0x1 Version=0x10000
+[    0.000000] SBI TIME extension detected
+[    0.000000] SBI IPI extension detected
+[    0.000000] SBI RFENCE extension detected
+[    0.000000] SBI HSM extension detected
+[    0.000000] riscv: base ISA extensions acdfim
+[    0.000000] riscv: ELF capabilities acdfim
+[    0.000000] percpu: Embedded 16 pages/cpu s28136 r8192 d29208 u65536
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 516615
+[    0.000000] Kernel command line: ro root=UUID=68d82fa1-1bb5-435f-a5e3-862176586eec earlycon initramfs.runsize=24M locale.LANG=en_US.UTF-8
+[    0.000000] Dentry cache hash table entries: 262144 (order: 9, 2097152 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 131072 (order: 8, 1048576 bytes, linear)
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] Memory: 2021596K/2095104K available (6466K kernel code, 4822K rwdata, 4096K rodata, 2150K init, 379K bss, 73508K reserved, 0K cma-reserved)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=32 to nr_cpu_ids=4.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=4
+[    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+[    0.000000] riscv-intc: 64 local interrupts mapped
+[    0.000000] plic: interrupt-controller@c000000: mapped 8 interrupts with 4 handlers for 8 contexts.
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] riscv_timer_init_dt: Registering clocksource cpuid [0] hartid [0]
+[    0.000000] clocksource: riscv_clocksource: mask: 0xffffffffffffffff max_cycles: 0x127350b88, max_idle_ns: 3526361616960 ns
+[    0.000030] sched_clock: 64 bits at 625kHz, resolution 1600ns, wraps every 4398046510400ns
+[    0.013641] Calibrating delay loop (skipped), value calculated using timer frequency.. 1.25 BogoMIPS (lpj=2500)
+[    0.024352] pid_max: default: 32768 minimum: 301
+[    0.044505] Mount-cache hash table entries: 4096 (order: 3, 32768 bytes, linear)
+[    0.053041] Mountpoint-cache hash table entries: 4096 (order: 3, 32768 bytes, linear)
+[    0.098393] cblist_init_generic: Setting adjustable number of callback queues.
+[    0.112548] cblist_init_generic: Setting shift to 2 and lim to 1.
+[    0.127588] riscv: ELF compat mode failed
+[    0.127753] ASID allocator disabled (0 bits)
+[    0.148361] rcu: Hierarchical SRCU implementation.
+[    0.153521] rcu: 	Max phase no-delay instances is 1000.
+[    0.175537] smp: Bringing up secondary CPUs ...
+[    0.223881] smp: Brought up 1 node, 4 CPUs
+[    0.253281] devtmpfs: initialized
+[    0.292811] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.303208] futex hash table entries: 1024 (order: 4, 65536 bytes, linear)
+[    0.330852] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    0.352166] thermal_sys: Registered thermal governor 'step_wise'
+[    0.352332] thermal_sys: Registered thermal governor 'user_space'
+[    0.565283] SCSI subsystem initialized
+[    0.623144] usbcore: registered new interface driver usbfs
+[    0.631220] usbcore: registered new interface driver hub
+[    0.637518] usbcore: registered new device driver usb
+[    0.659078] vgaarb: loaded
+[    0.675062] clocksource: Switched to clocksource riscv_clocksource
+[    0.714947] NET: Registered PF_INET protocol family
+[    0.735438] IP idents hash table entries: 32768 (order: 6, 262144 bytes, linear)
+[    0.836956] tcp_listen_portaddr_hash hash table entries: 1024 (order: 2, 16384 bytes, linear)
+[    0.876363] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    0.891814] TCP established hash table entries: 16384 (order: 5, 131072 bytes, linear)
+[    0.907300] TCP bind hash table entries: 16384 (order: 6, 262144 bytes, linear)
+[    0.924832] TCP: Hash tables configured (established 16384 bind 16384)
+[    0.936260] UDP hash table entries: 1024 (order: 3, 32768 bytes, linear)
+[    0.945659] UDP-Lite hash table entries: 1024 (order: 3, 32768 bytes, linear)
+[    0.965700] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[    0.986316] RPC: Registered named UNIX socket transport module.
+[    0.993424] RPC: Registered udp transport module.
+[    1.000009] RPC: Registered tcp transport module.
+[    1.005040] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    1.012636] PCI: CLS 0 bytes, default 64
+[    1.036366] Unpacking initramfs...
+[    1.049736] workingset: timestamp_bits=62 max_order=19 bucket_order=0
+[    1.181264] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    1.225702] NFS: Registering the id_resolver key type
+[    1.232134] Key type id_resolver registered
+[    1.236737] Key type id_legacy registered
+[    1.243267] nfs4filelayout_init: NFSv4 File Layout Driver Registering...
+[    1.251321] nfs4flexfilelayout_init: NFSv4 Flexfile Layout Driver Registering...
+[    1.262556] 9p: Installing v9fs 9p2000 file system support
+[    1.283875] NET: Registered PF_ALG protocol family
+[    1.298028] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 252)
+[    1.309606] io scheduler mq-deadline registered
+[    1.314532] io scheduler kyber registered
+[    2.652993] Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
+[    2.742939] 60010000.uart: ttyAU0 at MMIO 0x60010000 (irq = 1, base_baud = 0) is a axi-uart
+[    2.752270] printk: console [ttyAU0] enabled
+[    2.752270] printk: console [ttyAU0] enabled
+[    2.764379] printk: bootconsole [axi_uart0] disabled
+[    2.764379] printk: bootconsole [axi_uart0] disabled
+[    2.962011] loop: module loaded
+[    3.072742] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    3.078996] ehci-pci: EHCI PCI platform driver
+[    3.083745] ehci-platform: EHCI generic platform driver
+[    3.089185] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+[    3.095016] ohci-pci: OHCI PCI platform driver
+[    3.099603] ohci-platform: OHCI generic platform driver
+[    3.112729] usbcore: registered new interface driver uas
+[    3.118188] usbcore: registered new interface driver usb-storage
+[    3.127979] mousedev: PS/2 mouse device common for all mice
+[    3.141424] usbcore: registered new interface driver usbhid
+[    3.161163] usbhid: USB HID core driver
+[    3.167126] riscv-pmu-sbi: SBI PMU extension is available
+[    3.171992] riscv-pmu-sbi: 15 firmware and 2 hardware counters
+[    3.177464] riscv-pmu-sbi: Perf sampling/filtering is not supported as sscof extension is not available
+[    3.209644] NET: Registered PF_INET6 protocol family
+[    3.243880] Segment Routing with IPv6
+[    3.257393] In-situ OAM (IOAM) with IPv6
+[    3.261744] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+[    3.280352] NET: Registered PF_PACKET protocol family
+[    3.296129] 9pnet: Installing 9P2000 support
+[    3.302176] Key type dns_resolver registered
+[    5.552440] Freeing initrd memory: 4516K
+[    5.626268] Freeing unused kernel image (initmem) memory: 2148K
+[    5.643835] Run /init as init process
+Loading, please wait...
+Starting systemd-udevd version 252~rc3-2
+Begin: Loading essential drivers ... done.
+Begin: Running /scripts/init-premount ... done.
+Begin: Mounting root file system ... Begin: Running /scripts/local-top ... done.
+Begin: Running /scripts/local-premount ... done.
+Begin: Waiting for root file system ... Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+Begin: Running /scripts/local-block ... done.
+done.
+Gave up waiting for root file system device.  Common problems:
+ - Boot args (cat /proc/cmdline)
+   - Check rootdelay= (did the system wait long enough?)
+ - Missing modules (cat /proc/modules; ls /dev)
+ALERT!  UUID=68d82fa1-1bb5-435f-a5e3-862176586eec does not exist.  Dropping to a shell!
+(initramfs) 
+

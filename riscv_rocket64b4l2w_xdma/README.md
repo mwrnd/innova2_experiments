@@ -1,9 +1,15 @@
 # Innova-2 RISC-V
 
 # TODO:
- * Refer to the [Debug Log](debug_log.md) for progress notes
+ * Fully load a working Linux system. Currently failing on missing boot drive.
  * [Ethernet-over-XDMA using TUN/TAP](https://en.wikipedia.org/wiki/TUN/TAP) Driver
- * Test beyond `bare-metal` and `OpenSBI`; load Linux
+ * Refer to the [Debug Log](debug_log.md) for more progress notes
+
+---
+
+The design currently has a functional RISC-V core and UART.
+
+![Currently Working Design](img/RISC-V_Design_Currently_Working.png)
 
 ---
 
@@ -23,8 +29,8 @@ Refer to the `innova2_flex_xcku15p_notes` project's instructions to install XDMA
 ```
 unzip innova2-riscv_bitstream.zip
 md5sum innova2-riscv_primary.bin innova2-riscv_secondary.bin
-echo 268c508b7013b16c9b76ab45c3a34d5d should be MD5 checksum of innova2-riscv_primary.bin
-echo 878b6889ac60429cf00dcc75e01af2f7 should be MD5 checksum of innova2-riscv_secondary.bin
+echo 01d74b05d4b5421fdcf21be70f2048af should be MD5 checksum of innova2-riscv_primary.bin
+echo 1948edcbf584d456683f0bd1530fb65a should be MD5 checksum of innova2-riscv_secondary.bin
 ```
 
 ![Innova2 RISC-V Testing Diagram](img/Innova2_RISC-V_Testing_Diagram.png)
@@ -81,7 +87,7 @@ rr pc
 
 ![xsdb program load](img/xsdb_bare-metal_download.png)
 
-`rr pc` is *Read Register Program Counter* which is currently at `0x8000046c`. The `.elf` file can be disassembled to follow along with code execution.
+`rr pc` is *Read Register Program Counter* which is currently at `0x8000046c`. The `.elf` file can be [disassembled](bare-metal_hello-world_disassembled.txt) to follow along with code execution.
 ```
 cd vivado-risc-v/bare-metal/hello-world/
 riscv64-unknown-elf-objdump -S -l --inlines -D boot.elf  > dis.txt
@@ -98,14 +104,14 @@ The above can also be done using the [Eclipse TCF Debugger](https://www.eclipse.
 
 ## Communicating with the RISC-V UART over XDMA
 
-On the computer with the Innova2, the data that `boot.elf` is generating can be read over XDMA from an AXI UART connected to the RISC-V core using [`xdma_tty_cuse.c`](https://github.com/mwrnd/innova2_experiments/blob/main/xdma_uart-to-uart/xdma_tty_cuse.c).
+On the computer with the Innova2, the data that `boot.elf` is generating can be read over XDMA from an AXI UART connected to the RISC-V UART using [`xdma_tty_cuse.c`](https://github.com/mwrnd/innova2_experiments/blob/main/xdma_uart-to-uart/xdma_tty_cuse.c).
 
 Install the `libfuse2` development library:
 ```
 sudo apt install libfuse2 libfuse-dev
 ```
 
-In one terminal, run `xdma_tty_cuse`:
+In one terminal, compile and run `xdma_tty_cuse`:
 ```
 cd innova2_experiments/riscv_rocket64b4l2w_xdma
 cp ../xdma_uart-to-uart/xdma_tty_cuse.c  .
@@ -118,49 +124,100 @@ In a second terminal, connect to the TTY CUSE UART Bridge using a [Serial Termin
 sudo gtkterm --port /dev/ttyCUSE0
 ```
 
-![xdma_cuse_tty RISC-V communication](img/xdma_tty_cuse_running_riscv.png)
+![xdma_cuse_tty RISC-V communication](img/Innova2_xdma_tty_cuse_GTKTerm_Start.png)
 
-You should be able to see the text being output by the `hello-world` firmware.
+When the RISC-V core starts, it prints [`RISC-V 64, Boot ROM: JTAG` to its UART](https://github.com/mwrnd/vivado-risc-v/blob/16c3ef22fc704b7f5f3580ac11b8ab59937e7a90/board/innova2/bootrom.c#L16). The first 16 bytes [(the UART FIFO depth)](https://github.com/eugene-tarassov/vivado-risc-v/blob/80323cd5b2a2254e87dd75c3a93059e5bb9f7272/uart/uart.v#L93) end up in the XDMA UART. When `GTKTerm` runs, it twice calls an `ioctl` in `xdma_tty_cuse` that [resets the XDMA RX FIFO](https://github.com/mwrnd/innova2_experiments/blob/74f1473361b246bbb64e40fe7234f68de22aa502/xdma_uart-to-uart/xdma_tty_cuse.c#L334). `M: JTAG` are the characters that get through once the RISC-V core is able to send data again.
 
-![xdma_cuse_tty UART reads after a delay](img/xdma_tty_cuse_riscv_uart_reads.png)
-
-
+![bare-metal hello-world output](img/Innova2_RISC-V_bare-metal_xdma_tty_cuse_working.png)
 
 
-## OpenSBI
 
+## Load Linux Using OpenSBI
+
+The Linux system files can be [recreated](#recreating-the-risc-v-design) or [downloaded from Releases](https://github.com/mwrnd/innova2_experiments/releases). If recreating the system files, OpenSBI `boot.elf` ends up in `vivado-risc-v/workspace/boot.elf`. The Linux `Image` in `vivado-risc-v/linux-stable/arch/riscv/boot/Image` and the `ramdisk` in `vivado-risc-v/debian-riscv64/ramdisk`.
+
+Confirm the files downloaded correctly:
 ```
-cd vivado-risc-v
-make  CONFIG=rocket64b4l2w  BOARD=innova2  workspace/boot.elf
+unzip -d . innova2-riscv_system.zip
+
+echo fd156f7719b39f41e0fe0f04dca36214  should be MD5 Checksum of  Image
+echo 868f767b0b6e838852c9075643a9fd1d  should be MD5 Checksum of  ramdisk
+echo 0fef4ba92ff5d3014ab4787675458bfb  should be MD5 Checksum of  opensbi_boot.elf
 ```
 
-Still connected to the Innova-2 using JTAG, start `xsdb` on the computer hosting the JTAG adapter:
+On the computer hosting the Innova-2, confirm JTAG is `Enabled`.
+```
+sudo mst start
+cd ~/Innova_2_Flex_Open_18_12/driver/
+sudo ./make_device
+cd ~
+sudo insmod /usr/lib/modules/`uname -r`/updates/dkms/mlx5_fpga_tools.ko
+sudo ~/Innova_2_Flex_Open_18_12/app/innova2_flex_app -v
+```
+
+![Enable JTAG Access](img/Innova2_Enable_JTAG_Access.png)
+
+
+On the computer hosting the [**1.8V** JTAG Adapter](https://docs.xilinx.com/r/en-US/ug908-vivado-programming-debugging/JTAG-Cables-and-Devices-Supported-by-hw_server), run `xsdb` and stop the RISC-V core that will be used for system boot.
+
+![Stop RISC-V Boot Core](img/RISC-V_JTAG_Start.png)
+
 ```
 source /tools/Xilinx/Vivado/2021.2/settings64.sh
 xsdb
 ```
 
-Load OpenSBI:
 ```
 connect
 targets
 target 3
 stop
-dow -clear workspace/boot.elf
-rwr s0 0x80000000
-rwr pc 0x80000000
-rwr a0 0
-rwr a1 0x10080
-rr
-con
+target 2
+targets
 ```
 
-![xsdb Load of OpenSBI](img/XSDB_OpenSBI_Load_and_Start.png)
 
-On the PC hosting the Innova-2, run `xdma_tty_cuse` and `gtkterm` to communicate with the RISC-V system:
+On the computer hosting the Innova-2, upload the Linux `Image` and `ramdisk` using [`dma_ip_driver`](https://github.com/mwrnd/innova2_flex_xcku15p_notes#install-xilinx-pcie-dma-ip-drivers)'s `dma_to_device` software. Note `Image` needs to be uploaded to `0x81000000` and `ramdisk` needs to be uploaded to `0x85000000`. `dma_to_device` also requires the exact size in bytes that will be uploaded. Using XDMA instead of JTAG is *significantly* faster.
 
-![GTKTerm Communication with OpenSBI](img/GTKTerm_OpenSBI_Boot.png)
+```
+sudo ./dma_to_device --verbose --device /dev/xdma0_h2c_0 --address 0x81000000 --size 19723012 -f Image
+sudo ./dma_to_device --verbose --device /dev/xdma0_h2c_0 --address 0x85000000 --size  4630347 -f ramdisk
+```
 
+![Load Linux Image and ramdisk](img/Innova2_Linux_Image_and_RAMDisk_XDMA_Upload.png)
+
+
+Back on the computer hosting the [**1.8V** JTAG Adapter](https://docs.xilinx.com/r/en-US/ug908-vivado-programming-debugging/JTAG-Cables-and-Devices-Supported-by-hw_server), 
+
+
+```
+target 3
+dow -clear opensbi_boot.elf
+rwr a0 0
+rwr a1 0x10080
+rwr s0 0x80000000
+rwr pc 0x80000000
+rr
+```
+
+![Upload OpenSBI boot.elf](img/RISC-V_JTAG_Load_OpenSBI.png)
+
+`con`tinue execution.
+
+![xsdb continue](img/RISC-V_JTAG_Continue.png)
+
+
+On the computer hosting the Innova-2, [`xdma_tty_cuse` + `gtkterm`](#communicating-with-the-risc-v-uart-over-xdma) should allow viewing the boot log and communicating with the RISC-V core's TTY.
+
+![xdma_tty_cuse and gtkterm OpenSBI Boot](img/Innova2_OpenSBI_Boot_Complete.png)
+
+For some reason, `^@` gets added to every character typed into `gtkterm`. `initramfs` core correctly parses the input and commands work.
+
+![initramfs communication fault](img/Innova2_initramfs_Communication.png)
+
+The complete boot log is [available](boot_log.txt).
+
+![Boot Log](img/Innova2_RISC-V_OpenSBI_Linux_JTAG_Boot_NoBootDrive.png)
 
 
 
@@ -233,7 +290,7 @@ cd vivado-risc-v
 sudo make apt-install
 make update-submodules
 source /tools/Xilinx/Vivado/2021.2/settings64.sh
-make  CONFIG=rocket64b4l2w  BOARD=innova2  bitstream
+make  CONFIG=rocket64b4l2w  BOARD=innova2  jtag-boot
 ```
 
 ![make bitstream](img/vivado-risc-v_make_bitstream.png)

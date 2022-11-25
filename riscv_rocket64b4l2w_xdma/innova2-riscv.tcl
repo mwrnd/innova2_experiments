@@ -281,7 +281,7 @@ set files [list \
 add_files -norecurse -fileset $obj $files
 
 # Set 'sources_1' fileset file properties for remote files
-set file "$origin_dir/../rocket.vhdl"
+set file "${origin_dir}/vivado-risc-v_workspace/rocket64b4l2w/rocket.vhdl"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
@@ -451,7 +451,7 @@ if { [get_files uart.v] == "" } {
 proc cr_bd_riscv { parentCell } {
 # The design that will be created by this Tcl proc contains the following 
 # module references:
-# ethernet, ethernet, rocket64b4l2w, uart, uart
+# ethernet, ethernet, Rocket64b4l2w, uart, uart
 
 
 
@@ -522,7 +522,7 @@ proc cr_bd_riscv { parentCell } {
      set list_check_mods "\ 
   ethernet\
   ethernet\
-  rocket64b4l2w\
+  Rocket64b4l2w\
   uart\
   uart\
   "
@@ -642,7 +642,7 @@ proc cr_bd_riscv { parentCell } {
  ] $IIC
 
   # Create instance: RocketChip, and set properties
-  set block_name rocket64b4l2w
+  set block_name Rocket64b4l2w
   set block_cell_name RocketChip
   if { [catch {set RocketChip [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
      catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
@@ -1014,8 +1014,6 @@ connect_bd_intf_net -intf_net [get_bd_intf_nets smartconnect_4_M00_AXI] [get_bd_
 
   # Exclude Address Segments
   exclude_bd_addr_seg -offset 0x80000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces Ethernet/M_AXI] [get_bd_addr_segs ddr4_0/C0_DDR4_MEMORY_MAP/C0_DDR4_ADDRESS_BLOCK]
-  exclude_bd_addr_seg -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces Ethernet2/M_AXI] [get_bd_addr_segs RocketChip/DMA_AXI4/reg0]
-  exclude_bd_addr_seg -offset 0x00000000 -range 0x000100000000 -target_address_space [get_bd_addr_spaces xdma_0/M_AXI] [get_bd_addr_segs RocketChip/DMA_AXI4/reg0]
 
   # Perform GUI Layout
   regenerate_bd_layout -layout_string {
