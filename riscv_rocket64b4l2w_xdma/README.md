@@ -1,7 +1,7 @@
 # Innova-2 RISC-V
 
 # TODO:
- * Fully load a working Linux system. Currently failing on missing boot drive.
+ * Fully load a working Linux system. Currently failing on missing boot drive, which is expected as there is no SD card. Test with [debian-riscv64.sd.img.gz](https://github.com/eugene-tarassov/vivado-risc-v/releases/tag/v3.4.0).
  * [Ethernet-over-XDMA using TUN/TAP](https://en.wikipedia.org/wiki/TUN/TAP) Driver
  * Refer to the [Debug Log](debug_log.md) for more progress notes
 
