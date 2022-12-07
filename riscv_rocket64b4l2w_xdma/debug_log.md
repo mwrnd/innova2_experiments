@@ -1,7 +1,24 @@
 # Innova-2 RISC-V Debug Log
 
 
+
+
+## Adding PCIe Debug Bridge Support
+
+*Work-In-Progress*
+
+Debug Bridge PCIe-to-BSCAN:
+
+![Debug Bridge PCIe-to-BSCAN](img/Debug_Bridge_PCIe-to-BSCAN.png)
+
+![lspci tree view](img/lspci_tree_Mellanox_and_Xilinx.png)
+
+
+
+
 ## UART over XDMA Drops Data Bytes
+
+*Work-In-Progress*
 
 When the two UARTs (one for the RISC-V core and the second for XDMA) are connected to the same AXI SmartConnect:
 
@@ -22,6 +39,22 @@ Grouping the RISC-V IO Blocks solves the communication issues!
 Communication with the RISC-V can now be done using standard Linux TTY Terminal Software such as [`gtkterm`](https://manpages.ubuntu.com/manpages/focal/man1/gtkterm.1.html).
 
 ![Successful RISC-V to TTY Communication](img/Innova2_RISC-V_bare-metal_xdma_tty_cuse_working.png)
+
+![UARTs Connect to Same AXI Network](img/UARTs_Connected_to_Same_AXI_SmartConnect-Block_Design.png)
+
+
+
+
+## Using the Integrated Logic Analyzer ILA
+
+The included [debug_nets.ltx](debug_nets.ltx) can be used with the [Integrated Logic Analyzer (ILA)](https://docs.xilinx.com/r/en-US/ug936-vivado-tutorial-programming-debugging/Using-the-Vivado-Integrated-Logic-Analyzer).
+
+![Specify Debug Probes in Hardware Manager](img/Hardware_Manager_Specify_Debug_Probes.png)
+
+Click *Refresh* to update the ILA Debug Probes.
+
+![Refresh Debug Probes](img/Hardware_Manager_Refresh_Debug_Probes.png)
+
 
 
 
@@ -58,6 +91,7 @@ con
 On the PC hosting the Innova-2, run `xdma_tty_cuse` and `gtkterm` to communicate with the RISC-V system:
 
 ![GTKTerm Communication with OpenSBI](img/GTKTerm_OpenSBI_Boot.png)
+
 
 
 
@@ -283,3 +317,4 @@ xsdb% Info: Hart #0 (target 3) Running (Debug Transport Module: data corruption 
 The Device View shows the path is very short.
 
 ![Device View Shows Elements are Nearby](img/JTAG_Fails_Timing_DeviceView.png)
+
