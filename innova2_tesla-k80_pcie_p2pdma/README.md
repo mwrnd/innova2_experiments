@@ -7,7 +7,7 @@ This is an attempt to get the Innova-2's ConnectX-5 Ethernet interfaces and a Te
 
 According to the documentation I have read, this *should* be possible with CUDA 11 and [CUDA Compute Capability](https://developer.nvidia.com/cuda-gpus) >=3 (`SM_3+`) and [*was* possible](https://developer.nvidia.com/blog/peer-to-peer-multi-gpu-transpose-cuda-fortran/). However, requirements have crept up and now most software requires CUDA 12 and [`SM_5+`](https://github.com/NVIDIA/cuda-samples/tree/master/Samples/0_Introduction/simpleP2P). This has become a matter of herding the correct versions of software and dependencies.
 
-Here is a quick [overview of PCIe P2P DMA](https://dl.acm.org/doi/abs/10.1145/3462545). [More notes](https://linuxreviews.org/Peer_To_Peer_DMA).
+[Peer-to-Peer DMA Notes](https://linuxreviews.org/Peer_To_Peer_DMA). Here is a quick [overview of PCIe P2P DMA](https://dl.acm.org/doi/abs/10.1145/3462545):
 
 ![Overview of PCIe P2P DMA](img/PCIe_P2P_DMA_Overview.png)
 
