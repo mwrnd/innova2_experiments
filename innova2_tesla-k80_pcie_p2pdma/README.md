@@ -1,7 +1,7 @@
 
 **Work in Progress** - Not yet functional.
 
-This is an attempt to get the Innova-2's ConnectX-5 Ethernet interfaces and a Tesla K80 GPU communicating with each other through [PCIe Peer-to-Peer DMA](https://www.eideticom.com/media-news/blog/33-p2pdma-in-linux-kernel-4-20-rc1-is-here.html) to allow GPU packet processing.
+This is an attempt to get the Innova-2's ConnectX-5 Ethernet interfaces and a Tesla K80 ([CUDA Compute Capability SM_3.7](https://developer.nvidia.com/cuda-gpus)) GPU communicating with each other through [PCIe Peer-to-Peer DMA](https://www.eideticom.com/media-news/blog/33-p2pdma-in-linux-kernel-4-20-rc1-is-here.html) to allow GPU packet processing.
 
 ![Innova-2 Flex and Tesla K80](img/Innova2_and_Tesla_K80.png)
 
@@ -29,18 +29,22 @@ Confirm that your motherboard supports PCIe P2P by searching the datasheet of it
 
 ## Installation
 
-I recommend starting with a [fresh Ubuntu install](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview) on a blank SSD. An approximately 250GB SSD should be enough.
+I recommend starting with a [fresh install](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview) of [Ubuntu 20.04.5 Desktop amd64](https://releases.ubuntu.com/20.04.5/) on a blank SSD. An approximately 250GB SSD should be enough.
 
 ### Linux Kernel
 
-Begin by updating and upgrading your [Ubuntu 20.04.5 Desktop amd64](https://releases.ubuntu.com/20.04.5/) [installation](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview) but make sure to stay on **20.04**, no `dist-upgrade`. Run the following in a terminal. Run `sudo ls` before copy-and-pasting a large block of commands to prime `sudo` and prevent copying commands into the password field.
+Open **Software and Updates** and add *Proprietary Drivers*, *Restricted Software*, and *Source Code* as package options.
+
+![Software and Updates](img/Software_and_Updates.png)
+
+Update and upgrade your but make sure to stay on **20.04**, no `dist-upgrade`. Run the following in a terminal. Run `sudo ls` before copy-and-pasting a large block of commands to prime `sudo` and prevent copying commands into the password field.
 ```Shell
 sudo apt-get update  ;  sudo apt-get upgrade
 ```
 
 ![apt update apt upgrade](img/apt_update_upgrade.png)
 
-Install Linux Kernel `5.4.0-26-generic` which is the latest kernel I have found to work.
+Install Linux Kernel `5.4.0-26-generic`.
 ```Shell
 sudo apt-get install   linux-buildinfo-5.4.0-26-generic \
        linux-cloud-tools-5.4.0-26-generic linux-headers-5.4.0-26-generic \
@@ -48,7 +52,7 @@ sudo apt-get install   linux-buildinfo-5.4.0-26-generic \
        linux-modules-extra-5.4.0-26-generic linux-tools-5.4.0-26-generic
 ```
 
-Note that Nvidia/Mellanox [only officially support kernel](https://docs.nvidia.com/networking/display/MLNXOFEDv522240/General+Support+in+MLNX_OFED) `5.4.0-26-generic`.
+Nvidia/Mellanox [only officially support kernel](https://docs.nvidia.com/networking/display/MLNXOFEDv522240/General+Support+in+MLNX_OFED) `5.4.0-26-generic`.
 
 ![Only Officially Supported Kernel is 5.4.0-26](img/Supported_Kernel_is_5.4.0-26-generic.png)
 
@@ -102,13 +106,13 @@ sudo apt-get remove clang clang-10 libclang-10-dev libclang-common-10-dev libcla
 
 Install as much software and libraries as you can think of. `MLNX_OFED` drivers will install custom versions of some of the libraries that get pulled into this install. By installing everything first you can avoid library incompatibility issues and `MLNX_OFED` reinstallations. `libibverbs` is one package that gets updated and pulled in by almost every piece of networking software but `MLNX_OFED` requires a custom version. The following is about 950MB of archives and requires 2.9GB of space.
 ```Shell
-sudo apt-get install    alien apt autoconf automake autopoint autotools-dev bcc binfmt-support binutils-riscv64-linux-gnu binutils-riscv64-unknown-elf binwalk bison blt-dev bpfcc-tools bpftrace build-essential bzip2 ccache check chrpath clang clang-12 clang-format-12 clang-tidy-12 clang-tools-12 clinfo cmake coreutils cpp-riscv64-linux-gnu curl cycfx2prog cython3 dapl2-utils debhelper debian-goodies debootstrap devscripts dh-autoreconf dh-python dkms dos2unix doxygen dpatch dpkg dwarves elfutils ethtool fakeroot fio flashrom flex fxload gcc gcc-riscv64-linux-gnu gcc-9-riscv64-linux-gnu gcc-riscv64-unknown-elf gdb gettext gettext-base gfio gfortran ghex git graphviz gtkterm gtkwave htop hwdata hwinfo hwloc ibacm ibutils ibverbs-providers ibverbs-utils intel-opencl-icd iotop iperf3 ixo-usb-jtag kcachegrind kernel-package kernel-wedge libaio1 libaio-dev libasm1 libatlas-base-dev libblas-dev libboost-all-dev libboost-filesystem1.71.0 libboost-filesystem-dev libboost-program-options1.71.0 libboost-program-options-dev libboost-thread-dev libbpfcc libbpfcc-dev libbsd0 libc++1-12 libc++-12-dev libc6 libc6-dev libcap-dev libc-dev libcharon-extauth-plugins libclang1-12 libclang-12-dev libclang-common-12-dev libclang-cpp12 libclang-dev libcunit1 libcunit1-dev libcurl4-openssl-dev libdapl2 libdeflate-dev libdrm-dev libdw1 libdwarf++0 libedit-dev libegl1-mesa-dev libelf++0 libelf1 libelf-dev libelfin-dev libfdt1 libfdt-dev libffi-dev libfontconfig1-dev libfreetype6-dev libftdi1 libftdi1-dev libftdi1-doc libftdi-dev libgcc-s1 libgfortran4 libgfortran5 libgl1-mesa-dev libgl1-mesa-dri libgl1-mesa-glx libglib2.0-0 libglib2.0-bin libglib2.0-data libglib2.0-dev libgnutls28-dev libgomp1 libhugetlbfs-bin libhwloc-dev libibdm1 libibmad5 libibmad-dev libibnetdisc5 libibnetdisc-dev libibumad-dev libibverbs1 libibverbs-dev libipsec-mb0 libipsec-mb-dev libisal2 libisal-dev libjansson4 libjpeg-dev liblapack-dev libllvm12 liblzma-dev libmfx1 libmfx-dev libmfx-tools libmnl0 libmnl-dev libmount-dev libncurses5 libncurses5-dev libncurses6 libncurses-dev libnginx-mod-http-echo libnl-3-200 libnl-3-dev libnl-route-3-200 libnl-route-3-dev libnuma-dev libopenblas-dev libopencl-clang10 libopenmpi-dev libpcap-dev libpci3 libpci-dev libpng-dev libprocps-dev libprotobuf17 librdmacm1 librdmacm-dev libreadline-dev librte-pmd-qat20.0 libselinux1 libselinux1-dev libsgutils2-dev libssh-dev libssl1.1 libssl-dev libstdc++6 libstdc++-9-dev-riscv64-cross libstdc++-9-pic-riscv64-cross libstrongswan libstrongswan-standard-plugins libsubunit0 libsubunit-dev libsystemd0 libsystemd-dev libtiff5 libtiff-dev libtinfo5 libtinfo-dev libtool libudev1 libudev-dev libunbound8 libunbound-dev libunwind8 libunwind-dev libusb-1.0-0-dev libusb-dev libuuid1 libvirt0 libvirt-dev libvma libvma-dev libwebp-dev libxau6 libxau-dev libxcb1-dev libxdmcp6 libxdmcp-dev libxext-dev libxfixes-dev libxft-dev libxml2-dev lintian linux-base linux-source llvm-12 llvm-12-dev llvm-12-runtime llvm-12-tools llvm-dev logrotate lsb-base lsb-release lsof m4 make mdevctl meld mesa-opencl-icd meson mininet module-assistant mpi-default-bin musl musl-dev musl-tools net-tools netwox nginx-light ninja-build nmap ntpdate numactl nvme-cli ocl-icd-dev ocl-icd-libopencl1 ocl-icd-opencl-dev opencl-headers openjdk-17-jdk openjdk-17-jre openmpi-bin openmpi-doc openocd opensm openssl openvswitch-switch pandoc pci.ids pciutils perftest perl pkg-config procps python python-nemu python3-all python3-attr python3-automat python3-binwalk python3-bpfcc python3-constantly python3-docutils python3-ftdi1 python3-hamcrest python3-hyperlink python3-incremental python3-openpyxl python3-openssl python3-pip python3-pkgconfig python3-pyasn1 python3-pyasn1-modules python3-pyelftools python3-pygraphviz python3-pyverbs python3-scapy python3-service-identity python3-setuptools python3-six python3-sphinx python3-twisted python3-twisted-bin python3-zope.interface python-libxml2 python-six python-zope.interface qemu-system-misc qemu-system-x86 qemu-utils qperf quilt rdmacm-utils sg3-utils socat sockperf sqlite squashfs-tools squashfs-tools-ng squashfuse strongswan strongswan-charon strongswan-libcharon strongswan-starter swig sysstat tcl tcl-dev tcptraceroute tk tk-dev u-boot-qemu udev user-mode-linux-doc uuid-dev v4l2loopback-dkms v4l2loopback-utils valgrind valgrind-mpi vbindiff vtun xc3sprog zlib1g zlib1g-dev
+sudo apt-get install    alien aptitude autoconf automake autopoint autotools-dev bcc binfmt-support binutils-riscv64-linux-gnu binutils-riscv64-unknown-elf binwalk bison blt-dev bpfcc-tools bpftrace build-essential bzip2 ccache check chrpath clang clang-12 clang-format-12 clang-tidy-12 clang-tools-12 clinfo cmake coreutils cpp-riscv64-linux-gnu curl cycfx2prog cython3 dapl2-utils debhelper debian-goodies debootstrap devscripts dh-autoreconf dh-python dkms dos2unix doxygen dpatch dpkg dwarves elfutils ethtool fakeroot fio flashrom flex fxload gcc gcc-riscv64-linux-gnu gcc-9-riscv64-linux-gnu gcc-riscv64-unknown-elf gdb gettext gettext-base gfio gfortran ghex git graphviz gtkterm gtkwave htop hwdata hwinfo hwloc ibacm ibutils ibverbs-providers ibverbs-utils intel-opencl-icd iotop iperf3 ixo-usb-jtag kcachegrind kernel-package kernel-wedge libaio1 libaio-dev libasm1 libatlas-base-dev libblas-dev libboost-all-dev libboost-filesystem1.71.0 libboost-filesystem-dev libboost-program-options1.71.0 libboost-program-options-dev libboost-thread-dev libbpfcc libbpfcc-dev libbsd0 libc++1-12 libc++-12-dev libc6 libc6-dev libcap-dev libc-dev libcharon-extauth-plugins libclang1-12 libclang-12-dev libclang-common-12-dev libclang-cpp12 libclang-dev libcunit1 libcunit1-dev libcurl4-openssl-dev libdapl2 libdeflate-dev libdrm-dev libdw1 libdwarf++0 libedit-dev libegl1-mesa-dev libelf++0 libelf1 libelf-dev libelfin-dev libfdt1 libfdt-dev libffi-dev libfontconfig1-dev libfreetype6-dev libftdi1 libftdi1-dev libftdi1-doc libftdi-dev libgcc-s1 libgfortran4 libgfortran5 libgl1-mesa-dev libgl1-mesa-dri libgl1-mesa-glx libglib2.0-0 libglib2.0-bin libglib2.0-data libglib2.0-dev libgnutls28-dev libgomp1 libhugetlbfs-bin libhwloc-dev libibdm1 libibmad5 libibmad-dev libibnetdisc5 libibnetdisc-dev libibumad-dev libibverbs1 libibverbs-dev libipsec-mb0 libipsec-mb-dev libisal2 libisal-dev libjansson4 libjpeg-dev liblapack-dev libllvm12 liblzma-dev libmfx1 libmfx-dev libmfx-tools libmnl0 libmnl-dev libmount-dev libncurses5 libncurses5-dev libncurses6 libncurses-dev libnginx-mod-http-echo libnl-3-200 libnl-3-dev libnl-route-3-200 libnl-route-3-dev libnuma-dev libopenblas-dev libopencl-clang10 libopenmpi-dev libpcap-dev libpci3 libpci-dev libpng-dev libprocps-dev libprotobuf17 librdmacm1 librdmacm-dev libreadline-dev librte-pmd-qat20.0 libselinux1 libselinux1-dev libsgutils2-dev libssh-dev libssl1.1 libssl-dev libstdc++6 libstdc++-9-dev-riscv64-cross libstdc++-9-pic-riscv64-cross libstrongswan libstrongswan-standard-plugins libsubunit0 libsubunit-dev libsystemd0 libsystemd-dev libtiff5 libtiff-dev libtinfo5 libtinfo-dev libtool libudev1 libudev-dev libunbound8 libunbound-dev libunwind8 libunwind-dev libusb-1.0-0-dev libusb-dev libuuid1 libvirt0 libvirt-dev libvma libvma-dev libwebp-dev libxau6 libxau-dev libxcb1-dev libxdmcp6 libxdmcp-dev libxext-dev libxfixes-dev libxft-dev libxml2-dev lintian linux-base linux-source llvm-12 llvm-12-dev llvm-12-runtime llvm-12-tools llvm-dev logrotate lsb-base lsb-release lsof m4 make mdevctl meld mesa-opencl-icd meson mininet module-assistant mpi-default-bin musl musl-dev musl-tools net-tools netwox nginx-light ninja-build nmap ntpdate numactl nvme-cli ocl-icd-dev ocl-icd-libopencl1 ocl-icd-opencl-dev opencl-headers openjdk-17-jdk openjdk-17-jre openmpi-bin openmpi-doc openocd opensm openssl openvswitch-switch pandoc pci.ids pciutils perftest perl pkg-config procps python python-nemu python3-all python3-attr python3-automat python3-binwalk python3-bpfcc python3-constantly python3-docutils python3-ftdi1 python3-hamcrest python3-hyperlink python3-incremental python3-openpyxl python3-openssl python3-pip python3-pkgconfig python3-pyasn1 python3-pyasn1-modules python3-pyelftools python3-pygraphviz python3-pyverbs python3-scapy python3-service-identity python3-setuptools python3-six python3-sphinx python3-twisted python3-twisted-bin python3-zope.interface python-libxml2 python-six python-zope.interface qemu-system-misc qemu-system-x86 qemu-utils qperf quilt rdmacm-utils sg3-utils socat sockperf sqlite squashfs-tools squashfs-tools-ng squashfuse strongswan strongswan-charon strongswan-libcharon strongswan-starter swig sysstat tcl tcl-dev tcptraceroute tk tk-dev u-boot-qemu udev user-mode-linux-doc uuid-dev v4l2loopback-dkms v4l2loopback-utils valgrind valgrind-mpi vbindiff vtun xc3sprog zlib1g zlib1g-dev
 
 sudo apt-get install    dpkg-dev:i386 libgtk2.0-0:i386 libstdc++6:i386
 sudo reboot
 ```
 
-TODO: Need to remove some extra packages that conflict with Mellanox OFED.
+TODO: _MAY_ need to remove some extra packages that conflict with Mellanox OFED.
 ```Shell
 TODO
 sudo apt-get remove  openmpi-bin libcoarrays-openmpi-dev \
@@ -161,6 +165,8 @@ cat /boot/config-5.4.0-26-generic  |  grep -i p2pdma
 # CONFIG_PCI_P2PDMA is not set
 ```
 
+![Kernel config p2pdma](img/kernel_config_p2pdma_disabled.png)
+
 Copy the current Kernel configuration file so that it may be used as the basis for your updated Kernel.
 ```
 cp  /boot/config-5.4.0-26-generic  .config
@@ -177,17 +183,29 @@ make menuconfig
 
 ![menuconfig PCI Peer-to-Peer Transfer Support](img/kernel_menuconfig_3_PCI_Peer-to-Peer_Transfer_Support.png)
 
+Press *Y* to enable the PCI Peer-to-Peer option, then *Save* and *Exit*.
+
+Confirm the configuration file now has P2PDMA enabled.
+```
+cat .config  |  grep -i p2pdma
+```
+```
+# CONFIG_PCI_P2PDMA=Y
+```
+
+![Kernel config p2pdma](img/kernel_config_p2pdma_enabled.png)
+
 Compile your updated Kernel. Set the number of threads to the number of cores in your processor.
 ```
 make -j `getconf _NPROCESSORS_ONLN` deb-pkg LOCALVERSION=-custom
 ```
 
-Install the compiled Kernel `.deb` package.
+TODO: Install the compiled Kernel `.deb` package.
 ```
 sudo dpkg -i ..... TODO
 ```
 
-Restart your computer and confirm it is running your updated kernel `5.4.0-26-custom`.
+Restart your computer and confirm it is running your updated `5.4.0-26-custom` kernel.
 ```
 uname -s -r -m
 ```
@@ -553,7 +571,7 @@ sudo reboot
 
 The goal with this procedure is to install versions of the Nvidia Drivers and CUDA that are compatible with the Tesla K80. Without some effort, Ubuntu will update packages beyond official compatibility and break functionality.
 
-Add the Nvidia keyring to your system so that its pacakges are trusted.
+Add the Nvidia keyring to your system so that its packages are trusted.
 ```
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID | sed -e 's/\.//g')
 echo $distribution
@@ -561,13 +579,13 @@ wget https://developer.download.nvidia.com/compute/cuda/repos/$distribution/x86_
 sudo dpkg -i cuda-keyring_1.0-1_all.deb
 ```
 
-Install the latest Nvidia Drivers that still support the Tesla K80, `R470.161.03`.
+Install the latest Nvidia Drivers that still support the Tesla K80, [`R470.161.03`](https://www.nvidia.com/Download/driverResults.aspx/194750/en-us/).
 ```
 wget https://us.download.nvidia.com/tesla/470.161.03/NVIDIA-Linux-x86_64-470.161.03.run
 sudo sh NVIDIA-Linux-x86_64-470.161.03.run  --no-cc-version-check 
 ```
 
-Install the latest version of CUDA repos that support driver `R470.161.03`, `v11.4`.
+Install the latest version of CUDA repos that support the [`R470.161.03`](https://www.nvidia.com/Download/driverResults.aspx/194750/en-us/) driver and [CUDA `11.4`](https://developer.nvidia.com/cuda-11-4-4-download-archive).
 ```
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
 sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
@@ -596,7 +614,7 @@ sudo apt-get install    cuda-cccl-11-4 cuda-command-line-tools-11-4 cuda-compile
 sudo apt-get install  libcudnn8-dev=8.2.4.15-1+cuda11.4 libcudnn8=8.2.4.15-1+cuda11.4 libnvinfer-dev=8.2.5-1+cuda11.4 libnvinfer8=8.2.5-1+cuda11.4 libnccl2=2.11.4-1+cuda11.4 libnccl-dev=2.11.4-1+cuda11.4 libnvinfer-plugin8=8.2.5-1+cuda11.4 libnvinfer-plugin-dev=8.2.5-1+cuda11.4
 ```
 
-Mark relevant packages to be held at R470 and CUDA 11.4 so that newer versions that no longer support the Tesla K80 are not installed.
+Mark relevant packages to be held at the R470 Driver and CUDA 11.4 so that newer versions that no longer support the Tesla K80 are not installed.
 ```
 sudo apt-mark hold libcudnn8 libcudnn8-dev libnccl-dev libnccl2 libnvidia-nscq-470 libnvinfer-dev libnvinfer-plugin-dev libnvinfer-plugin8 libnvinfer8 libxnvctrl-dev libxnvctrl0 nvidia-fs-dkms nvidia-modprobe nvidia-settings
 ```
@@ -604,7 +622,7 @@ sudo apt-mark hold libcudnn8 libcudnn8-dev libnccl-dev libnccl2 libnvidia-nscq-4
 sudo apt-mark hold cuda-drivers-470 cuda-drivers-fabricmanager-470 cuda-runtime-11-4 libnvidia-cfg1-470 libnvidia-compute-470 libnvidia-decode-470 libnvidia-encode-470  libnvidia-extra-470 libnvidia-fbc1-470 libnvidia-gl-470 libnvidia-ifr1-470 nvidia-compute-utils-470 nvidia-dkms-470 nvidia-driver-470 nvidia-headless-470  nvidia-headless-no-dkms-470 nvidia-kernel-common-470 nvidia-kernel-source-470 nvidia-utils-470 xserver-xorg-video-nvidia-470
 ```
 
-Install graphic development packages that are compatible with R470 and CUDA 11.4.
+Install graphic development packages that are compatible with the R470 Driver and CUDA 11.4.
 ```
 sudo apt-get install g++ freeglut3-dev build-essential libx11-dev libxmu-dev libxi-dev libglu1-mesa libglu1-mesa-dev libfreeimage-dev
 ```
@@ -643,10 +661,12 @@ options nouveau modeset=0
 
 Restart your computer.
 
-Select 11.4 as the official CUDA install.
+Select CUDA 11.4 as the official CUDA install.
 ```
 sudo update-alternatives --config cuda
 ```
+
+![Select CUDA 11.4 as Default](img/TODO)
 
 Set up persistent settings for the Nvidia driver.
 ```
@@ -666,20 +686,19 @@ dcgmi discovery -l
 nvidia-smi
 ```
 
-1[nvidia-smi](img/nvidia-smi.png)
+![nvidia-smi](img/nvidia-smi.png)
 
 `nvidia-smi topo -m` shows the system device topology.
 
 ![nvidia-smi topology](img/nvidia-smi_topo_m.png)
 
-`nvidia-smi topo -p2p r` - shows the topology of P2P-Capable devices.
+`nvidia-smi topo -p2p w` - shows the topology of P2P-Capable devices.
 
-![nvidia-smi topology PCIe p2p Write](nvidia-smi_topo_p2p_w.png)
+![nvidia-smi topology PCIe p2p Write](img/nvidia-smi_topo_p2p_w.png)
 
-
-`sudo python3 /usr/local/dcgm/bindings/dcgm_example.py`
 
 ```
+sudo python3 /usr/local/dcgm/bindings/dcgm_example.py
 time dcgmi diag --verbose --debugLevel VERB --iterations 1 --fail-early --run 1
 ```
 
@@ -695,7 +714,7 @@ sudo ./simpleP2P
 
 ![simpleP2P Successful Run](img/simpleP2P_Partially_Successful_Run.png)
 
-If the Tesla K80 reaches a temperature of `93C`, it will halt and `unknown error`s will start to fill various system logs. Keep the temperature at a safe value by limiting power and clocks and coming up with some sort of cooling solution. Test various options. `100`W power and `324,324` clocks are the minimum settings.
+If the Tesla K80 reaches a temperature of `93C`, it will halt and `unknown error`s will start to fill various system logs. Keep the temperature at a safe value by limiting power and clocks to values compatible with your cooling solution. Test various options. `100`W power and `324,324` clocks are the minimum settings.
 ```
 nvidia-smi -q -d SUPPORTED_CLOCKS
 sudo nvidia-smi --persistence-mode=ENABLED
@@ -705,7 +724,7 @@ sudo nvidia-smi --applications-clocks=324,324
 sudo nvidia-smi --applications-clocks=2505,627
 ```
 
-Run the full GPU diagnostics. This should take about 20mins. `watch 'tail /var/log/syslog'` and watch for 'unknown error' which means the GPU has halted due to over-temperature.
+Run the full GPU diagnostics. This should take about 20mins. `watch 'tail /var/log/syslog'` and keep an eye out for 'unknown error' which means the GPU has halted due to over-temperature.
 ```
 time dcgmi diag --verbose --debugLevel VERB --iterations 1 --fail-early --run 4
 ```
@@ -770,7 +789,7 @@ export PIP_DOWNLOAD_CACHE=/usr/local/pip/cache
 
 `source ~/.bashrc` to update the current terminal's environment variables.
 
-Now, a sequence of calls to `pip install` that should create a Tesla K80 compatible collection of CUDA and ML-related programs.
+Now, a sequence of calls to `pip install` that should create a Tesla K80 compatible collection of CUDA and ML-related programs. I am aware of [Python Virtual Environments](https://docs.python.org/3.8/library/venv.html) but this is the simplest way to maintain a local cache of Python packages.
 ```
 pip install --cache-dir /usr/local/pip/cache    nvidia_nvjitlink_cu12==12.0.76 nvidia-tensorrt --extra-index-url https://pypi.ngc.nvidia.com
 ```
@@ -834,14 +853,14 @@ wget https://f004.backblazeb2.com/file/aai-blog-files/sd-v1-4.ckpt
 ln -s  sd-v1-4.ckpt  models/ldm/stable-diffusion-v1/model.ckpt
 ```
 
-Create a Python environment.
+Create a Python environment called `ldm`.
 ```
 conda env remove -n ldm
 conda info --envs
 conda env create -f environment.yaml
 ```
 
-`gedit ~/miniconda3/envs/ldm/lib/python3.8/site-packages/pytorch_lightning/utilities/apply_func.py` and remove `_TORCHTEXT_AVAILABLE`.
+`gedit ~/miniconda3/envs/ldm/lib/python3.8/site-packages/pytorch_lightning/utilities/apply_func.py` and comment out `_TORCHTEXT_AVAILABLE` and replace with `Batch = type(None)`
 
 ![remove _TORCHTEXT_AVAILABLE in pytorch-lightning](img/pytorch_lightning_remove_TORCHTEXT_AVAILABLE.png)
 
@@ -881,7 +900,7 @@ CUDA_LAUNCH_BLOCKING=1 python scripts/txt2img.py --from-file myprompts.txt --see
 
 ![ACSCAPR PCIe Peer-to-Peer DMA Access Control](img/Intel_B360_PCIe_P2P_DMA_AccessControl_ACSCAPR.png)
 
-Determine the PCIe Addresses of the GPUs and the ConnectX-5 Ethernet Interfaces with `lspci`. The K80 GPUs show up as `03:00.0` and `04:00.0` for me. The ConnectX-5 are at `08:00.0` and `08:00.1`.
+Determine the PCIe Addresses of the GPUs and the ConnectX-5 Ethernet Interfaces with `lspci`. The K80 GPUs show up as `03:00.0` and `04:00.0` for me. The ConnectX-5 interfaces are at `08:00.0` and `08:00.1`.
 
 ![lspci](img/lspci_tv_and_LnkSta.png)
 
@@ -933,14 +952,15 @@ export CUDA_HOME=/usr/local/cuda-11.4
 `source ~/.bashrc` to update the current terminal's environment variables.
 
 Some of the files need to be edited to add support for the K80.
-`gedit src/main.cpp` and remove `split_hdr_size` which is the middle item in `.rxmode = {`
+
+`gedit src/main.cpp` and remove `split_hdr_size` which is the [middle item in `.rxmode = {`](https://github.com/NVIDIA/l2fwd-nv/blob/3ef308b78cb7e8dedda8e4cd1e6f569e3f7dc719/src/main.cpp#L63).
 
 `gedit external/dpdk/drivers/gpu/cuda/devices.h` and add
 ```
 #define NVIDIA_GPU_K80_DEVICE_ID (0x102d)
 ```
 
-`gedit external/dpdk/drivers/gpu/cuda/cuda.c` and add `NVIDIA_GPU_K80_DEVICE_ID` to the [list of devices](https://github.com/DPDK/dpdk/blob/373f4c7de8ff350548cacc3d56e788461677f2c7/drivers/gpu/cuda/cuda.c#L65). Also, comment out the [function return](https://github.com/DPDK/dpdk/blob/373f4c7de8ff350548cacc3d56e788461677f2c7/drivers/gpu/cuda/cuda.c#L882) at `if ((uintptr_t)mem_alloc_list_tail->ptr_d != (uintptr_t)mem_alloc_list_tail->ptr_h)`.
+`gedit external/dpdk/drivers/gpu/cuda/cuda.c` and add `NVIDIA_GPU_K80_DEVICE_ID` to the [list of devices](https://github.com/DPDK/dpdk/blob/373f4c7de8ff350548cacc3d56e788461677f2c7/drivers/gpu/cuda/cuda.c#L65). Also, comment out the [function return](https://github.com/DPDK/dpdk/blob/373f4c7de8ff350548cacc3d56e788461677f2c7/drivers/gpu/cuda/cuda.c#L882) for `if ((uintptr_t)mem_alloc_list_tail->ptr_d != (uintptr_t)mem_alloc_list_tail->ptr_h)`.
 
 ```
           // rte_errno = ENOTSUP;
@@ -970,24 +990,6 @@ make
 sudo reboot
 ```
 
-Run `ip link show` to determine the names of the ConnectX-5 Ethernet interfaces and set them up.
-```
-sudo  su
-
-ifconfig enp8s0f0np0 mtu 8192 up
-ifconfig enp8s0f1np1 mtu 8192 up
-ethtool -A enp8s0f0np0 rx off tx off
-ethtool -A enp8s0f1np1 rx off tx off
-sysctl -w vm.zone_reclaim_mode=0
-sysctl -w vm.swappiness=0
-setpci -s 08:00.0 68.w=5930
-lspci -s 08:00.0 -vvv | egrep "MaxRead"
-setpci -s 08:00.1 68.w=5930
-lspci -s 08:00.1 -vvv | egrep "MaxRead"
-
-exit
-```
-
 Load the `nvidia-peermem` module and install the `gdrcopy` device.
 ```
 echo $GDRCOPY_PATH_L ; echo $CUDA_PATH_L
@@ -1007,6 +1009,35 @@ sudo external/dpdk/x86_64-native-linuxapp-gcc/app/dpdk-test-gpudev
 sudo reboot
 ```
 
+Run `ip link show` to determine the names of the ConnectX-5 Ethernet interfaces and set them up.
+```
+sudo  su
+
+ifconfig enp8s0f0np0 mtu 8192 up
+ifconfig enp8s0f1np1 mtu 8192 up
+ethtool -A enp8s0f0np0 rx off tx off
+ethtool -A enp8s0f1np1 rx off tx off
+sysctl -w vm.zone_reclaim_mode=0
+sysctl -w vm.swappiness=0
+setpci -s 08:00.0 68.w=5930
+lspci -s 08:00.0 -vvv | egrep "MaxRead"
+setpci -s 08:00.1 68.w=5930
+lspci -s 08:00.1 -vvv | egrep "MaxRead"
+
+exit
+```
+
+Load the `nvidia-peermem` module and install the `gdrcopy` device. This needs to be done after every reboot before running any GPUDirect programs.
+```
+echo $GDRCOPY_PATH_L ; echo $CUDA_PATH_L
+sudo modprobe nvidia-peermem
+lsmod | grep nv
+
+cd ~/l2fwd-nv/external/gdrcopy
+sudo ./insmod.sh
+cd ../..
+```
+
 For safety and reliability, limit power and clocks on the K80.
 ```
 sudo nvidia-smi --auto-boost-default=DISABLED
@@ -1023,7 +1054,7 @@ lsmod | "nv\|gdr"
 ls -la /dev/ | grep gdr
 ```
 
-Run the GPU version of `l2fwd`. Recall from earlier that the first Ethernet interface has PCIe Address `08:00.0`.
+Run the GPU version of `l2fwd`. Recall from earlier that the first Ethernet interface has PCIe Address `08:00.0` and the first GPU has PCIe Address `03:00.0`.
 ```
 sudo ./build/l2fwdnv --log-level=debug -l 0-2 -n 2 -a 08:00.0,txq_inline_max=0 -a 03:00.0 -- -m 1 -w 0 -b 1 -p 1 -v 0 -z 0
 ```
@@ -1032,7 +1063,7 @@ In a second terminal, run `mlnx_perf -i enp8s0f0np0` to keep track of traffic on
 
 In a third terminal, run `watch nvidia-smi` to keep track of the GPUs.
 
-It may work. In most run attempts packets sent to the GPU-controlled interface are blocked. However, I did once get a few packets through. This setup is very unreliable.
+It may work. In most run attempts the packets sent to the GPU-controlled interface are blocked. However, I did once get a few packets through. This setup is very unreliable.
 
 ![l2fwd-nv partially working](img/l2fwd-nv_was_it_working.png)
 
