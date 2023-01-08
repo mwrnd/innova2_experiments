@@ -1,9 +1,33 @@
 
-**Work in Progress**
+**Work in Progress** - Not yet functional.
 
-This is an attempt to get the Innova-2's ConnectX-5 Ethernet interfaces and a Tesla K80 GPU communicating with each other through [PCIe Peer-to-Peer DMA](https://www.eideticom.com/media-news/blog/33-p2pdma-in-linux-kernel-4-20-rc1-is-here.html).
+This is an attempt to get the Innova-2's ConnectX-5 Ethernet interfaces and a Tesla K80 GPU communicating with each other through [PCIe Peer-to-Peer DMA](https://www.eideticom.com/media-news/blog/33-p2pdma-in-linux-kernel-4-20-rc1-is-here.html) to allow GPU packet processing.
 
-According to the documentation I have read, this *should* be possible with CUDA 11 and [CUDA Compute Capability](https://developer.nvidia.com/cuda-gpus) >=3 (`SM_3+`) and [*was* possible](https://developer.nvidia.com/blog/peer-to-peer-multi-gpu-transpose-cuda-fortran/). However, requirements have crept up and now most software requires CUDA 12 and [`SM_5+`](https://github.com/NVIDIA/cuda-samples/tree/master/Samples/0_Introduction/simpleP2P). This has become a matter of herding the correct versions and dependencies.
+![Innova-2 Flex and Tesla K80](img/Innova2_and_Tesla_K80.png)
+
+According to the documentation I have read, this *should* be possible with CUDA 11 and [CUDA Compute Capability](https://developer.nvidia.com/cuda-gpus) >=3 (`SM_3+`) and [*was* possible](https://developer.nvidia.com/blog/peer-to-peer-multi-gpu-transpose-cuda-fortran/). However, requirements have crept up and now most software requires CUDA 12 and [`SM_5+`](https://github.com/NVIDIA/cuda-samples/tree/master/Samples/0_Introduction/simpleP2P). This has become a matter of herding the correct versions of software and dependencies.
+
+Here is a quick [overview of PCIe P2P DMA](https://dl.acm.org/doi/abs/10.1145/3462545). [More notes](https://linuxreviews.org/Peer_To_Peer_DMA).
+
+![Overview of PCIe P2P DMA](img/PCIe_P2P_DMA_Overview.png)
+
+
+
+
+## Requirements
+
+Confirm that your motherboard supports PCIe P2P by searching the datasheet of its chipset for `peer`.
+
+![Motherboard PCIe P2P Support](img/Intel_B360_Supports_PCIe_P2P_DMA.png)
+
+[Above 4G Memory Decoding](https://superuser.com/questions/1239231/what-is-above-4g-decoding) and [Resizable BAR Support](https://xilinx.github.io/Vitis_Accel_Examples/2020.2/html/p2p_fpga2fpga.html) are [required](https://github.com/Xilinx/XRT/blob/master/src/runtime_src/doc/toc/p2p.rst#bios-setup) for PCIe P2P. Enable them in your BIOS. You may need to update your BIOS. If you plug in any new PCIe devices, redo this check.
+
+![Above-4G Memory Decoding and Resizable BAR in BIOS](img/BIOS_Re-Size_BAR_and_Above_4G_Memory.png)
+
+
+
+
+## Installation
 
 I recommend starting with a [fresh Ubuntu install](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview) on a blank SSD. An approximately 250GB SSD should be enough.
 
@@ -142,16 +166,20 @@ Copy the current Kernel configuration file so that it may be used as the basis f
 cp  /boot/config-5.4.0-26-generic  .config
 ```
 
-Run `menuconfig` and add PCIe P2P DMA support.
+Run `menuconfig` and add PCIe P2P DMA support. It is under Device Drivers -> PCI Support -> PCI Peer-to-Peer Transfer Support.
 ``` 
 make menuconfig
 ```
-TODO
-![menuconfig add PCI P2P DMA](img/)
+
+![menuconfig Device Drivers](img/kernel_menuconfig_1_Device_Drivers.png)
+
+![menuconfig PCI Support](img/kernel_menuconfig_2_PCI_Support.png)
+
+![menuconfig PCI Peer-to-Peer Transfer Support](img/kernel_menuconfig_3_PCI_Peer-to-Peer_Transfer_Support.png)
 
 Compile your updated Kernel. Set the number of threads to the number of cores in your processor.
 ```
-make -j 4 deb-pkg LOCALVERSION=-custom
+make -j `getconf _NPROCESSORS_ONLN` deb-pkg LOCALVERSION=-custom
 ```
 
 Install the compiled Kernel `.deb` package.
@@ -186,6 +214,8 @@ GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"
 ```
 
 PCIe Peer-to-Peer DMA [requires](https://docs.nvidia.com/gpudirect-storage/troubleshooting-guide/index.html#install-prereqs) that the `iommu` is disabled so that all [physical memory addresses](https://docs.nvidia.com/gpudirect-storage/configuration-guide/index.html#system-parameters) are identical from all PCIe device's points of view. On AMD systems, replace `intel_iommu=off` with `amd_iommu=off`.
+
+**TODO** An [AMD Advisory](https://community.amd.com/t5/knowledge-base/iommu-advisory-for-amd-instinct/ta-p/484601) suggests that enabling [SR-IOV](https://en.wikipedia.org/wiki/Single-root_input/output_virtualization) and the IOMMU in passthrough mode to have one system-wide address space. [Another Advisory](https://community.amd.com/t5/knowledge-base/iommu-advisory-for-multi-gpu-environments/ta-p/477468) suggests disabling IOMMU for Multi-GPU environments.
 
 The `default_hugepagesz=2M hugepagesz=2M hugepages=1024` enables [hugepages](https://wiki.debian.org/Hugepages) support which is required by DPDK. 1024 2MB pages is good enough on a system with 16GB of memory.
 
@@ -346,18 +376,18 @@ echo "dpdk_conf.set('RTE_MAX_VFIO_GROUPS', 256)"  >>config/meson.build
 `gedit usertools/dpdk-devbind.py` and add Xilinx QDMA Vendor and Device IDs amongst similar vendor definitions in `dpdk-devbind.py`:
 ```Python
 xilinx_qdma_pf = {'Class': '05', 'Vendor': '10ee',
-  'Device': '9011,9111,9211, 9311,9014,9114,9214,9314,9018,9118,
-  9218,9318,901f,911f,921f,931f,9021,9121,9221,9321,9024,9124,9224,
-  9324,9028,9128,9228,9328,902f,912f,922f,932f,9031,9131,9231,9331,
-  9034,9134,9234,9334,9038,9138,9238,9338,903f,913f,923f,933f,9041,
+  'Device': '9011,9111,9211, 9311,9014,9114,9214,9314,9018,9118,\
+  9218,9318,901f,911f,921f,931f,9021,9121,9221,9321,9024,9124,9224,\
+  9324,9028,9128,9228,9328,902f,912f,922f,932f,9031,9131,9231,9331,\
+  9034,9134,9234,9334,9038,9138,9238,9338,903f,913f,923f,933f,9041,\
   9141,9241,9341,9044,9144,9244,9344,9048,9148,9248,9348',
  'SVendor': None, 'SDevice': None}
 
 xilinx_qdma_vf = {'Class': '05', 'Vendor': '10ee',
-  'Device': 'a011,a111,a211,a311,a014,a114,a214,a314,a018,a118,
-  a218,a318,a01f,a11f,a21f,a31f,a021,a121,a221,a321,a024,a124,a224,
-  a324,a028,a128,a228,a328,a02f,a12f,a22f,a32f,a031,a131,a231,a331,
-  a034,a134,a234,a334,a038,a138,a238,a338,a03f,a13f,a23f,a33f,a041,
+  'Device': 'a011,a111,a211,a311,a014,a114,a214,a314,a018,a118,\
+  a218,a318,a01f,a11f,a21f,a31f,a021,a121,a221,a321,a024,a124,a224,\
+  a324,a028,a128,a228,a328,a02f,a12f,a22f,a32f,a031,a131,a231,a331,\
+  a034,a134,a234,a334,a038,a138,a238,a338,a03f,a13f,a23f,a33f,a041,\
   a141,a241,a341,a044,a144,a244,a344,a048,a148,a248,a348',
   'SVendor': None, 'SDevice': None}
 ```
@@ -534,7 +564,7 @@ sudo dpkg -i cuda-keyring_1.0-1_all.deb
 Install the latest Nvidia Drivers that still support the Tesla K80, `R470.161.03`.
 ```
 wget https://us.download.nvidia.com/tesla/470.161.03/NVIDIA-Linux-x86_64-470.161.03.run
-sudo sh NVIDIA-Linux-x86_64-470.161.03.run --skip-depmod --no-kernel-module  --no-cc-version-check 
+sudo sh NVIDIA-Linux-x86_64-470.161.03.run  --no-cc-version-check 
 ```
 
 Install the latest version of CUDA repos that support driver `R470.161.03`, `v11.4`.
@@ -601,13 +631,15 @@ export PIP_DOWNLOAD_CACHE=$HOME/.pip_download_cache
 export PYTHONPATH=/usr/local/lib/python3/dist-packages:$PYTHONPATH:/usr/local/dcgm/bindings/python3
 ```
 
+`source ~/.bashrc` to update the current terminal's environment variables.
+
 `sudo gedit /etc/modprobe.d/blacklist-nouveau.conf` and add the following to make sure only the official Nvidia driver is used.
 ```
 blacklist nouveau
 options nouveau modeset=0
 ```
 
-`sudo gedit /etc/environment` and add `:/usr/local/cuda-11.4/bin/nvcc` to the end of `PATH`.
+`sudo gedit /etc/environment` and add `:/usr/local/cuda-11.4/bin` to the end of `PATH`.
 
 Restart your computer.
 
@@ -627,14 +659,41 @@ cat /var/log/syslog
 ```
 
 Check that the Tesla K80 is working:
+
 ```
-dcgmi discovery -l
 cat /proc/driver/nvidia/version
-nvidia-smi topo -m
-nvidia-smi topo -p2p r
-sudo python3 /usr/local/dcgm/bindings/dcgm_example.py 
+dcgmi discovery -l
+nvidia-smi
+```
+
+1[nvidia-smi](img/nvidia-smi.png)
+
+`nvidia-smi topo -m` shows the system device topology.
+
+![nvidia-smi topology](img/nvidia-smi_topo_m.png)
+
+`nvidia-smi topo -p2p r` - shows the topology of P2P-Capable devices.
+
+![nvidia-smi topology PCIe p2p Write](nvidia-smi_topo_p2p_w.png)
+
+
+`sudo python3 /usr/local/dcgm/bindings/dcgm_example.py`
+
+```
 time dcgmi diag --verbose --debugLevel VERB --iterations 1 --fail-early --run 1
 ```
+
+![dcgmi diag run 1](img/dcgmi_diag_r_1.png)
+
+
+Compile and run the [`simpleP2P`](https://github.com/NVIDIA/cuda-samples/tree/master/Samples/0_Introduction/simpleP2P) demo which tests GPU-to-GPU communication.
+```
+cd /usr/local/cuda-11.4/samples/0_Simple/simpleP2P
+sudo make
+sudo ./simpleP2P
+```
+
+![simpleP2P Successful Run](img/simpleP2P_Partially_Successful_Run.png)
 
 If the Tesla K80 reaches a temperature of `93C`, it will halt and `unknown error`s will start to fill various system logs. Keep the temperature at a safe value by limiting power and clocks and coming up with some sort of cooling solution. Test various options. `100`W power and `324,324` clocks are the minimum settings.
 ```
@@ -701,13 +760,15 @@ Create a directory for the local pip cache.
 ```
 sudo mkdir -p /usr/local/pip/cache
 sudo chown `whoami`:`whoami` /usr/local/pip/cache
-chmod -R 777 /usr/local/pip/cache
+chmod -R 775 /usr/local/pip/cache
 ```
 
 `sudo gedit ~/.bashrc` and add the cache to your environment.
 ```
 export PIP_DOWNLOAD_CACHE=/usr/local/pip/cache
 ```
+
+`source ~/.bashrc` to update the current terminal's environment variables.
 
 Now, a sequence of calls to `pip install` that should create a Tesla K80 compatible collection of CUDA and ML-related programs.
 ```
@@ -782,6 +843,8 @@ conda env create -f environment.yaml
 
 `gedit ~/miniconda3/envs/ldm/lib/python3.8/site-packages/pytorch_lightning/utilities/apply_func.py` and remove `_TORCHTEXT_AVAILABLE`.
 
+![remove _TORCHTEXT_AVAILABLE in pytorch-lightning](img/pytorch_lightning_remove_TORCHTEXT_AVAILABLE.png)
+
 Activate the `ldm` Python environment.
 ```
 conda activate ldm
@@ -812,11 +875,25 @@ CUDA_LAUNCH_BLOCKING=1 python scripts/txt2img.py --from-file myprompts.txt --see
 
 ## Test the Tesla K80 with l2fwd-nv
 
-Find the PCIe Addresses of the ConnectX-5 Ethernet Interfaces with `lspci`. Mine show up as `08:00.0` and `08:00.1`.
+### Disable PCIe Peer-to-Peer Access Control ACS
 
-__TODO__ img
+[PCIe P2P Access Control](https://forums.developer.nvidia.com/t/multi-gpu-peer-to-peer-access-failing-on-tesla-k80/39748/18) may interfere with communication and must be disabled for the root PCIe hub and the GPUs.
 
-Enable compression and reset the interfaces.
+![ACSCAPR PCIe Peer-to-Peer DMA Access Control](img/Intel_B360_PCIe_P2P_DMA_AccessControl_ACSCAPR.png)
+
+Determine the PCIe Addresses of the GPUs and the ConnectX-5 Ethernet Interfaces with `lspci`. The K80 GPUs show up as `03:00.0` and `04:00.0` for me. The ConnectX-5 are at `08:00.0` and `08:00.1`.
+
+![lspci](img/lspci_tv_and_LnkSta.png)
+
+Note that the K80 is two GPUs connected via a [PEX 8747 PCIe Switch](https://docs.broadcom.com/doc/12351854). The ConnectX-5 has a PCIe switch that hosts the FPGA and the two Ethernet interfaces.
+
+![lspci topology](img/lspci_tv.png)
+
+`setpci -s 03:00.0 f2a.w=0000` will disable ACS functions for the `03:00.0` GPU.
+
+![Disable PCIe Access Control ACS](img/setpci_f2a_w_0000_Disable_PCIe_ACS.png)
+
+Enable compression on the ConnectX-5 interfaces and reset the interfaces.
 ```
 sudo su
 mlxconfig -y -d 08:00.0 set CQE_COMPRESSION=1
@@ -840,7 +917,7 @@ mv dpdk-stable dpdk
 cd dpdk
 
 cd ~/l2fwd-nv/external/gdrcopy
-git checkout cd083a5
+git checkout 0d78e6e
 git status
 cd ~/l2fwd-nv/
 ```
@@ -850,17 +927,25 @@ cd ~/l2fwd-nv/
 export CFLAGS=-I/usr/local/cuda-11.4/include
 export GDRCOPY_PATH_L=$HOME/l2fwd-nv/external/gdrcopy/src
 export CUDA_PATH_L=/usr/lib/x86_64-linux-gnu
+export CUDA_HOME=/usr/local/cuda-11.4
 ```
 
+`source ~/.bashrc` to update the current terminal's environment variables.
+
 Some of the files need to be edited to add support for the K80.
-`gedit src/main.cpp` and remove `split_hdr_size`; the middle item in `.rxmode = {`
+`gedit src/main.cpp` and remove `split_hdr_size` which is the middle item in `.rxmode = {`
 
 `gedit external/dpdk/drivers/gpu/cuda/devices.h` and add
 ```
 #define NVIDIA_GPU_K80_DEVICE_ID (0x102d)
 ```
 
-`gedit external/dpdk/drivers/gpu/cuda/cuda.c` and add `NVIDIA_GPU_K80_DEVICE_ID` to the list of devices.
+`gedit external/dpdk/drivers/gpu/cuda/cuda.c` and add `NVIDIA_GPU_K80_DEVICE_ID` to the [list of devices](https://github.com/DPDK/dpdk/blob/373f4c7de8ff350548cacc3d56e788461677f2c7/drivers/gpu/cuda/cuda.c#L65). Also, comment out the [function return](https://github.com/DPDK/dpdk/blob/373f4c7de8ff350548cacc3d56e788461677f2c7/drivers/gpu/cuda/cuda.c#L882) at `if ((uintptr_t)mem_alloc_list_tail->ptr_d != (uintptr_t)mem_alloc_list_tail->ptr_h)`.
+
+```
+          // rte_errno = ENOTSUP;
+          // return -rte_errno;
+```
 
 
 Compile `dpdk`, `gdrcopy`, and `l2fwd-nv`.
@@ -872,7 +957,9 @@ cd build
 ninja
 
 cd ~/l2fwd-nv/external/gdrcopy
-make
+mkdir final
+echo $CUDA_HOME
+make prefix=final CUDA=$CUDA_HOME all
 
 cd ~/l2fwd-nv/
 mkdir build
@@ -912,7 +999,7 @@ sudo ./insmod.sh
 cd ../..
 ```
 
-Run `dpdk-test-gpudev` to confirm DPDK can access the Tesla K80 GPUs. Reboot after the test as it leaves the K80 in a state that fails to run properly.
+Run `dpdk-test-gpudev` to confirm DPDK can access the Tesla K80 GPUs. Reboot after the test as it leaves the K80 in a state that fails to run other programs properly.
 ```
 cd ~/l2fwd-nv/
 sudo external/dpdk/x86_64-native-linuxapp-gcc/app/dpdk-test-gpudev
@@ -944,4 +1031,11 @@ sudo ./build/l2fwdnv --log-level=debug -l 0-2 -n 2 -a 08:00.0,txq_inline_max=0 -
 In a second terminal, run `mlnx_perf -i enp8s0f0np0` to keep track of traffic on the (`enp8s0f0np0` = `08:00.0`) Ethernet Interface.
 
 In a third terminal, run `watch nvidia-smi` to keep track of the GPUs.
+
+It may work. In most run attempts packets sent to the GPU-controlled interface are blocked. However, I did once get a few packets through. This setup is very unreliable.
+
+![l2fwd-nv partially working](img/l2fwd-nv_was_it_working.png)
+
+
+
 
