@@ -67,7 +67,7 @@ Modify [`bare-metal hello-world boot.elf`](vivado-risc-v/bare-metal/hello-world/
 ```
 git clone --depth=1 https://github.com/mwrnd/innova2_experiments.git
 cd innova2_experiments/riscv_rocket64b4l2w_xdma/
-git submodule update --init vivado-risc-v
+git submodule update --init riscv_rocket64b4l2w_xdma/vivado-risc-v
 cd vivado-risc-v/bare-metal/hello-world/
 make
 cd ../../..
