@@ -15,7 +15,7 @@
 Download the demo bitstream and [load it into your Innova-2](https://github.com/mwrnd/innova2_flex_xcku15p_notes#loading-a-user-image). It should work with every variant of the Innova-2. Refer to [innova2_flex_xcku15p_notes](https://github.com/mwrnd/innova2_flex_xcku15p_notes) for system setup.
 
 ```
-wget https://github.com/mwrnd/innova2_experiments/releases/download/v0.1-alpha/xdma_uart-to-uart_bitstream.zip
+wget https://github.com/mwrnd/innova2_experiments/releases/download/v0.1-alpha/innova2_xdma_stream_demo.zip
 md5sum innova2_xdma_stream_demo.zip
 echo 4fe405753b00b895fc8858996d40eb2c should be the MD5 Checksum
 unzip -d . innova2_xdma_stream_demo.zip
