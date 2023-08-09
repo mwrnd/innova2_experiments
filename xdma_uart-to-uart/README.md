@@ -15,6 +15,7 @@ Two non-blocking [UARTs](https://github.com/eugene-tarassov/vivado-risc-v/blob/v
 Refer to the `innova2_flex_xcku15p_notes` project's instructions on installing XDMA drivers and [Loading a User Image](https://github.com/mwrnd/innova2_flex_xcku15p_notes/#loading-a-user-image) to load the [release bitstream](https://github.com/mwrnd/innova2_experiments/releases) into the Innova-2's FPGA Configuration Memory.
 
 ```
+wget https://github.com/mwrnd/innova2_experiments/releases/download/v0.1-alpha/xdma_uart-to-uart_bitstream.zip
 unzip -d .  xdma_uart-to-uart_bitstream.zip
 md5sum  xdma_uart-to-uart_primary.bin  xdma_uart-to-uart_secondary.bin
 echo 4cab44d93b10960a7dd0ce653630d69b should be MD5 Checksum of xdma_uart-to-uart_primary.bin

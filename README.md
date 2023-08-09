@@ -9,3 +9,8 @@ Works in Progress and Experiments for the Innova-2 Flex XCKU15P-based Board.
 ## XDMA UART to UART
 
 [xdma_uart-to-uart](xdma_uart-to-uart) - PCIe XDMA with two UARTs Connected Together for Testing UART over XDMA
+
+## XDMA UART to UART
+
+[xdma_stream](xdma_stream) - PCIe XDMA to AXI-Stream with Floating-Point and AXI-Lite to BRAM and GPIO
+

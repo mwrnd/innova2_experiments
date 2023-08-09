@@ -165,7 +165,7 @@ cat /boot/config-5.4.0-26-generic  |  grep -i p2pdma
 # CONFIG_PCI_P2PDMA is not set
 ```
 
-![Kernel config p2pdma](img/kernel_config_p2pdma_disabled.png)
+![Kernel config p2pdma](img/kernel_config_pci_p2pdma.png)
 
 Copy the current Kernel configuration file so that it may be used as the basis for your updated Kernel.
 ```
