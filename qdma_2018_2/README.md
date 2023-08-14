@@ -86,7 +86,7 @@ Confirm the design shows up appropriately under Linux.
 
 ### dma_ip_driver Test Script
 
-Run the [Physical Function](https://docs.xilinx.com/r/en-US/pg302-qdma/SRIOV-Config-Tab) (**PF**) [test script](https://github.com/Xilinx/dma_ip_drivers/blob/9f02769a2eddde008158c96efa39d7edb6512578/QDMA/linux-kernel/scripts/qdma_run_test_pf.sh):
+Run the [Physical Function](https://docs.xilinx.com/r/en-US/pg302-qdma/SRIOV-Config-Tab) (**PF**) [test script](https://github.com/Xilinx/dma_ip_drivers/blob/9f02769a2eddde008158c96efa39d7edb6512578/QDMA/linux-kernel/scripts/qdma_run_test_pf.sh). The PCIe Bus ID, `03000`, is a simplified version of the bus address from `lspci`, `03:00.0`.
 ```
 cd dma_ip_drivers/QDMA/linux-kernel/scripts
 sudo su
