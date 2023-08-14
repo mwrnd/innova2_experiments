@@ -179,3 +179,9 @@ source innova2_qdma_2018_2.tcl
 
 ![Vivado Source Tcl Project Script](img/Vivado_2018_2_source_Tcl_Console.png)
 
+
+
+### Design Resource Utilization
+
+![Design Resource Utilization](img/innova2_qdma_2018_2_Resources_Used.png)
+
