@@ -101,6 +101,8 @@ Confirm the design shows up appropriately under Linux.
  [ 3.675594] qdma_pf:qdma_device_open: 0000:03:00.0, 03000, pdev 0x000000000d763ae3, xdev 0x0000000064d25817, ch 1, q 0, vf 0.
 ```
 
+![Innova2 QDMA dmesg dma-ctl lspci](img/QDMA_dmesg.jpg)
+
 `sudo dma-ctl dev list`:
 
 ```
@@ -123,8 +125,6 @@ Confirm the design shows up appropriately under Linux.
     Kernel driver in use: qdma-pf
     Kernel modules: qdma_pf
 ```
-
-![Innova2 QDMA dmesg dma-ctl lspci](img/innova2_qdma_2018_2.jpg)
 
 
 
