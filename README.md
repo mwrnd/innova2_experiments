@@ -20,5 +20,5 @@ Works in Progress and Experiments for the Innova-2 Flex XCKU15P-based Board.
 
 ## QDMA
 
-[qdma_2018_2](qdma_2018_2) - Minimal PCIe [QDMA](https://www.xilinx.com/products/intellectual-property/pcie-qdma.html) demonstration
+[qdma_2021_1](qdma_2021_1) - Minimal PCIe [QDMA](https://www.xilinx.com/products/intellectual-property/pcie-qdma.html) demonstration
 
