@@ -164,8 +164,8 @@ sudo dma-ctl qdma03000 q list 4 64
 Transfer data to the BRAM within the design, then read it back and compare the data.
 
 ```
-sudo dma-to-device   -d /dev/qdma03000-MM-4 -s 3072 -f infile
-sudo dma-from-device -d /dev/qdma03000-MM-5 -s 3072 -f outfile
+sudo dma-to-device   -d /dev/qdma03000-MM-4 -s 131072 -f infile
+sudo dma-from-device -d /dev/qdma03000-MM-5 -s 131072 -f outfile
 md5sum infile outfile
 ```
 
@@ -182,7 +182,7 @@ sudo su
 ./qdma_run_test_pf.sh  03000 0 4 1 1 1 1
 ```
 
-Note the Stream (**ST**) tests will fail as the Stream interfaces is not complete in this design.
+Note the Stream (**ST**) tests will fail as the Stream interface is not connected in this design.
 ```
 03000 0 4 1 1 1
 qdma03000    0000:03:00.0    max QP: 0, -~-
@@ -313,7 +313,7 @@ Change Synthesis and Implementation Run Strategies to [those used by this exampl
 
 ![Change Synthesis and Implementation Run Strategies](img/innova2_qdma_2021_1_Run_Strategy.png)
 
-The resources used by the design:
+The resources used by the `qdma_0_ex` demo:
 
 ![qdma_0_ex Resources Used](img/qdma_0_ex_2021_1_Resources_Used.png)
 
