@@ -245,7 +245,7 @@ sudo su
 ./qdma_run_test_pf.sh  03000 0 4 1 1 1 1
 ```
 
-Note the Stream (**ST**) tests will fail as the Stream interface is not connected in this design.
+The Stream (**ST**) tests fail.
 ```
 03000 0 4 1 1 1
 qdma03000    0000:03:00.0    max QP: 0, -~-
