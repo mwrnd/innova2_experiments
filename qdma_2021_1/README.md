@@ -47,11 +47,11 @@ Change the *Strategy* to *Flow_PerfOptimized_high*.
 
 In the *Design Runs* tab, right-click on `impl_1` and then *Change Run Settings...*
 
-![Change impl_1 Run Settings](img/qdma_0_ex_impl_Run_Settings.png)
+![impl_1 Run Settings](img/qdma_0_ex_Change_impl_Run_Settings.png)
 
 Change the *Strategy* to *Flow_RunPhysOpt*. Under *Post-Place Phys Opt Design*, select *AggressiveExplore*. Under *Post-Route Phys Opt Design*, also select *AggressiveExplore*.
 
-![impl_1 Run Settings](img/qdma_0_ex_Change_impl_Run_Settings.png)
+![Change impl_1 Run Settings](img/qdma_0_ex_impl_Run_Settings.png)
 
 The resources used by the design:
 
@@ -129,7 +129,7 @@ Confirm the design shows up appropriately under Linux.
 
 
 
-### Set up Queues
+### Set up Queues and Test Data Transfer
 
 After boot-up or PCIe reset, there will be no QDMA Queues set up. Set `qmax`. Note the `03` is the PCIe Device ID found using `lspci`.
 
@@ -170,6 +170,69 @@ md5sum infile outfile
 ```
 
 ![Set up Queues and Transfer Data](img/QDMA_qeueu_setup_and_data_transfer.png)
+
+
+
+## Vivado qdma_0_ex IP Example Design
+
+Add a QDMA IP Block to a Block Diagram Design in Vivado or use this project as a starting point. Set `X0Y2` as the PCIe Block Location, `x8` as the PCIe Lane Width, and `8.0 GT/s` as the Maximum Link Speed. Refer to [Customizing and Generating the Example Design](https://docs.xilinx.com/r/en-US/pg302-qdma/Customizing-and-Generating-the-Example-Design).
+
+Right-click on the QDMA Block and select *Open IP Example Design*.
+
+![Open IP Example Design](img/qdma_0_ex_Open_IP_Example_Design.png)
+
+Once a new instance of Vivado starts, open the constraints file `xilinx_qdma_pcie_x0y2.xdc`.
+
+![Edit the Constraints](img/qdma_0_ex_Edit_Constraints.png)
+
+Copy-and-paste the following over the default constraints. These constraints are for the Innova2.
+```
+set_false_path -to [get_pins -hier {*sync_reg[0]/D}]
+
+set_property PACKAGE_PIN AA38 [get_ports {pci_exp_rxp[7]}]
+set_property PACKAGE_PIN AB36 [get_ports {pci_exp_rxp[6]}]
+set_property PACKAGE_PIN AC38 [get_ports {pci_exp_rxp[5]}]
+set_property PACKAGE_PIN AD36 [get_ports {pci_exp_rxp[4]}]
+set_property PACKAGE_PIN AE38 [get_ports {pci_exp_rxp[3]}]
+set_property PACKAGE_PIN AF36 [get_ports {pci_exp_rxp[2]}]
+set_property PACKAGE_PIN AG38 [get_ports {pci_exp_rxp[1]}]
+set_property PACKAGE_PIN AH36 [get_ports {pci_exp_rxp[0]}]
+
+set_property PACKAGE_PIN AB28 [get_ports sys_clk_n]
+set_property PACKAGE_PIN AB27 [get_ports sys_clk_p]
+create_clock -period 10.000 -name sys_clk [get_ports sys_clk_p]
+
+set_property PACKAGE_PIN F2 [get_ports sys_rst_n]
+set_property IOSTANDARD LVCMOS33 [get_ports sys_rst_n]
+set_property PULLUP true [get_ports sys_rst_n]
+set_false_path -from [get_ports sys_rst_n]
+
+
+set_property CONFIG_MODE SPIx8 [current_design]
+set_property CONFIG_VOLTAGE 1.8 [current_design]
+set_property CFGBVS GND [current_design]
+set_property BITSTREAM.CONFIG.CONFIGFALLBACK DISABLE [current_design]
+set_property BITSTREAM.CONFIG.CONFIGRATE 127.5 [current_design]
+set_property BITSTREAM.CONFIG.EXTMASTERCCLK_EN DISABLE [current_design]
+set_property BITSTREAM.CONFIG.NEXT_CONFIG_REBOOT DISABLE [current_design]
+set_property BITSTREAM.CONFIG.OVERTEMPSHUTDOWN ENABLE [current_design]
+set_property BITSTREAM.CONFIG.SPI_32BIT_ADDR YES [current_design]
+set_property BITSTREAM.CONFIG.SPI_BUSWIDTH 8 [current_design]
+set_property BITSTREAM.CONFIG.SPI_FALL_EDGE YES [current_design]
+set_property BITSTREAM.CONFIG.UNUSEDPIN PULLUP [current_design]
+set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
+set_property BITSTREAM.GENERAL.CRC ENABLE [current_design]
+```
+
+![Innova2 Constraints](img/qdma_0_ex_Constraints.png)
+
+Change Synthesis and Implementation Run Strategies to [those used by this example design](#synthesis-and-implementation-run-strategies).
+
+![Change Synthesis and Implementation Run Strategies](img/innova2_qdma_2021_1_Run_Strategy.png)
+
+The resources used by the `qdma_0_ex` demo:
+
+![qdma_0_ex Resources Used](img/qdma_0_ex_2021_1_Resources_Used.png)
 
 
 
@@ -251,69 +314,4 @@ AXI-ST H2C for Func 03000 End
 ***********************************************
 AXI-ST C2H for Func 03000 Start
 ./qdma_run_test_pf.sh: line 436: 0 + - : syntax error: operand expected (error token is "- ")
-
 ```
-
-
-
-## Generating the Vivado qdma_0_ex IP Example Design
-
-Add a QDMA IP Block to a Block Diagram Design in Vivado or use this project as a starting point. Set `X0Y2` as the PCIe Block Location, `x8` as the PCIe Lane Width, and `8.0 GT/s` as the Maximum Link Speed. Refer to [Customizing and Generating the Example Design](https://docs.xilinx.com/r/en-US/pg302-qdma/Customizing-and-Generating-the-Example-Design).
-
-Right-click on the QDMA Block and select *Open IP Example Design*.
-
-![Open IP Example Design](img/qdma_0_ex_Open_IP_Example_Design.png)
-
-Once a new instance of Vivado starts, open the constraints file `xilinx_qdma_pcie_x0y2.xdc`.
-
-![Edit the Constraints](img/qdma_0_ex_Edit_Constraints.png)
-
-Copy-and-paste the following over the default constraints. These constraints are for the Innova2.
-```
-set_false_path -to [get_pins -hier {*sync_reg[0]/D}]
-
-set_property PACKAGE_PIN AA38 [get_ports {pci_exp_rxp[7]}]
-set_property PACKAGE_PIN AB36 [get_ports {pci_exp_rxp[6]}]
-set_property PACKAGE_PIN AC38 [get_ports {pci_exp_rxp[5]}]
-set_property PACKAGE_PIN AD36 [get_ports {pci_exp_rxp[4]}]
-set_property PACKAGE_PIN AE38 [get_ports {pci_exp_rxp[3]}]
-set_property PACKAGE_PIN AF36 [get_ports {pci_exp_rxp[2]}]
-set_property PACKAGE_PIN AG38 [get_ports {pci_exp_rxp[1]}]
-set_property PACKAGE_PIN AH36 [get_ports {pci_exp_rxp[0]}]
-
-set_property PACKAGE_PIN AB28 [get_ports sys_clk_n]
-set_property PACKAGE_PIN AB27 [get_ports sys_clk_p]
-create_clock -period 10.000 -name sys_clk [get_ports sys_clk_p]
-
-set_property PACKAGE_PIN F2 [get_ports sys_rst_n]
-set_property IOSTANDARD LVCMOS33 [get_ports sys_rst_n]
-set_property PULLUP true [get_ports sys_rst_n]
-set_false_path -from [get_ports sys_rst_n]
-
-
-set_property CONFIG_MODE SPIx8 [current_design]
-set_property CONFIG_VOLTAGE 1.8 [current_design]
-set_property CFGBVS GND [current_design]
-set_property BITSTREAM.CONFIG.CONFIGFALLBACK DISABLE [current_design]
-set_property BITSTREAM.CONFIG.CONFIGRATE 127.5 [current_design]
-set_property BITSTREAM.CONFIG.EXTMASTERCCLK_EN DISABLE [current_design]
-set_property BITSTREAM.CONFIG.NEXT_CONFIG_REBOOT DISABLE [current_design]
-set_property BITSTREAM.CONFIG.OVERTEMPSHUTDOWN ENABLE [current_design]
-set_property BITSTREAM.CONFIG.SPI_32BIT_ADDR YES [current_design]
-set_property BITSTREAM.CONFIG.SPI_BUSWIDTH 8 [current_design]
-set_property BITSTREAM.CONFIG.SPI_FALL_EDGE YES [current_design]
-set_property BITSTREAM.CONFIG.UNUSEDPIN PULLUP [current_design]
-set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
-set_property BITSTREAM.GENERAL.CRC ENABLE [current_design]
-```
-
-![Innova2 Constraints](img/qdma_0_ex_Constraints.png)
-
-Change Synthesis and Implementation Run Strategies to [those used by this example design](#synthesis-and-implementation-run-strategies).
-
-![Change Synthesis and Implementation Run Strategies](img/innova2_qdma_2021_1_Run_Strategy.png)
-
-The resources used by the `qdma_0_ex` demo:
-
-![qdma_0_ex Resources Used](img/qdma_0_ex_2021_1_Resources_Used.png)
-
