@@ -63,7 +63,7 @@ Clocking Wizard Setup - Summary:
 
 ![Clocking Wizard Summary](img/slow_clock_tests_Clocking_Wizard_Summary.png)
 
-The second method uses a [`BUFG` Utility Buffer](https://docs.xilinx.com/v/u/en-US/pb043-util-ds-buf) to route a [binary counter](https://docs.xilinx.com/v/u/en-US/pg121-c-counter-binary) output onto the global clock network. [`Slice`](https://docs.xilinx.com/r/2021.2-English/ug994-vivado-ip-subsystems/Slice) is used to cut out the most significant bit ([MSb](https://en.wikipedia.org/wiki/Bit_numbering#Bit_significance_and_indexing)). The clock input to the 18-bit counter is 250MHz so the output should be about (250000000/(2^18)) ~= 954 Hz.
+The second method uses a [`BUFG` Utility Buffer](https://docs.xilinx.com/v/u/en-US/pb043-util-ds-buf) to route a [binary counter](https://docs.xilinx.com/v/u/en-US/pg121-c-counter-binary) output onto the global clock network. [`Slice`](https://docs.xilinx.com/r/2021.2-English/ug994-vivado-ip-subsystems/Slice) is used to cut out the most significant bit ([MSb](https://en.wikipedia.org/wiki/Bit_numbering#Bit_significance_and_indexing)). The clock input to the 18-bit counter is 250MHz so the output should be about `(250000000/(2^18))=954Hz`.
 
 ![Counter as Global Clock Source](img/Counter_as_Global_Clock_Source.png)
 
