@@ -22,3 +22,8 @@ Works in Progress and Experiments for the Innova-2 Flex XCKU15P-based Board.
 
 [qdma_2021_1](qdma_2021_1) - Minimal PCIe [QDMA](https://www.xilinx.com/products/intellectual-property/pcie-qdma.html) demonstration
 
+
+## Slow Clock Tests
+
+[slow_clock_tests](slow_clock_tests) - [XDMA](https://www.xilinx.com/products/intellectual-property/pcie-dma.html)-based design for testing the [Clocking Wizard](https://docs.xilinx.com/r/en-US/pg065-clk-wiz)
+
