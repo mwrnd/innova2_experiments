@@ -45,19 +45,19 @@ source slow_clock_tests.tcl
 
 The [Clocking Wizard](https://docs.xilinx.com/r/en-US/pg065-clk-wiz) is set up to generate the slowest clock possible.
 
-The first method is courtesy _markg@prosensing_ from [this discussion thread](https://support.xilinx.com/s/question/0D54U00005cTndHSAS/how-can-clocking-wizard60-generate-output-clock-under-625mhz-in-zedboard?language=en_US). The slowest output clock using a 250MHz XDMA `axi_aclk` as the input is 76kHz.
+The first method is courtesy _markg@prosensing_ from [this discussion thread](https://support.xilinx.com/s/question/0D54U00005cTndHSAS/how-can-clocking-wizard60-generate-output-clock-under-625mhz-in-zedboard?language=en_US). Using a 250MHz XDMA `axi_aclk` as input, the _slowest_ possible clock output is about 76kHz.
 
-Clocking Wizard Setup - Clocking Options:
+Clocking Wizard Setup - Clocking Options. Set the **Primitive** to **MMCM** and the _Source_ of the Primary Clock to **Global Buffer**.
 
 ![Clocking Wizard Clocking Options](img/slow_clock_tests_Clocking_Wizard_Clocking_Options.png)
 
-Clocking Wizard Setup - Output Clocks:
-
-![Clocking Wizard Output Clocks](img/slow_clock_tests_Clocking_Wizard_Output_Clocks.png)
-
-Clocking Wizard Setup - MMCM Settings:
+Clocking Wizard Setup - MMCM Settings. Set **Allow Override Mode** and **CLKOUT4_CASCADE**. Set *Divide* values for the `clk_out?` ports to **10**, **10**, **10**, **100**, **128**, **128**, and **128**.
 
 ![Clocking Wizard MMCM Settings](img/slow_clock_tests_Clocking_Wizard_MMCM_Settings.png)
+
+Clocking Wizard Setup - Output Clocks. `clk_out5` will be qual to `(250MHz*10)/DIVCLK_DIVIDE/CLKOUT4_Divide/CLKOUT6_Divide=0.076MHz=76294Hz`
+
+![Clocking Wizard Output Clocks](img/slow_clock_tests_Clocking_Wizard_Output_Clocks.png)
 
 Clocking Wizard Setup - Summary:
 
