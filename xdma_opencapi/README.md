@@ -9,7 +9,7 @@
 
 ## PCIe Link Downgrade Issues
 
-Experiencing issues with PCIe Link Downgrade issues, [1](https://support.xilinx.com/s/question/0D54U00007XJ4l1SAD/how-to-change-to-pcie-gen2-x4-lane-or-pcie-gen2-x4-lane-while-operating-in-pcie-gen3-x4-lane?language=en_US), [2](https://support.xilinx.com/s/question/0D54U00007HjpxzSAB/when-placing-a-gen3-x8-configured-pcie-board-into-a-gen4gen5-compatible-x8-slot-link-width-recognition-issue-occurs?language=en_US), [3](https://support.xilinx.com/s/question/0D54U00007950HjSAI/xilinx-pcie-endpoint-is-no-longer-recognized-by-the-system-after-a-warm-reset?language=en_US).
+Experiencing issues with PCIe Link Downgrades, [1](https://support.xilinx.com/s/question/0D54U00007XJ4l1SAD/how-to-change-to-pcie-gen2-x4-lane-or-pcie-gen2-x4-lane-while-operating-in-pcie-gen3-x4-lane?language=en_US), [2](https://support.xilinx.com/s/question/0D54U00007HjpxzSAB/when-placing-a-gen3-x8-configured-pcie-board-into-a-gen4gen5-compatible-x8-slot-link-width-recognition-issue-occurs?language=en_US), [3](https://support.xilinx.com/s/question/0D54U00007950HjSAI/xilinx-pcie-endpoint-is-no-longer-recognized-by-the-system-after-a-warm-reset?language=en_US).
 
 
 
