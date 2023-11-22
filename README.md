@@ -18,6 +18,11 @@ Works in Progress and Experiments for the Innova-2 Flex XCKU15P-based Board.
 [xdma_stream](xdma_stream) - PCIe XDMA to AXI-Stream with Floating-Point and AXI-Lite to BRAM and GPIO
 
 
+## XDMA Stream 512-Bit
+
+[xdma_stream_512bit](xdma_stream_512bit) - PCIe XDMA to 512-Bit Wide AXI4-Stream for Floating-Point Calculations
+
+
 ## QDMA
 
 [qdma_2021_1](qdma_2021_1) - Minimal PCIe [QDMA](https://www.xilinx.com/products/intellectual-property/pcie-qdma.html) demonstration
