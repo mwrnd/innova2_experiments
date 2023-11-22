@@ -2,7 +2,7 @@
 
 Prerequisites:
  - Vivado XDMA Project with a 512-Bit Wide AXI4Stream design:
-   github.com/mwrnd/innova2_experiments/xdma_stream_512bit
+   github.com/mwrnd/innova2_experiments/tree/main/xdma_stream_512bit
  - XDMA Drivers from github.com/xilinx/dma_ip_drivers
    Install Instructions at github.com/mwrnd/innova2_flex_xcku15p_notes
 
