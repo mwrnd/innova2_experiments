@@ -80,9 +80,7 @@ Every once in a while there will be a problem with communication. A portion of t
 
 ![Errors Encountered](img/Errors_Encountered.jpg)
 
-I have also encountered a calculation error:
-
-![Calculation Error Encountered](img/Calculation_Error_Encountered.jpg)
+![Errors Encountered](img/Errors_Encountered2.jpg)
 
 
 
@@ -114,13 +112,13 @@ The maximum width for the AXI Bus with a PCIe 3.0 x8 design is 256-Bit but a 512
 
 ![Stream Channel1 is Loopback](img/xdma_stream_512bit_Channel1_Loopback.png)
 
-The goal is to re-clock and channel the data through the stream. Clocks and resets are carefully managed.
+The goal is to re-clock and channel the data through the stream. Clocks and resets are carefully managed. `tkeep` and `tlast` signals are omitted from all blocks as they are not used.
 
 
 
 ### Clocking
 
-In order to widen the 256-Bit AXI4-Stream bus to 512-Bit the *axi_aclk* [clock](https://docs.xilinx.com/r/en-US/pg065-clk-wiz) is halved in order to maintain the same bandwidth.
+In order to widen the 256-Bit AXI4-Stream bus to 512-Bit the 250MHz *axi_aclk* [clock](https://docs.xilinx.com/r/en-US/pg065-clk-wiz) is halved in order to maintain the same bandwidth.
 
 ![Clocking Wizard Settings](img/Clocking_Wizard_Settings.png)
 
@@ -156,11 +154,11 @@ The 256-Bit XDMA Block H2C stream is widened to 512-Bit using a [Data Width Conv
 
 ### Clock Converter
 
-The input (H2C) data stream is [re-timed](https://docs.xilinx.com/r/en-US/pg085-axi4stream-infrastructure/AXI4-Stream-Clock-Converter?tocId=~IzTrg2BxmuhSg7Byd_UQA) to half of the XDMA block's *axi_aclk*. The halved clock is used by the stream blocks.
+The input (H2C) data stream is [re-timed](https://docs.xilinx.com/r/en-US/pg085-axi4stream-infrastructure/AXI4-Stream-Clock-Converter?tocId=~IzTrg2BxmuhSg7Byd_UQA) to 125MHz (half of the XDMA block's *axi_aclk*) which is used by the stream blocks.
 
 ![H2C Clock Converter](img/AXI4Stream_H2C_Clock_Converter_Settings.png)
 
-The output (C2H) data stream is re-timed back to *axi_aclk* before going into the XDMA block.
+The output (C2H) data stream is re-timed back to the 250MHz *axi_aclk* before going into the XDMA block.
 
 ![C2H Clock Converter](img/AXI4Stream_C2H_Clock_Converter_Settings.png)
 
@@ -172,7 +170,7 @@ The 512-Bit=64-Byte H2C data stream is [split/broadcast](https://docs.xilinx.com
 
 ![H2C Broadcaster Settings](img/AXI4Stream_H2C_Broadcaster_Settings.png)
 
-The bits of each 32-Bit=4-Byte stream 
+The bits of each 32-Bit=4-Byte stream are appropriately selected from the 512-Bit stream.
 
 ![Broadcaster Splitting Options](img/AXI4Stream_H2C_Broadcaster_Stream_Splitting_Options.png)
 
