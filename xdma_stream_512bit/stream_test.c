@@ -1,7 +1,7 @@
 /*
 
 Prerequisites:
- - Vivado XDMA Project with a 512-Bit Wide AXI4Stream design:
+ - Vivado XDMA 512-Bit AXI4-Stream Project:
    github.com/mwrnd/innova2_experiments/tree/main/xdma_stream_512bit
  - XDMA Drivers from github.com/xilinx/dma_ip_drivers
    Install Instructions at github.com/mwrnd/innova2_flex_xcku15p_notes
@@ -34,10 +34,14 @@ Run with:
 #define XDMA_PCIe_to_AXI_Translation_Offset 0x40000000
 
 // The AXI Data Width is 256-Bit=32-Byte
-// There is a 32*256-Bit FIFO for H2C transfers and a 16*256-Bit FIFO for C2H
+// There is a 32*256-Bit=1024-byte FIFO for the H2C stream
+//      and a 16*256-Bit= 512-byte FIFO for the C2H stream
 // The design multiplies pairs of floating point values; 256 FP --> 128 FP
-#define H2C_FIFO_DEPTH_BYTES 1024
-#define C2H_FIFO_DEPTH_BYTES 512
+// As each buffer can fill before it needs to be emptied,
+// can transfer twice the FIFO depth
+#define H2C_FIFO_DEPTH_BYTES 2048
+#define C2H_FIFO_DEPTH_BYTES 1024
+
 
 // Each single-precision floating point value takes up 4 bytes
 #define H2C_FLOAT_COUNT (H2C_FIFO_DEPTH_BYTES / 4)
@@ -167,46 +171,63 @@ ssize_t write_to_axi(uint64_t address, size_t bytes, void *buffer)
 
 
 
-void print_status(void)
+// which_stats is the OR of:
+//	0b00001 == 0x01 --> Print contents of AXILite GPIO Block
+//	0b00010 == 0x02 --> Print status of reset signals
+//	0b00100 == 0x04 --> Print clock counts and whether clock is locked
+//	0b01000 == 0x08 --> Print FPGA design version
+//	0b10000 == 0x10 --> Print run status
+// which_stats == 0b11111 == 0x1F prints all
+void print_status(uint32_t which_stats)
 {
 	uint32_t data_word = 0;
 	uint64_t address = 0x40012000;
 
 	read_axilite_word(address, &data_word);
 
-	printf("AXILite Address 0x%08lX has value: 0x%08X\n",
-		address, data_word);
+	if (((which_stats & 0x00000001) >> 0)) {
+		printf("AXILite Address 0x%08lX has value: 0x%08X\n",
+			address, data_word);
+	}
 	int axi_aresetn     = (data_word & 0x00000001) >> 0;
 	int stream_rstn_125 = (data_word & 0x00000002) >> 1;
 	int aux_reset_in    = (data_word & 0x00000004) >> 2;
 	int stream_rstn_250 = (data_word & 0x00000008) >> 3;
 	int clk_125_locked  = (data_word & 0x00000010) >> 4;
 
-	printf("  aux_reset_in = %d, stream_rstn_125 = %d, ",
-		aux_reset_in, stream_rstn_125);
-	printf("stream_rstn_250 = %d, axi_resetn = %d\n",
-		stream_rstn_250, axi_aresetn);
+	if (((which_stats & 0x00000002) >> 1)) {
+		printf("  aux_reset_in = %d, stream_rstn_125 = %d, ",
+			aux_reset_in, stream_rstn_125);
+		printf("stream_rstn_250 = %d, axi_resetn = %d\n",
+			stream_rstn_250, axi_aresetn);
+	}
 
 	int clk_125_count  = (data_word & 0xFFF00000) >> 24;
 	int axi_aclk_count = (data_word & 0x000FFF00) >> 8;
 
-	printf("  axi_aclk_count = 0x%03X, clk_125_count = 0x%03X, ",
-		axi_aclk_count, clk_125_count);
-	printf("clk_125_locked = %d\n", clk_125_locked);
+	if (((which_stats & 0x00000004) >> 2)) {
+		printf("  axi_aclk_count = 0x%03X, clk_125_count = 0x%03X, ",
+			axi_aclk_count, clk_125_count);
+		printf("clk_125_locked = %d\n", clk_125_locked);
+	}
 
-	int version = (data_word & 0x000000E0) >> 5;
-	printf("  Version = %d, ", version);
+	if (((which_stats & 0x00000008) >> 3)) {
+		int version = (data_word & 0x000000E0) >> 5;
+		printf("  Version = %d\n", version);
+	}
 
-	if (stream_rstn_125 && axi_aresetn &&
-			clk_125_locked && stream_rstn_250) {
-		printf("design running normally.");
-	} else if (!stream_rstn_125 && !stream_rstn_250 &&
-			axi_aresetn && clk_125_locked) {
-		printf("stream blocks in RESET.");
-	} else if (!clk_125_locked) {
-		printf("design stopped, 125MHz clock is not locked.");
-	} else {
-		printf("design in ERROR state.");
+	if (((which_stats & 0x00000010) >> 4)) {
+		if (stream_rstn_125 && axi_aresetn &&
+				clk_125_locked && stream_rstn_250) {
+			printf("  |--> Design running normally.");
+		} else if (!stream_rstn_125 && !stream_rstn_250 &&
+				axi_aresetn && clk_125_locked) {
+			printf("  |--> Stream blocks in RESET.");
+		} else if (!clk_125_locked) {
+			printf("  |--> Design stopped, clk_125 not locked.");
+		} else {
+			printf("  |--> Design in ERROR state.");
+		}
 	}
 
 	printf("\n");
@@ -219,19 +240,19 @@ void print_status(void)
 void reset_stream_blocks(void)
 {
 	printf("\nResetting AXI4-Stream Blocks ...\n");
-	print_status();
+	print_status(0x12);
 
 	// Set ext_reset_in, GPIO0 Bit0, to 0 as reset is Active-Low
 	write_axilite_word(0x40011000, 0x00000000);
 
-	print_status();
+	print_status(0x12);
 	// give the reset time to take effect
 	sleep(1);
 
 	// Set ext_reset_in, GPIO0 Bit0, back to 1
 	write_axilite_word(0x40011000, 0x00000001);
 
-	print_status();
+	print_status(0x12);
 	printf("\n");
 }
 
@@ -355,19 +376,26 @@ int main(int argc, char **argv)
 	printf("\n");
 
 
-	print_status();
+
+
+	print_status(0x1F);
 	reset_stream_blocks();
 
 
 
 
 	// fill the H2C buffer with floating-point values
-	for (int i = 0; i < H2C_FLOAT_COUNT ; i++) {f_h2c[i] = (1.01*(i + 1));}
+	for (int i = 0; i < H2C_FLOAT_COUNT ; i++) {
+		f_h2c[i] = (1.01 * (i + 1));
+	}
 
 
 
 
-	// start timing of the data processing
+	// Test a Single Transfer
+	printf("Test a single transfer; write to stream then read from it:\n");
+
+	// start timing of the transfer and data processing
 	rc = clock_gettime(CLOCK_MONOTONIC, &ts_start);
 
 
@@ -383,12 +411,13 @@ int main(int argc, char **argv)
 
 	// end timing of the data processing
 	rc = clock_gettime(CLOCK_MONOTONIC, &ts_end);
-	ts_end.tv_sec = (ts_end.tv_sec - ts_start.tv_sec);
-	ts_end.tv_nsec = (ts_end.tv_nsec - ts_start.tv_nsec);
+	ts_end.tv_sec = abs(ts_end.tv_sec - ts_start.tv_sec);
+	ts_end.tv_nsec = abs(ts_end.tv_nsec - ts_start.tv_nsec);
 	printf("Data transfer+processing took %ld.%09ld seconds.\n",
 		ts_end.tv_sec, ts_end.tv_nsec);
-	bandwidth = (((float)H2C_FIFO_DEPTH_BYTES) * 1024.0) /
-		((float)(ts_end.tv_nsec));
+	bandwidth = (float)((((double)H2C_FIFO_DEPTH_BYTES) /
+		(((double)((ts_end.tv_nsec))) / 1000000000.0)) /
+		((double)(1024*1024)));
 	printf("Bandwidth is approximately %f MB/s for %d floats.\n\n",
 		bandwidth, H2C_FLOAT_COUNT);
 
@@ -423,6 +452,79 @@ int main(int argc, char **argv)
 	}
 
 	printf("Found %d errors.\n", errorcount);
+
+
+
+
+	// Test many consecutive transfers
+	long int max_transfer_time_ns = 0;
+	long int min_transfer_time_ns = 0xFFFFFFFFFFFFFFF;
+	int max_time_index = 0;
+	int min_time_index = 0;
+	uint64_t transfer_time_ns_sum = 0;
+	int k = 0;
+	for (k = 0; k < 50000 ; k++) {
+
+		// start timing of the data processing
+		rc = clock_gettime(CLOCK_MONOTONIC, &ts_start);
+
+		// send the H2C float values into the AXI4-Stream
+		rc = write_to_axi(0, H2C_FIFO_DEPTH_BYTES, f_h2c);
+		if (rc < 0) { printf("ERROR sending (H2C) to stream.\n"); }
+
+		// receive the C2H float values from the AXI4-Stream
+		rc = read_from_axi(0, C2H_FIFO_DEPTH_BYTES, f_c2h);
+		if (rc < 0) { printf("ERROR receiving (C2H) from stream.\n"); }
+
+		// end timing of the data processing
+		rc = clock_gettime(CLOCK_MONOTONIC, &ts_end);
+		ts_end.tv_nsec = abs(ts_end.tv_nsec - ts_start.tv_nsec);
+		if (ts_end.tv_nsec > max_transfer_time_ns) {
+			max_transfer_time_ns = ts_end.tv_nsec;
+			max_time_index = k;
+		}
+		if (min_transfer_time_ns > ts_end.tv_nsec) {
+			min_transfer_time_ns = ts_end.tv_nsec;
+			min_time_index = k;
+		}
+		transfer_time_ns_sum += (uint64_t)(ts_end.tv_nsec);
+
+
+		// check the results
+		for (int i = 0; i < (H2C_FLOAT_COUNT-1); i = i+2) {
+			j = floor((i / 2));
+			if (fabs((f_h2c[i] * f_h2c[(i+1)]) - f_c2h[j]) > 0.01) {
+				print_and_test_results(i, f_h2c, f_c2h);
+				printf("Found an error at %d, exiting...\n", k);
+				close(xdma.userfd);
+				close(xdma.h2cfd);
+				close(xdma.c2hfd);
+				exit(EXIT_FAILURE);
+			}
+		}
+
+	}
+
+
+	bandwidth = (float)((((double)H2C_FIFO_DEPTH_BYTES) /
+		(((double)((((double)transfer_time_ns_sum) / ((double)k))))
+		/ ((double)(1000000000.0)))) / ((double)(1024*1024)));
+	printf("\nAfter %d transfers, min = %ld ns, max = %ld ns,",
+		k, min_transfer_time_ns, max_transfer_time_ns);
+	printf(" AVG BW = %f MB/s\n", bandwidth);
+	bandwidth = (float)((((double)H2C_FIFO_DEPTH_BYTES) /
+		(((double)(max_transfer_time_ns)) / 1000000000.0)) /
+		((double)(1024*1024)));
+	printf("Minimum Bandwidth was approximately %f MB/s for %d floats",
+		bandwidth, H2C_FLOAT_COUNT);
+	printf(" at transfer %d\n", min_time_index);
+	bandwidth = (float)((((double)H2C_FIFO_DEPTH_BYTES) /
+		(((double)(min_transfer_time_ns)) / 1000000000.0)) /
+		((double)(1024*1024)));
+	printf("Maximum Bandwidth was approximately %f MB/s for %d floats",
+		bandwidth, H2C_FLOAT_COUNT);
+	printf(" at transfer %d\n", max_time_index);
+	printf("\n");
 
 
 

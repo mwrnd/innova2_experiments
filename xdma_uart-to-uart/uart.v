@@ -6,8 +6,8 @@ Modified from: github.com/eugene-tarassov/vivado-risc-v/blob/v3.4.0/uart/uart.v
 
 Register  Offset  Contents/Bit Descriptions
 --------  ------  -------------------------
-RX FIFO   0x00    16-Byte Receive FIFO
-TX FIFO   0x04    16-Byte Transmit FIFO
+RX FIFO   0x00    16-Byte Deep Receive FIFO
+TX FIFO   0x04    16-Byte Deep Transmit FIFO
 STATUS    0x08    4=CTS,  3=TX_Full,  2=TX_Empty,  1=RX_Full,  0=RX_Data_Valid
 CONTROL   0x0C    6=TX_Stop,  5=TX_Interrupt_Enable,  4=RX_Interrupt_Enable,
                   1=TX_FIFO_Reset,  0=RX_FIFO_Reset

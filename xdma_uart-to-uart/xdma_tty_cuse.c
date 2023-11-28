@@ -3,7 +3,7 @@
  *                                                                           *
  * BSD 2-Clause License                                                      *
  *                                                                           *
- * Copyright (c) 2022 Matthew Wielgus (mwrnd.github@gmail.com)               *
+ * Copyright (c) 2022-2023 Matthew Wielgus (mwrnd.github@gmail.com)          *
  * https://github.com/mwrnd/innova2_experiments/tree/main/xdma_uart-to-uart  *
  *                                                                           *
  * Redistribution and use in source and binary forms, with or without        *
@@ -736,8 +736,7 @@ int main(int argc, char **argv)
 	}
 
 
-	// TODO - sprintf and strcpy are unsafe for use
-	// with unsanitized and/or untrusted inputs
+
 
 	atomic_init(&xdma.initialized, 0);
 	xdma.fd_read = 0;
@@ -746,21 +745,21 @@ int main(int argc, char **argv)
 	xdma.uart_tx_fifo_not_full = 0;
 	xdma.addr = (uint64_t)strtol(argv[3], NULL, 16);
 	xdma.c2h_name = malloc(strlen(argv[1]));
-	if (!(xdma.c2h_name)) { printf("malloc failed in main"); exit(-1); }
+	if (!(xdma.c2h_name)){printf("malloc failed for c2h_name\n");exit(-1);}
 	xdma.h2c_name = malloc(strlen(argv[2]));
-	if (!(xdma.h2c_name)) { printf("malloc failed in main"); exit(-1); }
-	strcpy(xdma.c2h_name, argv[1]);
-	strcpy(xdma.h2c_name, argv[2]);
+	if (!(xdma.h2c_name)){printf("malloc failed for h2c_name\n");exit(-1);}
+	strncpy(xdma.c2h_name, argv[1], strlen(argv[1]));
+	strncpy(xdma.h2c_name, argv[2], strlen(argv[2]));
 
 
 	const char* dev_name[1];
 	char* temp;
 	int rc = 0;
 	char name[512];
-	sprintf(name, "DEVNAME=%s", argv[4]);
+	snprintf(name, (9 + strlen(argv[4])), "DEVNAME=%s", argv[4]);
 	temp = malloc(strlen(name));
 	if (!temp) { printf("malloc failed in main"); exit(-1); }
-	strcpy(temp, name);
+	strncpy(temp, name, strlen(name));
 	dev_name[0] = temp;
 
 
@@ -813,5 +812,6 @@ int main(int argc, char **argv)
 					&cinfo, &xdma_tty_clop, NULL);
 
 	on_ctrl_backslash(EXIT_SUCCESS); // use CTRL-\ handler for exit and cleanup
+
 }
 
