@@ -113,7 +113,7 @@ sudo lspci -vnn -d 10ee: ; sudo lspci -vvnn -d 10ee: | grep Lnk
         LnkCtl3: LnkEquIntrruptEn-, PerformEqu-
 ```
 
-![OpenCAPI PCIe x8 lspci Link Status](OpenCAPI_PCIe_x8_lspci_Link_Status.png)
+![OpenCAPI PCIe x8 lspci Link Status](img/OpenCAPI_PCIe_x8_lspci_Link_Status.png)
 
 `sudo lspci -vvnn -t` shows the Innova-2 OpenCAPI interface connected to the Root PCIe switch:
 
