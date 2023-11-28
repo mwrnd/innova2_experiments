@@ -10,8 +10,8 @@
 Refer to the `innova2_flex_xcku15p_notes` project's instructions on installing XDMA drivers and [Loading a User Image](https://github.com/mwrnd/innova2_flex_xcku15p_notes/#loading-a-user-image) to load the [release bitstream](https://github.com/mwrnd/innova2_experiments/releases) into the Innova-2's FPGA Configuration Memory.
 
 ```
-wget https://github.com/mwrnd/innova2_experiments/releases/download/v0.1.1-alpha/xdma_mm_oc_x8.zip
-unzip -d .  xdma_mm_oc_x8.zip
+wget https://github.com/mwrnd/innova2_experiments/releases/download/v0.1.1-alpha/xdma_mm_opencapi_x8.zip
+unzip -d .  xdma_mm_opencapi_x8.zip
 md5sum  xdma_mm_opencapi_x8_primary.bin  xdma_mm_opencapi_x8_secondary.bin
 echo 9167479f7fe99175d24382c3765fcf96 should be MD5 Checksum of xdma_mm_opencapi_x8_primary.bin
 echo e3fe796a7c2a568f8938c5e35e354ac3 should be MD5 Checksum of xdma_mm_opencapi_x8_secondary.bin

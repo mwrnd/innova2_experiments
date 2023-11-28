@@ -15,13 +15,13 @@
 Download the demo bitstream and [load it into your Innova-2](https://github.com/mwrnd/innova2_flex_xcku15p_notes#loading-a-user-image). It should work with every variant of the Innova-2. Refer to [innova2_flex_xcku15p_notes](https://github.com/mwrnd/innova2_flex_xcku15p_notes) for system setup.
 
 ```
-wget https://github.com/mwrnd/innova2_experiments/releases/download/v0.1-alpha/innova2_xdma_stream_demo.zip
+wget https://github.com/mwrnd/innova2_experiments/releases/download/v0.1.1-alpha/innova2_xdma_stream_demo.zip
 md5sum innova2_xdma_stream_demo.zip
 echo 4fe405753b00b895fc8858996d40eb2c should be the MD5 Checksum
 unzip -d . innova2_xdma_stream_demo.zip
-sha256sum *bin
-echo a107bd5aa4b03dd6bf91c0de8729700c6416244ad6c041eb7c458b77dacdbcc2 is the SHA256 checksum of innova2_xdma_stream_demo_primary.bin
-echo 672fb5630581e40d51ce939381f683d6f5c0a89dd966b864af61b7bb67b0a01d is the SHA256 checksum of innova2_xdma_stream_demo_secondary.bin
+md5sum *bin
+echo 3685651141d715af32902520add8d529 is the MD5 checksum of innova2_xdma_stream_demo_primary.bin
+echo 5bf29940319ba46a6206a8c8807b06bf is the MD5 checksum of innova2_xdma_stream_demo_secondary.bin
 ```
 
 
