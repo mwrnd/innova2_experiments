@@ -77,7 +77,7 @@ Note the [RX U.FL-to-U.FL cables](https://www.digikey.com/en/products/detail/te-
 
 ### PCIe x8 Setup
 
-PCIe x8 using 250mm cables fails.
+PCIe x8 using 250mm IPEX cables fails.
 
 ![PCIe x8 Breakout and OpenCAPI Breakout All Connections](img/OpenCAPI_and_PCIe_x8_Adapters_with_All_Connections.jpg)
 
@@ -135,7 +135,7 @@ If I restrict the PCIe to x1:
 
 ![PCIe x16-to-x1 Adapter](img/PCIe_x16-to-x1_Adapter.jpg)
 
-Everything works fine so it looks like a signal integrity issue with the long U.FL cables.
+Everything works fine so it looks like a signal integrity issue with the long IPEX cables.
 
 ![OpenCAPI PCIe Works at x1](img/OpenCAPI_PCIe_x8_Works_at_x1.jpg)
 
