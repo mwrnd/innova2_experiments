@@ -129,7 +129,7 @@ sudo lspci -vnn -d 10ee: ; sudo lspci -vvnn -d 10ee: | grep Lnk
 
 However, `dmesg` shows the `xdma` driver fails to load:
 
-![dmesg xdma driver fails to load](OpenCAPI_PCIe_x8_is_Failing.png)
+![dmesg xdma driver fails to load](img/OpenCAPI_PCIe_x8_is_Failing.png)
 
 If I restrict the PCIe to x1:
 
