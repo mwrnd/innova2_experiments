@@ -88,9 +88,10 @@ The whole system:
 ![OpenCAPI to PCIe x8 In-System](img/Innova2_OpenCAPI-to-PCIe_x8_In-System.jpg)
 
 The OpenCAPI PCIe link shows up in `lspci` as x8 and working.
-````
+```
 sudo lspci -vnn -d 10ee: ; sudo lspci -vvnn -d 10ee: | grep Lnk
 ```
+
 ```
 01:00.0 Memory controller [0580]: Xilinx Corporation Device [10ee:9038]
     Subsystem: Xilinx Corporation Device [10ee:0007]
@@ -115,6 +116,7 @@ sudo lspci -vnn -d 10ee: ; sudo lspci -vvnn -d 10ee: | grep Lnk
 ![OpenCAPI PCIe x8 lspci Link Status](OpenCAPI_PCIe_x8_lspci_Link_Status.png)
 
 `sudo lspci -vvnn -t` shows the Innova-2 OpenCAPI interface connected to the Root PCIe switch:
+
 ```
 -[00]-+-00.0 Intel Corporation Device [8086:3e0f]
       +-01.0-[01]----00.0 Xilinx Corporation Device [10ee:9038]
