@@ -120,7 +120,7 @@ Connect your JTAG adapter to the Innova2 and start [Vivado Hardware Manager](htt
 
 A [PCIe_x8_Breakout](https://github.com/mwrnd/PCIe_x8_Breakout) in a PCIe socket was used as the source of the OpenCAPI 100MHz `GTREFCLK` clock.
 
-![PCIe Socket Used as Clock Source](img/ADIT_Testing_OpenCAPI_GTY-PCIe_as_Clock_Source.jpg)
+![PCIe Socket Used as Clock Source](img/OpenCAPI_GTY-PCIe_as_Clock_Source.jpg)
 
 I manually searched for working connections.
 
@@ -162,7 +162,7 @@ Results for the other GTY channels are available at [innova2_flex_xcku15p_notes/
 
 A [PCIe_x8_Breakout](https://github.com/mwrnd/PCIe_x8_Breakout) in a PCIe socket can be used as the source for the OpenCAPI 100MHz `GTREFCLK` clock.
 
-![PCIe Socket Used as Clock Source](img/Innova2_4GB_ADIT_Testing_OpenCAPI_GTY-PCIe_as_Clock_Source.jpg)
+![PCIe Socket Used as Clock Source](img/OpenCAPI_GTY-PCIe_as_Clock_Source.jpg)
 
 Only using one serial link in this example but the following procedure needs to be performed for all used links. Connect a link for Loopback using short and high-quality [U.FL-to-U.FL Cables](https://www.digikey.com/en/products/detail/te-connectivity-amp-connectors/2118651-6/11205742):
 
