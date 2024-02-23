@@ -116,15 +116,15 @@ Connect your JTAG adapter to the Innova2 and start [Vivado Hardware Manager](htt
 
 ### Testing OpenCAPI Connector
 
-![Testing Innova2 OpenCAPI GTY Connections](img/Innova2_4GB_MNV303212A-ADIT_Testing_OpenCAPI_GTY.jpg)
+![Testing Innova2 OpenCAPI GTY Connections](img/ADIT_Testing_OpenCAPI_GTY.jpg)
 
 A [PCIe_x8_Breakout](https://github.com/mwrnd/PCIe_x8_Breakout) in a PCIe socket was used as the source of the OpenCAPI 100MHz `GTREFCLK` clock.
 
-![PCIe Socket Used as Clock Source](img/Innova2_4GB_ADIT_Testing_OpenCAPI_GTY-PCIe_as_Clock_Source.jpg)
+![PCIe Socket Used as Clock Source](img/ADIT_Testing_OpenCAPI_GTY-PCIe_as_Clock_Source.jpg)
 
 I manually searched for working connections.
 
-![U.FL Cable connecting two Channels](img/Innova2_4GB_ADIT_Testing_OpenCAPI_GTY-Connections.jpg)
+![U.FL Cable connecting two Channels](img/ADIT_Testing_OpenCAPI_GTY-Connections.jpg)
 
 After finding working connections I connected both N and P signals.
 
@@ -158,7 +158,7 @@ Results for the other GTY channels are available at [innova2_flex_xcku15p_notes/
 
 ### Using the IBERT as a Cable Tester
 
-![Testing Innova2 OpenCAPI GTY Connections](img/Innova2_4GB_MNV303212A-ADIT_Testing_OpenCAPI_GTY.jpg)
+![Testing Innova2 OpenCAPI GTY Connections](img/ADIT_Testing_OpenCAPI_GTY.jpg)
 
 A [PCIe_x8_Breakout](https://github.com/mwrnd/PCIe_x8_Breakout) in a PCIe socket can be used as the source for the OpenCAPI 100MHz `GTREFCLK` clock.
 
