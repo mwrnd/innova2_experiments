@@ -7,7 +7,7 @@ The [IBERT for GTY](https://docs.xilinx.com/v/u/en-US/pg196-ibert-ultrascale-gty
 
 ## Testing Quads 129 and 130 on the MNV303212A-ADIT
 
-The 8GB MNV303212A-AD**L**T has a different design than the MNV303212A-AD**I**T:
+The 8GB(D9WFR) MNV303212A-AD**L**T has a different design than the 4GB(D9TBK) MNV303212A-AD**I**T:
 
 ![MNV303212A-ADLT vs MNV303212A-ADIT near XCKU15P FPGA](img/MNV303212A-ADLT_vs_MNV303212A-ADIT_near_XCKU15P.jpg)
 
@@ -79,7 +79,7 @@ There is no direct FPGA connection. From the AD**A**T Block Diagram that would i
 
 ## Testing Quads 131 and 132 on the MNV303212A-ADIT
 
-My 4GB MNV303212A-AD**I**T does not work with the [OpenCAPI-to-PCIe](https://github.com/mwrnd/OpenCAPI-to-PCIe) when running the [innova2_xdma_opencapi](https://github.com/mwrnd/innova2_xdma_opencapi) project.
+My 4GB MNV303212A-AD**I**T does not work with an [OpenCAPI-to-PCIe](https://github.com/mwrnd/OpenCAPI-to-PCIe) board when running the [innova2_xdma_opencapi](https://github.com/mwrnd/innova2_xdma_opencapi) project due to having a different pinout than the 8GB MNV303212A-AD**L**T.
 
 
 ### Program the Design into the MNV303212A-ADIT XCKU15P Configuration Memory
@@ -128,7 +128,7 @@ I manually searched for working connections.
 
 After finding working connections I connected both N and P signals.
 
-![Connect both N and P Signals](img/Innova2_4GB_ADIT_Testing_OpenCAPI_RX1p-TX3p_RX1n-TX3n.jpg)
+![Connect both N and P Signals](img/OpenCAPI_RX7p-TX7p_RX7n-TX7n.jpg)
 
 I discovered that the Innova2 4GB MNV303212A-AD**I**T has a significantly different OpenCAPI pinout than the Innova2 8GB MNV303212A-AD**L**T.
 ```
@@ -158,7 +158,7 @@ Results for the other GTY channels are available at [innova2_flex_xcku15p_notes/
 
 ### Using the IBERT as a Cable Tester
 
-![Testing Innova2 OpenCAPI GTY Connections](img/Innova2_4GB_MNV303212A-ADIT_Testing_OpenCAPI_GTY_Small.jpg)
+![Testing Innova2 OpenCAPI GTY Connections](img/Innova2_4GB_MNV303212A-ADIT_Testing_OpenCAPI_GTY.jpg)
 
 A [PCIe_x8_Breakout](https://github.com/mwrnd/PCIe_x8_Breakout) in a PCIe socket can be used as the source for the OpenCAPI 100MHz `GTREFCLK` clock.
 
