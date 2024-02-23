@@ -174,7 +174,7 @@ Run an Eye Diagram Scan to get the baseline Eye Diagram. This is the best perfor
 
 Connect 4 TX links to one [HDMI_Breakout](https://github.com/mwrnd/HDMI_Breakout) board and 4 RX links to another. Connect an HDMI Cable to create a loopback.
 
-![Testing HDMI Cable](img/Innova2_4GB_ADIT_Testing_HDMI_Cable_Using_OpenCAPI.jpg)
+![Testing HDMI Cable](img/Testing_HDMI_Cable_Using_OpenCAPI.jpg)
 
 Reset the BER (Bit-Error-Rate) statistics.
 
