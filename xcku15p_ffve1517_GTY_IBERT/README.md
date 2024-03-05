@@ -130,12 +130,13 @@ After finding working connections I connected both N and P signals.
 
 ![Connect both N and P Signals](img/OpenCAPI_RX7p-TX7p_RX7n-TX7n.jpg)
 
-I discovered that the Innova2 4GB MNV303212A-AD**I**T has a significantly different OpenCAPI pinout than the Innova2 8GB MNV303212A-AD**L**T.
+I discovered that the Innova2 4GB MNV303212A-AD**I**T **Rev.A2** has some N-P signals swapped.
 ```
-X0Y16: RX3p-TX0n, RX3n-TX0p
-X0Y17: RX0p-TX1n, RX0n-TX1p
+X0Y16: RX0p-TX0n, RX0n-TX0p <-- N-P swapped
+X0Y17: RX1p-TX1p, RX1n-TX1n
 X0Y18: RX2p-TX2p, RX2n-TX2n
-X0Y20: RX4p-TX4n, RX4n-TX4p
+X0Y19: RX3p-TX3n, RX3n-TX3p <-- N-P swapped
+X0Y20: RX4p-TX4n, RX4n-TX4p <-- N-P swapped
 X0Y21: RX5p-TX5p, RX5n-TX5n
 X0Y22: RX6p-TX6p, RX6n-TX6n
 X0Y23: RX7p-TX7p, RX7n-TX7n
@@ -143,15 +144,11 @@ X0Y23: RX7p-TX7p, RX7n-TX7n
 
 The following are Eye Diagram Scans for one of the OpenCAPI GTY Channels:
 
-`X0Y16 RX3n-TX0p`-only:
+`X0Y16 RX0p-TX0n RX0n-TX0p`:
 
-![IBERT Results for X0Y16 RX3n-TX0p](img/ADIT_OpenCAPI_X0Y16_RX3n-TX0p.png)
+![IBERT Results for X0Y16 RX3n-TX0p](img/ADIT_OC_Y16-Y16_RX0p-TX0n_RX0n-TX0p.png)
 
-`X0Y16 RX3p-TX0n RX3n-TX0p`:
-
-![IBERT Results for X0Y16 RX3p-TX0n RX3n-TX0p](img/ADIT_OpenCAPI_X0Y16_RX3p-TX0n_RX3n-TX0p.png)
-
-Results for the other GTY channels are available at [innova2_flex_xcku15p_notes/hardware_notes](https://github.com/mwrnd/innova2_flex_xcku15p_notes/tree/main/hardware_notes#innova2-8gb-mnv303212a-adlt-hardware-notes)
+Results for the other GTY channels are available at [innova2_flex_xcku15p_notes/hardware_notes](https://github.com/mwrnd/innova2_flex_xcku15p_notes/tree/main/hardware_notes#testing-mnv303212a-adit-opencapi-connections)
 
 
 
