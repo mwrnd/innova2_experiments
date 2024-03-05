@@ -263,3 +263,18 @@ Generate the Bitstream:
 
 
 
+## Comparing Signal Quality for One vs Both Terminals in a Differential Pair
+
+A differential signal can be transmitted on one terminal of a differential pair but with significantly degraded performance. This should not be relied upon and should be tested for.
+
+When one terminal of a differential pair is used:
+
+![IBERT GTY on one terminal](img/IBERT_GTY_RXn-TXn.png)
+
+When both terminals of a differential pair are used:
+
+![IBERT GTY on both terminals in a pair](img/IBERT_GTY_RXn-TXn_RXp-TXp.png)
+
+
+
+
