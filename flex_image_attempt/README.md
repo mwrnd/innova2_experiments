@@ -11,7 +11,7 @@ The Flex Image will need to be loaded using JTAG.
 
 ```
 wget https://github.com/mwrnd/innova2_experiments/releases/download/v0.1.3-alpha/flex_image_attempt_bitstreams.zip
-unzip -d . flex_image_attempt.zip
+unzip -d . flex_image_attempt_bitstreams.zip
 md5sum *mcs
 echo 12483eeac7cfb74c270ad8df1795e0a4 should be MD5 Checksum of flex_image_0x00000000_primary.mcs
 echo 0c801e5a0b58ecf2692291340b9e1ea8 should be MD5 Checksum of flex_image_0x00000000_secondary.mcs
