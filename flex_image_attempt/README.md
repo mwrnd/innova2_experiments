@@ -1,6 +1,6 @@
 # Attempt to recreate the Innova2 Flex Image
 
-[MLNX_OFED](https://network.nvidia.com/products/infiniband-drivers/linux/mlnx_ofed/) > `5.2` [does not support the Innova-2](https://forums.developer.nvidia.com/t/innova-2-mlnx-ofed-5-2-has-no-mlx5-fpga-tools-so-innova2-flex-app-fails/285008). The solution is to [ignore the original Innova-2 programming system and roll your own](https://github.com/mwrnd/innova2_flex_xcku15p_notes/tree/main/debug_notes#ignoring-innova2-flex-multiboot-and-innova2_flex_app).
+[MLNX_OFED](https://network.nvidia.com/products/infiniband-drivers/linux/mlnx_ofed/) > `5.2` [does not support the Innova-2](https://forums.developer.nvidia.com/t/innova-2-mlnx-ofed-5-2-has-no-mlx5-fpga-tools-so-innova2-flex-app-fails/285008). This attempt at recreating the Flex Image has failed. The solution is to [ignore the original Innova-2 programming system and roll your own](https://github.com/mwrnd/innova2_flex_xcku15p_notes/tree/main/debug_notes#ignoring-innova2-flex-multiboot-and-innova2_flex_app).
 
 
 
